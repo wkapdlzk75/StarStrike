@@ -1,14 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
-    public float speed;
-    public bool isTouchTop;
-    public bool isTouchBottom;
-    public bool isTouchRight;
-    public bool isTouchLeft;
+    public float speed;                 // 플레이어 속도
+    public float bulletFiringInterval;  // 총알 발사 간격
+    public Bullet bulletPrefab;         // 총알 프리팹
+    float lastSpawnTime;                // 마지막 총알 발사 시각
+
+    // 각각 상하좌우 경계선을 터치했는지 여부
+    public bool isTouchTop;     // 위
+    public bool isTouchBottom;  // 아래
+    public bool isTouchRight;   // 우
+    public bool isTouchLeft;    // 좌
 
     Animator animator;
 
@@ -17,34 +23,63 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    void Start()
+    {
+        lastSpawnTime = Time.time;  // 시간 초기화
+    }
+
     void Update()
     {
         float moveHori = Input.GetAxisRaw("Horizontal");    // 좌우
         float moveVert = Input.GetAxisRaw("Vertical");      // 상하
 
-        // 경계선 밖으로 나갈 경우
-        if ((isTouchRight && moveHori == 1) || (isTouchLeft && moveHori == -1))
-            moveHori = 0;
-        if ((isTouchTop && moveVert == 1) || (isTouchBottom && moveVert == -1))
-            moveVert = 0;
+        moveHori = BorderHorizontal(moveHori);  // 좌우 경계선 처리
+        moveVert = BorderVertical(moveVert);    // 상하 경계선 처리
 
         Vector3 curPos = transform.position;                // 현재위치 가져옴
-        Vector3 nextPos = new Vector3(moveHori, moveVert, 0) * speed * Time.deltaTime;  // 새 위치값
-
+        Vector3 nextPos = new Vector3(moveHori, moveVert, 0) * speed * Time.deltaTime;  // 이동한 위치값
         transform.position = curPos + nextPos;              // 이동 반영
 
         // 좌우 이동 버튼을 눌렀을 때와 뗐을 때
-        if (Input.GetButtonDown("Horizontal") || 
-            Input.GetButtonUp("Horizontal"))
-        {   //에니메이터의 Input 값을 moveHori 로 설정한다
+        if (Input.GetButtonDown("Horizontal") || Input.GetButtonUp("Horizontal"))
+        {   //에니메이터의 Input값을 moveHori값으로 설정한다
             animator.SetInteger("Input", (int)moveHori);
+        }
+
+        if (Time.time - lastSpawnTime > bulletFiringInterval)
+        {
+            SpawnBullet();  // N초 마다 총알 생성
         }
 
     }
 
+    // 총알 생성
+    public void SpawnBullet()
+    {
+        Bullet bb = Instantiate(bulletPrefab);
+        bb.transform.position = transform.position + new Vector3(0, 0.7f, 0);
+        lastSpawnTime = Time.time;
+    }
+
+    // 경계선 처리
+    public float BorderHorizontal(float _moveHori)
+    {
+        // 유저가 좌우 경계선에 닿을 경우 (밖으로 나갈 경우)
+        if ((isTouchRight && _moveHori == 1) || (isTouchLeft && _moveHori == -1))
+            return 0;
+        return _moveHori;
+    }
+    public float BorderVertical(float _moveVert)
+    {
+        // 유저가 상하 경계선에 닿을 경우 (밖으로 나갈 경우)
+        if ((isTouchTop && _moveVert == 1) || (isTouchBottom && _moveVert == -1))
+            return 0;
+        return _moveVert;
+    }
+
     private void OnTriggerEnter2D(Collider2D _collision)
     {
-        // 경계선 밖으로 나갈 경우
+        // 경계선에 닿을 경우 (밖으로 나갈 경우)
         if (_collision.transform.CompareTag("Border"))
         {
             switch (_collision.gameObject.name)
@@ -59,7 +94,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D _collision)
     {
-        // 경계선 안
+        // 경계선에 안 닿았을 경우 (안에 있을 경우)
         if (_collision.transform.CompareTag("Border"))
         {
             switch (_collision.gameObject.name)
