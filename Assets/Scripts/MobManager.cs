@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class MobManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject parent;
+    public Mob[] mobPrefab;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        Create();
+    }
+    public void Create()
+    {
+        for (int i = -2; i < 3; i++)
+        {
+            Mob mob = Instantiate(mobPrefab[0]);
+            //mob.transform.SetParent(parent.transform);
+            mob.transform.localPosition = new Vector2(i, 0);
+
+        }
+
     }
 }
