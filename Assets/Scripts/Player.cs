@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Player : MonoBehaviour
+public class Player : Unit
 {
-    public float speed;                 // 플레이어 속도
-    public float bulletFiringInterval;  // 총알 발사 간격
-    public Bullet bulletPrefab;         // 총알 프리팹
-    float lastSpawnTime;                // 마지막 총알 발사 시각
+    float lastSpawnTime;    // 마지막 총알 발사 시각
 
     // 각각 상하좌우 경계선을 터치했는지 여부
     public bool isTouchTop;     // 위

@@ -4,15 +4,7 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public float speed;                 // 플레이어 속도
+    public float bulletFiringInterval;  // 총알 발사 간격
+    public Bullet bulletPrefab;         // 총알 프리팹
 }
