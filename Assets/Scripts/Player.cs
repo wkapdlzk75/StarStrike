@@ -6,9 +6,10 @@ using UnityEngine.UIElements;
 
 public class Player : Unit
 {
+
+    public int life;
     float lastSpawnTime;                // 마지막 총알 발사 시각
     public GameObject playerBullets;    // 총알의 관리 오브젝트 (부모)
-
 
     // 각각 상하좌우 경계선을 터치했는지 여부
     public bool isTouchTop;     // 위
@@ -96,6 +97,7 @@ public class Player : Unit
         if (_collision.transform.CompareTag("Mob"))
         {
             Destroy(gameObject);
+            GameManager.instance.EndGame();
         }
 
     }

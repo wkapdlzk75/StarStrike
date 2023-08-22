@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -7,25 +8,24 @@ using UnityEngine.UI;
 public class UIScripts : MonoBehaviour
 {
     public Text stage;
-    public GameManger gameManager;
 
     void Start()
     {
-        stage.text = gameManager.stageInt.ToString();
+        stage.text = GameManager.instance.stageInt.ToString();
     }
 
     public void StageDown()
     {
-        if (gameManager.stageInt <= 1)
+        if (GameManager.instance.stageInt <= 1)
             return;
-        stage.text = (--gameManager.stageInt).ToString();
+        stage.text = (--GameManager.instance.stageInt).ToString();
     }
 
     public void StageUp()
     {
-        if (gameManager.stageInt >= 10)
+        if (GameManager.instance.stageInt >= 10)
             return;
-        stage.text = (++gameManager.stageInt).ToString();
+        stage.text = (++GameManager.instance.stageInt).ToString();
     }
 
 

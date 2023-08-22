@@ -25,6 +25,7 @@ public class Mob : Unit
         if (HP <= 0)
         {
             Destroy(gameObject);
+            GameManager.instance.AddPoint();
         }
     }
 
