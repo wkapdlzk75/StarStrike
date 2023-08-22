@@ -33,4 +33,19 @@ public class Mob : Unit
     {
         spriteRenderer.sprite = sprite[0];
     }
+
+    private void OnTriggerEnter2D(Collider2D _collision)
+    {
+        // 경계선에 닿을 경우 (밖으로 나갈 경우)
+        if (_collision.transform.CompareTag("Border"))
+        {
+            Destroy(gameObject);
+        }
+
+        // 유저와 충돌 했을 경우
+        if (_collision.transform.CompareTag("Player"))
+        {
+            Destroy(gameObject);
+        }
+    }
 }

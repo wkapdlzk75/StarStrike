@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class Player : Unit
 {
-    float lastSpawnTime;    // 마지막 총알 발사 시각
+    float lastSpawnTime;                // 마지막 총알 발사 시각
+    public GameObject playerBullets;    // 총알의 관리 오브젝트 (부모)
+
 
     // 각각 상하좌우 경계선을 터치했는지 여부
     public bool isTouchTop;     // 위
@@ -54,6 +57,7 @@ public class Player : Unit
     public void SpawnBullet()
     {
         Bullet bb = Instantiate(bulletPrefab);
+        bb.transform.SetParent(playerBullets.transform);
         bb.transform.position = transform.position + new Vector3(0, 0.7f, 0);
         lastSpawnTime = Time.time;
     }
@@ -77,7 +81,7 @@ public class Player : Unit
     private void OnTriggerEnter2D(Collider2D _collision)
     {
         // 경계선에 닿을 경우 (밖으로 나갈 경우)
-        if (_collision.transform.CompareTag("Border"))
+        if (_collision.transform.CompareTag("PlayerBorder"))
         {
             switch (_collision.gameObject.name)
             {
@@ -87,12 +91,19 @@ public class Player : Unit
                 case "Left": isTouchLeft = true; break;
             }
         }
+
+        // 몹과 충돌 했을 경우
+        if (_collision.transform.CompareTag("Mob"))
+        {
+            Destroy(gameObject);
+        }
+
     }
 
     private void OnTriggerExit2D(Collider2D _collision)
     {
         // 경계선에 안 닿았을 경우 (안에 있을 경우)
-        if (_collision.transform.CompareTag("Border"))
+        if (_collision.transform.CompareTag("PlayerBorder"))
         {
             switch (_collision.gameObject.name)
             {

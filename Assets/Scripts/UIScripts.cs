@@ -6,26 +6,26 @@ using UnityEngine.UI;
 
 public class UIScripts : MonoBehaviour
 {
-    int stageInt = 1;
     public Text stage;
+    public GameManger gameManager;
 
     void Start()
     {
-        stage.text = stageInt.ToString();
+        stage.text = gameManager.stageInt.ToString();
     }
 
     public void StageDown()
     {
-        if (stageInt <= 1)
+        if (gameManager.stageInt <= 1)
             return;
-        stage.text = (--stageInt).ToString();
+        stage.text = (--gameManager.stageInt).ToString();
     }
 
     public void StageUp()
     {
-        if (stageInt >= 10)
+        if (gameManager.stageInt >= 10)
             return;
-        stage.text = (++stageInt).ToString();
+        stage.text = (++gameManager.stageInt).ToString();
     }
 
 
