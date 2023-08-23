@@ -10,7 +10,7 @@ public class MobManager : MonoBehaviour
     int stage;
     private void Start()
     {
-        stage = GameManager.instance.stageInt;
+        stage = RobbyManager.instance.stageInt;
         InvokeRepeating("Create", 5, 5);
     }
     public void Create()

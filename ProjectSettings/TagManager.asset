@@ -7,7 +7,6 @@ TagManager:
   - Border
   - Mob
   - PlayerBullet
-  - Bullet
   - PlayerBorder
   layers:
   - Default

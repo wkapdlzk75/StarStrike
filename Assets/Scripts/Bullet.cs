@@ -16,6 +16,8 @@ public class Bullet : MonoBehaviour
         // 경계선에 닿을 경우 (밖으로 나갈 경우)
         if (_collision.transform.CompareTag("Border"))
             Destroy(gameObject);
+
+        // 적이 맞았을 경우
         if (_collision.transform.CompareTag("Mob"))
         {
             Destroy(gameObject);

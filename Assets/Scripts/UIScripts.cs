@@ -11,27 +11,27 @@ public class UIScripts : MonoBehaviour
 
     void Start()
     {
-        stage.text = GameManager.instance.stageInt.ToString();
+        stage.text = RobbyManager.instance.stageInt.ToString();
     }
 
     public void StageDown()
     {
-        if (GameManager.instance.stageInt <= 1)
+        if (RobbyManager.instance.stageInt <= 1)
             return;
-        stage.text = (--GameManager.instance.stageInt).ToString();
+        stage.text = (--RobbyManager.instance.stageInt).ToString();
     }
 
     public void StageUp()
     {
-        if (GameManager.instance.stageInt >= 10)
+        if (RobbyManager.instance.stageInt >= 10)
             return;
-        stage.text = (++GameManager.instance.stageInt).ToString();
+        stage.text = (++RobbyManager.instance.stageInt).ToString();
     }
 
 
 
     public void OnClick()
     {
-        SceneManager.LoadScene("Scenes/Main");
+        SceneManager.LoadScene("Scenes/Game");
     }
 }
