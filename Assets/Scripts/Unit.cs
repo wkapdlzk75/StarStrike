@@ -7,7 +7,6 @@ public class Unit : MonoBehaviour
     public int HP;                      // 체력
     public float speed;                 // 플레이어 속도
     public float bulletFiringInterval;  // 총알 발사 간격
-    public Bullet bulletPrefab;         // 총알 프리팹
 
     void OnHit(int _damage)
     {

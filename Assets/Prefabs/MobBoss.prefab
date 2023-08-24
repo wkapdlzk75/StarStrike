@@ -194,9 +194,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 50
-  speed: 0.25
+  speed: 0.5
   bulletFiringInterval: 0
-  bulletPrefab: {fileID: 0}
   sprite:
   - {fileID: 2192450021786810173, guid: 93226235712397949939ad597de82f85, type: 3}
   - {fileID: -7945901444079236628, guid: 93226235712397949939ad597de82f85, type: 3}

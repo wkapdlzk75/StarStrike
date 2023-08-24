@@ -103,8 +103,11 @@ MonoBehaviour:
   HP: 1000
   speed: 3
   bulletFiringInterval: 0.2
-  bulletPrefab: {fileID: -2705435586580316366, guid: cfbe320fcd9642d4c88a1630f5b97348, type: 3}
+  life: 0
+  power: 1
   playerBullets: {fileID: 0}
+  bulletPrefabA: {fileID: 0}
+  bulletPrefabB: {fileID: 0}
   isTouchTop: 0
   isTouchBottom: 0
   isTouchRight: 0

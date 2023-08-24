@@ -7,9 +7,12 @@ using UnityEngine.UIElements;
 public class Player : Unit
 {
 
-    public int life;
+    public int life;                    // 플레이어 목숨
+    public int power;                   // 파워 (총알 레벨)
     float lastSpawnTime;                // 마지막 총알 발사 시각
     public GameObject playerBullets;    // 총알의 관리 오브젝트 (부모)
+    public Bullet bulletPrefabA;        // 총알 프리팹A
+    public Bullet bulletPrefabB;        // 총알 프리팹B
 
     // 각각 상하좌우 경계선을 터치했는지 여부
     public bool isTouchTop;     // 위
@@ -31,6 +34,53 @@ public class Player : Unit
 
     void Update()
     {
+        Move();
+        Fire();
+    }
+
+    // 총알 발사
+    public void Fire()
+    {
+        // bulletFiringInterval초 마다 총알 생성
+        switch (power)
+        {
+            case 1:
+                if (Time.time - lastSpawnTime > bulletFiringInterval)
+                {
+                    Instantiate(bulletPrefabA, transform.position + new Vector3(0, 0.7f, 0), transform.rotation, playerBullets.transform);
+                    lastSpawnTime = Time.time;
+                }
+                break;
+            case 2:
+                if (Time.time - lastSpawnTime > bulletFiringInterval)
+                {
+                    Instantiate(bulletPrefabA, transform.position + new Vector3(0.1f, 0.7f, 0), transform.rotation, playerBullets.transform);
+                    Instantiate(bulletPrefabA, transform.position + new Vector3(-0.1f, 0.7f, 0), transform.rotation, playerBullets.transform);
+                    lastSpawnTime = Time.time;
+                }
+                break;
+            case 3:
+                if (Time.time - lastSpawnTime > bulletFiringInterval)
+                {
+                    Instantiate(bulletPrefabA, transform.position + new Vector3(0.3f, 0.7f, 0), transform.rotation, playerBullets.transform);
+                    Instantiate(bulletPrefabB, transform.position + new Vector3(0, 0.7f, 0), transform.rotation, playerBullets.transform);
+                    Instantiate(bulletPrefabA, transform.position + new Vector3(-0.3f, 0.7f, 0), transform.rotation, playerBullets.transform);
+                    lastSpawnTime = Time.time;
+                }
+                break;
+
+        }
+    }
+
+    public void CreateBullets()
+    {
+
+    }
+
+
+
+    public void Move()
+    {
         float moveHori = Input.GetAxisRaw("Horizontal");    // 좌우
         float moveVert = Input.GetAxisRaw("Vertical");      // 상하
 
@@ -46,21 +96,6 @@ public class Player : Unit
         {   //에니메이터의 Input값을 moveHori값으로 설정한다
             animator.SetInteger("Input", (int)moveHori);
         }
-
-        if (Time.time - lastSpawnTime > bulletFiringInterval)
-        {
-            SpawnBullet();  // N초 마다 총알 생성
-        }
-
-    }
-
-    // 총알 생성
-    public void SpawnBullet()
-    {
-        Bullet bb = Instantiate(bulletPrefab);
-        bb.transform.SetParent(playerBullets.transform);
-        bb.transform.position = transform.position + new Vector3(0, 0.7f, 0);
-        lastSpawnTime = Time.time;
     }
 
     // 경계선 처리
@@ -96,6 +131,7 @@ public class Player : Unit
         // 몹과 충돌 했을 경우
         if (_collision.transform.CompareTag("Mob"))
         {
+            life--;
             Destroy(gameObject);
             GameManager.instance.EndGame();
         }
