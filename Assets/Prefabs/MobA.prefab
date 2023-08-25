@@ -148,7 +148,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 5
+  m_Constraints: 4
 --- !u!114 &6799149859323477553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,7 +164,6 @@ MonoBehaviour:
   HP: 10
   speed: 1.5
   bulletFiringInterval: 0
-  bulletPrefab: {fileID: 0}
   sprite:
   - {fileID: 8414478535512612329, guid: 93226235712397949939ad597de82f85, type: 3}
   - {fileID: 4326287474489854147, guid: 93226235712397949939ad597de82f85, type: 3}

@@ -23,7 +23,7 @@ public class UIScripts : MonoBehaviour
 
     public void StageUp()
     {
-        if (RobbyManager.instance.stageInt >= 3)
+        if (RobbyManager.instance.stageInt >= 4)
             return;
         stage.text = (++RobbyManager.instance.stageInt).ToString();
     }

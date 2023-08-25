@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 
 public class MobManager : MonoBehaviour
@@ -26,14 +27,29 @@ public class MobManager : MonoBehaviour
 
     IEnumerator RepeatSpawnMob()
     {
-        // stage 에 따른 랜덤 몹 생성
-        while (repeatCount < 5 * stage)
+        if (stage < 4) // 1~3 stage
         {
-            int rangeMob = Random.Range(0, stage);
-            SpawnMob(rangeMob);
-            repeatCount++;
-            yield return new WaitForSeconds(spawnInterval);
+            // stage 에 따른 랜덤 몹 생성
+            while (repeatCount < 5 * stage)
+            {
+                int rangeMob = Random.Range(0, stage);
+                SpawnMob(rangeMob);
+                repeatCount++;
+                yield return new WaitForSeconds(spawnInterval);
+            }
         }
+        else
+        {
+            while (repeatCount < 15)
+            {
+                int rangeMob = Random.Range(0, 3);
+                SpawnMob(rangeMob);
+                SideSpawnMob(rangeMob); // 50%의 확률로 스폰
+                repeatCount++;
+                yield return new WaitForSeconds(spawnInterval);
+            }
+        }
+
     }
 
     // 동시에 같은 몹 5마리 생성
@@ -42,6 +58,25 @@ public class MobManager : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             Instantiate(mobPrefab[_a], spawnPoints[i].position, spawnPoints[i].rotation, parent.transform);
+        }
+    }
+
+    public void SideSpawnMob(int _a)
+    {
+        int probability = Random.Range(0, 2);
+        if (probability == 0)
+        {
+            int rangeMob = Random.Range(5, 9);
+            Mob mob = Instantiate(mobPrefab[_a], spawnPoints[rangeMob].position, spawnPoints[rangeMob].rotation, parent.transform);
+
+            if (rangeMob == 5 || rangeMob == 6)         // 5, 6은 오른쪽 사이드 스폰   
+            {
+                mob.MoveSide(Vector2.left);   // 왼쪽으로 이동
+            }
+            else if (rangeMob == 7 || rangeMob == 8)    // 7, 8은 왼쪽 사이드 스폰
+            {
+                mob.MoveSide(Vector2.right);    // 오른쪽으로 이동
+            }
         }
     }
 

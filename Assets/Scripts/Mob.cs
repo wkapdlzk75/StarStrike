@@ -15,6 +15,16 @@ public class Mob : Unit
         rb.velocity = Vector2.down * speed;
     }
 
+    public void MoveSide(Vector2 _vector)
+    {
+        if (_vector == Vector2.left)
+            transform.rotation = Quaternion.Euler(0, 0, -45);
+        else if (_vector == Vector2.right)
+            transform.rotation = Quaternion.Euler(0, 0, 45);
+
+        rb.velocity += _vector * speed;
+    }
+
     // 총알에 맞았을 경우
     public void OnHit(int _damage)
     {
