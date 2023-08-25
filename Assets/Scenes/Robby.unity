@@ -393,7 +393,7 @@ GameObject:
   - component: {fileID: 584687395}
   - component: {fileID: 584687396}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: RobbyManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1701,7 +1701,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stage: {fileID: 176583710}
-  gameManager: {fileID: 584687396}
 --- !u!1 &1979046890
 GameObject:
   m_ObjectHideFlags: 0

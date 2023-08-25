@@ -1212,6 +1212,7 @@ MonoBehaviour:
   point: {fileID: 153441321}
   stage: {fileID: 127398835}
   popup: {fileID: 1606037024}
+  player: {fileID: 1512083904}
 --- !u!1 &1269554961
 GameObject:
   m_ObjectHideFlags: 0
@@ -1546,6 +1547,11 @@ Transform:
   m_Father: {fileID: 268130157}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1512083904 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9191966088342041048, guid: 8204d864fae86a14bbc3128efb55a58f, type: 3}
+  m_PrefabInstance: {fileID: 5128973041563389146}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1590854787
 GameObject:
   m_ObjectHideFlags: 0
@@ -2159,6 +2165,8 @@ MonoBehaviour:
   - {fileID: 1510218598}
   - {fileID: 1269554962}
   spawnInterval: 5
+  bulletsParent: {fileID: 265954490}
+  player: {fileID: 5128973041563389147}
 --- !u!1 &1957648330
 GameObject:
   m_ObjectHideFlags: 0
@@ -2336,6 +2344,14 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3417139447586565172, guid: 8204d864fae86a14bbc3128efb55a58f, type: 3}
+      propertyPath: power
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417139447586565172, guid: 8204d864fae86a14bbc3128efb55a58f, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 1238252633}
+    - target: {fileID: 3417139447586565172, guid: 8204d864fae86a14bbc3128efb55a58f, type: 3}
       propertyPath: bulletPrefabA
       value: 
       objectReference: {fileID: -2705435586580316366, guid: cfbe320fcd9642d4c88a1630f5b97348, type: 3}
@@ -2343,6 +2359,10 @@ PrefabInstance:
       propertyPath: bulletPrefabB
       value: 
       objectReference: {fileID: -2705435586580316366, guid: 150396a3db72a364eb70bea91c6f571e, type: 3}
+    - target: {fileID: 3417139447586565172, guid: 8204d864fae86a14bbc3128efb55a58f, type: 3}
+      propertyPath: bulletsParent
+      value: 
+      objectReference: {fileID: 1861766191}
     - target: {fileID: 3417139447586565172, guid: 8204d864fae86a14bbc3128efb55a58f, type: 3}
       propertyPath: playerBullets
       value: 
@@ -2408,3 +2428,14 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8204d864fae86a14bbc3128efb55a58f, type: 3}
+--- !u!114 &5128973041563389147 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3417139447586565172, guid: 8204d864fae86a14bbc3128efb55a58f, type: 3}
+  m_PrefabInstance: {fileID: 5128973041563389146}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1512083904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 183ac76c9d149aa4a81c3ba241ae2409, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

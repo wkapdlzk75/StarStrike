@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,8 @@ public class GameManager : MonoBehaviour
     public Text stage;
     public Text popup;
     public static int pointInt;
+
+    public GameObject player;
 
     private void Awake()
     {
@@ -29,26 +32,39 @@ public class GameManager : MonoBehaviour
     {
         pointInt = 0;
         point.text = string.Format("점수 : {0}", pointInt);
-        stage.text = RobbyManager.instance.stageInt.ToString();
+
+        try
+        {
+            stage.text = RobbyManager.instance.stageInt.ToString();
+        }
+        catch (NullReferenceException e)
+        {
+            stage.text = "1";
+            Debug.LogError("Player reference is null: " + e.Message);
+        }
+        
         popup.text = "";
     }
-
-    public void EndGame()
+    void Update()
     {
-        popup.text = "패배";
-        if (Input.GetMouseButtonDown(0))
-        {
-            SceneManager.LoadScene("Scenes/Robby");
-        }
+        meter.text = string.Format("미터 : {0:F2}", Time.time);
     }
 
+    // 점수 추가
     public void AddPoint()
     {
         point.text = string.Format("점수 : {0}", ++pointInt);
     }
 
-    void Update()
+    public void RespawnPlayer()
     {
-        meter.text = string.Format("미터 : {0:F2}", Time.time);
+        player.transform.position = new Vector2(0, -4);
+        player.SetActive(true);
+    }
+
+    // 게임 종료
+    public void EndGame()
+    {
+        popup.text = "패배";
     }
 }

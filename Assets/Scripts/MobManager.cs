@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEditor;
 using UnityEngine;
@@ -11,9 +12,20 @@ public class MobManager : MonoBehaviour
     public Transform[] spawnPoints;     // 적 스폰 위치
     public float spawnInterval;         // 적 스폰 시간 간격
 
+    public Player player;               // 플레이어
+
     private void Start()
     {
-        stage = RobbyManager.instance.stageInt;
+
+        try
+        {
+            stage = RobbyManager.instance.stageInt;
+        }
+        catch (NullReferenceException e)
+        {
+            stage = 1;
+            Debug.LogError("Player reference is null: " + e.Message);
+        }
         repeatCount = 0;
         Invoke("GameStart", 3);    // 게임 시작후 3초 뒤 몹 생성
         //InvokeRepeating("Create", 5, 5);
@@ -32,7 +44,7 @@ public class MobManager : MonoBehaviour
             // stage 에 따른 랜덤 몹 생성
             while (repeatCount < 5 * stage)
             {
-                int rangeMob = Random.Range(0, stage);
+                int rangeMob = UnityEngine.Random.Range(0, stage);
                 SpawnMob(rangeMob);
                 repeatCount++;
                 yield return new WaitForSeconds(spawnInterval);
@@ -42,7 +54,7 @@ public class MobManager : MonoBehaviour
         {
             while (repeatCount < 15)
             {
-                int rangeMob = Random.Range(0, 3);
+                int rangeMob = UnityEngine.Random.Range(0, 3);
                 SpawnMob(rangeMob);
                 SideSpawnMob(rangeMob); // 50%의 확률로 스폰
                 repeatCount++;
@@ -57,18 +69,19 @@ public class MobManager : MonoBehaviour
     {
         for (int i = 0; i < 5; i++)
         {
-            Instantiate(mobPrefab[_a], spawnPoints[i].position, spawnPoints[i].rotation, parent.transform);
+            Mob mob = Instantiate(mobPrefab[_a], spawnPoints[i].position, spawnPoints[i].rotation, parent.transform);
+            mob.player = player;
         }
     }
 
     public void SideSpawnMob(int _a)
     {
-        int probability = Random.Range(0, 2);
+        int probability = UnityEngine.Random.Range(0, 2);
         if (probability == 0)
         {
-            int rangeMob = Random.Range(5, 9);
+            int rangeMob = UnityEngine.Random.Range(5, 9);
             Mob mob = Instantiate(mobPrefab[_a], spawnPoints[rangeMob].position, spawnPoints[rangeMob].rotation, parent.transform);
-
+            mob.player = player;
             if (rangeMob == 5 || rangeMob == 6)         // 5, 6은 오른쪽 사이드 스폰   
             {
                 mob.MoveSide(Vector2.left);   // 왼쪽으로 이동
@@ -77,7 +90,9 @@ public class MobManager : MonoBehaviour
             {
                 mob.MoveSide(Vector2.right);    // 오른쪽으로 이동
             }
+
         }
+
     }
 
 }

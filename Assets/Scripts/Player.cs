@@ -6,19 +6,16 @@ using UnityEngine.UIElements;
 
 public class Player : Unit
 {
-
     public int life;                    // 플레이어 목숨
     public int power;                   // 파워 (총알 레벨)
-    float lastSpawnTime;                // 마지막 총알 발사 시각
-    public GameObject playerBullets;    // 총알의 관리 오브젝트 (부모)
-    public Bullet bulletPrefabA;        // 총알 프리팹A
-    public Bullet bulletPrefabB;        // 총알 프리팹B
 
     // 각각 상하좌우 경계선을 터치했는지 여부
     public bool isTouchTop;     // 위
     public bool isTouchBottom;  // 아래
     public bool isTouchRight;   // 우
     public bool isTouchLeft;    // 좌
+
+    public GameManager gameManager;
 
     Animator animator;
 
@@ -47,24 +44,24 @@ public class Player : Unit
             case 1:
                 if (Time.time - lastSpawnTime > bulletFiringInterval)
                 {
-                    Instantiate(bulletPrefabA, transform.position + new Vector3(0, 0.7f, 0), transform.rotation, playerBullets.transform);
+                    Instantiate(bulletPrefabA, transform.position + new Vector3(0, 0.7f, 0), transform.rotation, bulletsParent.transform);
                     lastSpawnTime = Time.time;
                 }
                 break;
             case 2:
                 if (Time.time - lastSpawnTime > bulletFiringInterval)
                 {
-                    Instantiate(bulletPrefabA, transform.position + new Vector3(0.1f, 0.7f, 0), transform.rotation, playerBullets.transform);
-                    Instantiate(bulletPrefabA, transform.position + new Vector3(-0.1f, 0.7f, 0), transform.rotation, playerBullets.transform);
+                    Instantiate(bulletPrefabA, transform.position + new Vector3(0.1f, 0.7f, 0), transform.rotation, bulletsParent.transform);
+                    Instantiate(bulletPrefabA, transform.position + new Vector3(-0.1f, 0.7f, 0), transform.rotation, bulletsParent.transform);
                     lastSpawnTime = Time.time;
                 }
                 break;
             case 3:
                 if (Time.time - lastSpawnTime > bulletFiringInterval)
                 {
-                    Instantiate(bulletPrefabA, transform.position + new Vector3(0.3f, 0.7f, 0), transform.rotation, playerBullets.transform);
-                    Instantiate(bulletPrefabB, transform.position + new Vector3(0, 0.7f, 0), transform.rotation, playerBullets.transform);
-                    Instantiate(bulletPrefabA, transform.position + new Vector3(-0.3f, 0.7f, 0), transform.rotation, playerBullets.transform);
+                    Instantiate(bulletPrefabA, transform.position + new Vector3(0.3f, 0.7f, 0), transform.rotation, bulletsParent.transform);
+                    Instantiate(bulletPrefabB, transform.position + new Vector3(0, 0.7f, 0), transform.rotation, bulletsParent.transform);
+                    Instantiate(bulletPrefabA, transform.position + new Vector3(-0.3f, 0.7f, 0), transform.rotation, bulletsParent.transform);
                     lastSpawnTime = Time.time;
                 }
                 break;
@@ -126,6 +123,15 @@ public class Player : Unit
                 case "Right": isTouchRight = true; break;
                 case "Left": isTouchLeft = true; break;
             }
+        }
+
+        // 적의 총알에 맞았을 경우
+        if (_collision.transform.CompareTag("MobBullet"))
+        {
+            HP--;
+            //gameManager.RespawnPlayer();
+            //gameObject.SetActive(false);  // 목숨이 있을 경우 비활성화
+            Destroy(_collision.gameObject);
         }
 
         // 몹과 충돌 했을 경우

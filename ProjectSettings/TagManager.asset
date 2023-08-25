@@ -8,6 +8,7 @@ TagManager:
   - Mob
   - PlayerBullet
   - PlayerBorder
+  - MobBullet
   layers:
   - Default
   - TransparentFX

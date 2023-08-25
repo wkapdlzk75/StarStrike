@@ -8,7 +8,10 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        rb.velocity = Vector2.up * speed;
+        if (transform.CompareTag("PlayerBullet"))
+        {
+            rb.velocity = Vector2.up * speed;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D _collision)
@@ -18,12 +21,12 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
 
         // 적이 맞았을 경우
-        if (_collision.transform.CompareTag("Mob"))
+        if (transform.CompareTag("PlayerBullet") && _collision.transform.CompareTag("Mob"))
         {
             Destroy(gameObject);
             _collision.gameObject.GetComponent<Mob>().OnHit(Damage);
         }
-            
+
     }
 
 }
