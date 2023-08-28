@@ -8,12 +8,12 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public Text meter;
     public Text point;
     public Text stage;
     public Text popup;
     public static int pointInt;
 
+    public GameObject popupUI;
     public GameObject player;
 
     private void Awake()
@@ -31,29 +31,24 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         pointInt = 0;
-        point.text = string.Format("점수 : {0}", pointInt);
+        point.text = pointInt.ToString();
+        popupUI.SetActive(false);
 
         try
         {
-            stage.text = RobbyManager.instance.stageInt.ToString();
+            stage.text = string.Format("스테이지 {0}", LobbyManager.instance.stageInt);
         }
         catch (NullReferenceException e)
         {
-            stage.text = "1";
-            Debug.LogError("Player reference is null: " + e.Message);
+            stage.text = string.Format("스테이지 {0}", 1);
+            //Debug.LogError("Player reference is null: " + e.Message);
         }
-        
-        popup.text = "";
-    }
-    void Update()
-    {
-        meter.text = string.Format("미터 : {0:F2}", Time.time);
     }
 
     // 점수 추가
     public void AddPoint()
     {
-        point.text = string.Format("점수 : {0}", ++pointInt);
+        point.text = (++pointInt).ToString();
     }
 
     public void RespawnPlayer()
@@ -65,6 +60,7 @@ public class GameManager : MonoBehaviour
     // 게임 종료
     public void EndGame()
     {
-        popup.text = "패배";
+        popupUI.SetActive(true);
     }
+
 }

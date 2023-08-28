@@ -18,42 +18,41 @@ public class Mob : Unit
         rb.velocity = Vector2.down * speed;
     }
 
-    void Update()
+    private void Start()
     {
-        Fire();
+        // 최초 몹 소환 2초 후 총알 발사, bulletFiringInterval초 마다 총알 발사
+        InvokeRepeating("Fire", 2, bulletFiringInterval);
     }
 
-    // 총알 발사
+
+    // 몹에 따른 총알 발사
     public void Fire()
     {
-        // bulletFiringInterval초 마다 총알 생성
-        if (Time.time - lastSpawnTime > bulletFiringInterval)
+
+
+        if (mobName == "S")
         {
-            if (mobName == "S")
-            {
-                Bullet b = Instantiate(bulletPrefabA, transform.position + new Vector3(0, -0.5f, 0), transform.rotation);//, bulletsParent.transform);
-                Rigidbody2D bb = b.GetComponent<Rigidbody2D>();
-                Vector2 playerPos = (player.transform.position - transform.position).normalized;
-                bb.velocity = playerPos * b.speed;
-                //Debug.Log(playerPos + " " + b.speed + " " + bb.velocity + "S");
-            }
-            else if (mobName == "M")
-            {
-                Bullet b = Instantiate(bulletPrefabA, transform.position + new Vector3(0, -0.5f, 0), transform.rotation);//, bulletsParent.transform);
-                Rigidbody2D bb = b.GetComponent<Rigidbody2D>();
-                Vector2 playerPos = (player.transform.position - transform.position).normalized;
-                bb.velocity = playerPos * b.speed;
-                //Debug.Log(playerPos + " " + b.speed + " " + bb.velocity + "M");
-            }
-            else if (mobName == "L")
-            {
-                Bullet b = Instantiate(bulletPrefabB, transform.position + new Vector3(0, -0.5f, 0), transform.rotation);//, bulletsParent.transform);
-                Rigidbody2D bb = b.GetComponent<Rigidbody2D>();
-                Vector2 playerPos = (player.transform.position - transform.position).normalized;
-                bb.velocity = playerPos * b.speed;
-                //Debug.Log(playerPos + " " + b.speed + " " + bb.velocity + "L");
-            }
-            lastSpawnTime = Time.time;
+            Bullet b = Instantiate(bulletPrefabA, transform.position + new Vector3(0, -0.5f, 0), transform.rotation);//, bulletsParent.transform);
+            Rigidbody2D bb = b.GetComponent<Rigidbody2D>();
+            Vector2 playerPos = (player.transform.position - transform.position).normalized;
+            bb.velocity = playerPos * b.speed;
+            //Debug.Log(playerPos + " " + b.speed + " " + bb.velocity + "S");
+        }
+        else if (mobName == "M")
+        {
+            Bullet b = Instantiate(bulletPrefabA, transform.position + new Vector3(0, -0.5f, 0), transform.rotation);//, bulletsParent.transform);
+            Rigidbody2D bb = b.GetComponent<Rigidbody2D>();
+            Vector2 playerPos = (player.transform.position - transform.position).normalized;
+            bb.velocity = playerPos * b.speed;
+            //Debug.Log(playerPos + " " + b.speed + " " + bb.velocity + "M");
+        }
+        else if (mobName == "L")
+        {
+            Bullet b = Instantiate(bulletPrefabB, transform.position + new Vector3(0, -0.5f, 0), transform.rotation);//, bulletsParent.transform);
+            Rigidbody2D bb = b.GetComponent<Rigidbody2D>();
+            Vector2 playerPos = (player.transform.position - transform.position).normalized;
+            bb.velocity = playerPos * b.speed;
+            //Debug.Log(playerPos + " " + b.speed + " " + bb.velocity + "L");
         }
 
     }

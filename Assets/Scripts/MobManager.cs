@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEditor;
 using UnityEngine;
 
-public class MobManager : MonoBehaviour
+public class MobManager : Manager
 {
     public GameObject parent;
     public Mob[] mobPrefab;
@@ -19,12 +19,12 @@ public class MobManager : MonoBehaviour
 
         try
         {
-            stage = RobbyManager.instance.stageInt;
+            stage = LobbyManager.instance.stageInt;
         }
         catch (NullReferenceException e)
         {
             stage = 1;
-            Debug.LogError("Player reference is null: " + e.Message);
+            //Debug.LogError("Player reference is null: " + e.Message);
         }
         repeatCount = 0;
         Invoke("GameStart", 3);    // 게임 시작후 3초 뒤 몹 생성
