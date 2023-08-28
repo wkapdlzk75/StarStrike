@@ -34,7 +34,10 @@ public class Mob : Unit
         {
             if (mobName == "S")
             {
-                Bullet b = Instantiate(bulletPrefabA, transform.position + new Vector3(0, -0.5f, 0), transform.rotation);//, bulletsParent.transform);
+
+                Bullet b = BulletManager.instance.Create(transform);
+
+                //Bullet b = Instantiate(bulletPrefabA, transform.position + new Vector3(0, -0.5f, 0), transform.rotation);//, bulletsParent.transform);
                 Rigidbody2D bb = b.GetComponent<Rigidbody2D>();
                 Vector2 playerPos = (player.transform.position - transform.position).normalized;
                 bb.velocity = playerPos * b.speed;
