@@ -76,7 +76,7 @@ public class Mob : Unit
     }
 
     // 총알에 맞았을 경우
-    public void OnHit(int _damage)
+    public new void OnHit(int _damage)
     {
         HP -= _damage;
         spriteRenderer.sprite = sprite[1];

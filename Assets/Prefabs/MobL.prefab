@@ -172,6 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 30
+  Damage: 3
   speed: 1
   bulletFiringInterval: 3
   lastSpawnTime: 0

@@ -128,7 +128,7 @@ public class Player : Unit
         // 적의 총알에 맞았을 경우
         if (_collision.transform.CompareTag("MobBullet"))
         {
-            HP--;
+            //OnHit(_collision.GetComponent<Mob>().Damage);
             //gameManager.RespawnPlayer();
             //gameObject.SetActive(false);  // 목숨이 있을 경우 비활성화
             Destroy(_collision.gameObject);
