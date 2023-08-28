@@ -5,7 +5,9 @@ using UnityEngine;
 public class Mob : Unit
 {
     public string mobName;
+    public int score;
     public Sprite[] sprite;
+
     SpriteRenderer spriteRenderer;
     Rigidbody2D rb;
 
@@ -28,32 +30,34 @@ public class Mob : Unit
     // 몹에 따른 총알 발사
     public void Fire()
     {
-
-
-        if (mobName == "S")
+        if (player != null)
         {
-            Bullet b = Instantiate(bulletPrefabA, transform.position + new Vector3(0, -0.5f, 0), transform.rotation);//, bulletsParent.transform);
-            Rigidbody2D bb = b.GetComponent<Rigidbody2D>();
-            Vector2 playerPos = (player.transform.position - transform.position).normalized;
-            bb.velocity = playerPos * b.speed;
-            //Debug.Log(playerPos + " " + b.speed + " " + bb.velocity + "S");
+            if (mobName == "S")
+            {
+                Bullet b = Instantiate(bulletPrefabA, transform.position + new Vector3(0, -0.5f, 0), transform.rotation);//, bulletsParent.transform);
+                Rigidbody2D bb = b.GetComponent<Rigidbody2D>();
+                Vector2 playerPos = (player.transform.position - transform.position).normalized;
+                bb.velocity = playerPos * b.speed;
+                //Debug.Log(playerPos + " " + b.speed + " " + bb.velocity + "S");
+            }
+            else if (mobName == "M")
+            {
+                Bullet b = Instantiate(bulletPrefabA, transform.position + new Vector3(0, -0.5f, 0), transform.rotation);//, bulletsParent.transform);
+                Rigidbody2D bb = b.GetComponent<Rigidbody2D>();
+                Vector2 playerPos = (player.transform.position - transform.position).normalized;
+                bb.velocity = playerPos * b.speed;
+                //Debug.Log(playerPos + " " + b.speed + " " + bb.velocity + "M");
+            }
+            else if (mobName == "L")
+            {
+                Bullet b = Instantiate(bulletPrefabB, transform.position + new Vector3(0, -0.5f, 0), transform.rotation);//, bulletsParent.transform);
+                Rigidbody2D bb = b.GetComponent<Rigidbody2D>();
+                Vector2 playerPos = (player.transform.position - transform.position).normalized;
+                bb.velocity = playerPos * b.speed;
+                //Debug.Log(playerPos + " " + b.speed + " " + bb.velocity + "L");
+            }
         }
-        else if (mobName == "M")
-        {
-            Bullet b = Instantiate(bulletPrefabA, transform.position + new Vector3(0, -0.5f, 0), transform.rotation);//, bulletsParent.transform);
-            Rigidbody2D bb = b.GetComponent<Rigidbody2D>();
-            Vector2 playerPos = (player.transform.position - transform.position).normalized;
-            bb.velocity = playerPos * b.speed;
-            //Debug.Log(playerPos + " " + b.speed + " " + bb.velocity + "M");
-        }
-        else if (mobName == "L")
-        {
-            Bullet b = Instantiate(bulletPrefabB, transform.position + new Vector3(0, -0.5f, 0), transform.rotation);//, bulletsParent.transform);
-            Rigidbody2D bb = b.GetComponent<Rigidbody2D>();
-            Vector2 playerPos = (player.transform.position - transform.position).normalized;
-            bb.velocity = playerPos * b.speed;
-            //Debug.Log(playerPos + " " + b.speed + " " + bb.velocity + "L");
-        }
+        
 
     }
 
@@ -78,7 +82,7 @@ public class Mob : Unit
         if (HP <= 0)
         {
             Destroy(gameObject);
-            GameManager.instance.AddPoint();
+            //Addscore(score);
         }
     }
 

@@ -179,6 +179,7 @@ MonoBehaviour:
   bulletPrefabA: {fileID: -2705435586580316366, guid: f2e0be8622f558d4baa683e66e88efc6, type: 3}
   bulletPrefabB: {fileID: -2705435586580316366, guid: 0f645959d4f192d4dae7adf87dbac366, type: 3}
   mobName: L
+  score: 5
   sprite:
   - {fileID: -8421458170528590454, guid: 93226235712397949939ad597de82f85, type: 3}
   - {fileID: 3714015224569861163, guid: 93226235712397949939ad597de82f85, type: 3}

@@ -139,7 +139,7 @@ public class Player : Unit
         {
             life--;
             Destroy(gameObject);
-            GameManager.instance.EndGame();
+            gameManager.EndGame();
         }
 
     }

@@ -285,7 +285,7 @@ GameObject:
   - component: {fileID: 153441322}
   - component: {fileID: 153441321}
   m_Layer: 5
-  m_Name: TextPoint
+  m_Name: TextScore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -578,7 +578,7 @@ Transform:
   - {fileID: 1858166542}
   - {fileID: 720073461}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &575833336
 GameObject:
@@ -591,7 +591,6 @@ GameObject:
   - component: {fileID: 575833340}
   - component: {fileID: 575833339}
   - component: {fileID: 575833338}
-  - component: {fileID: 575833341}
   - component: {fileID: 575833337}
   m_Layer: 5
   m_Name: Canvas
@@ -678,25 +677,13 @@ RectTransform:
   - {fileID: 37775405}
   - {fileID: 2126555368}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &575833341
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 575833336}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5ae3f613a0da3e4693f39ba0561d4f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &595641995
 GameObject:
   m_ObjectHideFlags: 0
@@ -1224,7 +1211,7 @@ Transform:
   - {fileID: 1861766192}
   - {fileID: 265954491}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1181787924
 GameObject:
@@ -1437,7 +1424,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1238252633
 MonoBehaviour:
@@ -1451,9 +1438,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2fcd81b8a002444fa248ef2bebb1239, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  point: {fileID: 153441321}
-  stage: {fileID: 127398835}
-  popup: {fileID: 1606037024}
+  scoreText: {fileID: 153441321}
+  stageText: {fileID: 127398835}
+  popupText: {fileID: 1606037024}
   popupUI: {fileID: 2126555367}
   player: {fileID: 1512083904}
 --- !u!1 &1269554961
@@ -2157,7 +2144,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1696305146
 GameObject:
@@ -2242,7 +2229,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1696305149}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1238252633}
+        m_TargetAssemblyTypeName: Manager, Assembly-CSharp
+        m_MethodName: SceneChange
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: LobbyScene
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1238252633}
+        m_TargetAssemblyTypeName: Manager, Assembly-CSharp
+        m_MethodName: Init
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1696305149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2513,7 +2524,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1906230620
 MonoBehaviour:
@@ -2627,7 +2638,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1987820003
 GameObject:
@@ -2785,7 +2796,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9059345728130051815, guid: 8204d864fae86a14bbc3128efb55a58f, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9059345728130051815, guid: 8204d864fae86a14bbc3128efb55a58f, type: 3}
       propertyPath: m_LocalPosition.x

@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class LobbyManager : Manager
 {
     public static LobbyManager instance;
-    public int stageInt = 1; // 스테이지
+    public int stageInt; // 스테이지
+    
 
     private void Awake()
     {
@@ -22,27 +23,9 @@ public class LobbyManager : Manager
         }
     }
 
-    public Text stage;
-
-    void Start()
+    private void Start()
     {
-        stage.text = stageInt.ToString();
-    }
-
-    // 스테이지 다운
-    public void StageDown()
-    {
-        if (stageInt <= 1)
-            return;
-        stage.text = (--stageInt).ToString();
-    }
-
-    // 스테이지 업
-    public void StageUp()
-    {
-        if (stageInt >= 4)
-            return;
-        stage.text = (++stageInt).ToString();
+        stageInt = 1;
     }
 
 }

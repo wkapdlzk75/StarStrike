@@ -74,6 +74,7 @@ public class MobManager : Manager
         }
     }
 
+    // 몹 사이드 랜덤 스폰
     public void SideSpawnMob(int _a)
     {
         int probability = UnityEngine.Random.Range(0, 2);

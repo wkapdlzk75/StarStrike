@@ -175,9 +175,16 @@ MonoBehaviour:
   HP: 50
   speed: 0.5
   bulletFiringInterval: 0
+  lastSpawnTime: 0
+  bulletsParent: {fileID: 0}
+  bulletPrefabA: {fileID: 0}
+  bulletPrefabB: {fileID: 0}
+  mobName: 
+  score: 10
   sprite:
   - {fileID: 2192450021786810173, guid: 93226235712397949939ad597de82f85, type: 3}
   - {fileID: -7945901444079236628, guid: 93226235712397949939ad597de82f85, type: 3}
+  player: {fileID: 0}
 --- !u!95 &3230717713523154049
 Animator:
   serializedVersion: 5
