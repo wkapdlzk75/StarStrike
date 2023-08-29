@@ -1,9 +1,11 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : Unit
 {
-    public int life;                    // 플레이어 목숨
-    public int power;                   // 파워 (총알 레벨)
+    public int life;        // 플레이어 목숨
+    public int power;       // 파워 (총알 레벨)
+    float lastSpawnTime;    // 마지막 총알 발사 시각
 
     // 각각 상하좌우 경계선을 터치했는지 여부
     public bool isTouchTop;     // 위
@@ -91,6 +93,27 @@ public class Player : Unit
         }
     }
 
+    // 플레이어 리스폰
+    public void RespawnPlayer()
+    {
+        transform.position = new Vector2(0, -4);
+        gameObject.SetActive(true);
+    }
+
+    // 플레이어 죽음
+    public void Die()
+    {
+        if (life <= 0)
+        {
+            Destroy(gameObject);
+            UIManagerGameScene.instance.EndGame();
+        }
+
+        life--;
+        gameObject.SetActive(false);
+        Invoke("RespawnPlayer", 3); // 3초 뒤 부활
+    }
+
     // 경계선 처리
     public float BorderHorizontal(float _moveHori)
     {
@@ -124,22 +147,15 @@ public class Player : Unit
         // 적의 총알에 맞았을 경우
         if (_collision.transform.CompareTag("MobBullet"))
         {
-            //OnHit(_collision.GetComponent<Mob>().Damage);
-            //gameManager.RespawnPlayer();
-            //gameObject.SetActive(false);  // 목숨이 있을 경우 비활성화
             Destroy(_collision.gameObject);
+            if (HP<=0)
+                Die();
         }
 
         // 몹과 충돌 했을 경우
         if (_collision.transform.CompareTag("Mob"))
         {
-            life--;
-            gameObject.SetActive(false);
-            Invoke("gameManager.RespawnPlayer", 3); // 3초 뒤 부활
-            
-            if (life == 0)
-            Destroy(gameObject);
-            gameManager.EndGame();
+            Die();
         }
 
     }

@@ -34,7 +34,7 @@ public class Mob : Unit
             {
 
                 Bullet b = BulletManager.instance.Create(transform);
-
+                b.Damage = gameObject.GetComponent<Mob>().Damage;
                 //Bullet b = Instantiate(bulletPrefabA, transform.position + new Vector3(0, -0.5f, 0), transform.rotation);//, bulletsParent.transform);
                 Rigidbody2D bb = b.GetComponent<Rigidbody2D>();
                 Vector2 playerPos = (player.transform.position - transform.position).normalized;
@@ -44,6 +44,7 @@ public class Mob : Unit
             else if (mobName == "M")
             {
                 Bullet b = Instantiate(bulletPrefabA, transform.position + new Vector3(0, -0.5f, 0), transform.rotation);//, bulletsParent.transform);
+                b.Damage = gameObject.GetComponent<Mob>().Damage;
                 Rigidbody2D bb = b.GetComponent<Rigidbody2D>();
                 Vector2 playerPos = (player.transform.position - transform.position).normalized;
                 bb.velocity = playerPos * b.speed;
@@ -52,6 +53,7 @@ public class Mob : Unit
             else if (mobName == "L")
             {
                 Bullet b = Instantiate(bulletPrefabB, transform.position + new Vector3(0, -0.5f, 0), transform.rotation);//, bulletsParent.transform);
+                b.Damage = gameObject.GetComponent<Mob>().Damage;
                 Rigidbody2D bb = b.GetComponent<Rigidbody2D>();
                 Vector2 playerPos = (player.transform.position - transform.position).normalized;
                 bb.velocity = playerPos * b.speed;
@@ -61,7 +63,6 @@ public class Mob : Unit
         
 
     }
-
 
     public void MoveSide(Vector2 _vector)
     {
@@ -77,13 +78,14 @@ public class Mob : Unit
     public new void OnHit(int _damage)
     {
         HP -= _damage;
+        //Debug.Log("현재 체력 : " + HP);
         spriteRenderer.sprite = sprite[1];
         Invoke("ReturnSprite", 0.1f);
 
         if (HP <= 0)
         {
             Destroy(gameObject);
-            //Addscore(score);
+            UIManagerGameScene.instance.Addscore(score);
         }
     }
 

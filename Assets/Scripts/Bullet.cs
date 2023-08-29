@@ -3,13 +3,18 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float speed;
-    public int Damage;                  // 공격력
+    public int Damage;  // 공격력
 
     void Start()
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
+
+        // 플레이어의 총알의 경우
         if (transform.CompareTag("PlayerBullet"))
         {
+            GameObject playerObject = GameObject.FindWithTag("Player");
+            Player player = playerObject.GetComponent<Player>();
+            Damage += player.Damage;
             rb.velocity = Vector2.up * speed;
         }
     }
@@ -25,6 +30,14 @@ public class Bullet : MonoBehaviour
         {
             Destroy(gameObject);
             _collision.gameObject.GetComponent<Mob>().OnHit(Damage);
+            //Debug.Log(gameObject.name + " 를 " + Damage + " 만큼 입힘.");
+        }
+
+        // 플레이어가 맞았을 경우
+        if (transform.CompareTag("MobBullet") && _collision.transform.CompareTag("Player"))
+        {
+            _collision.gameObject.GetComponent<Player>().OnHit(Damage);
+            //Debug.Log(Damage + " 만큼 플레이어가 데미지 입음");
         }
 
     }

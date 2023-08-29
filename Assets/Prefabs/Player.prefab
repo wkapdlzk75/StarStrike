@@ -172,14 +172,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183ac76c9d149aa4a81c3ba241ae2409, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 1000
+  HP: 30
+  Damage: 1
   speed: 3
   bulletFiringInterval: 0.2
-  lastSpawnTime: 0
   bulletsParent: {fileID: 0}
   bulletPrefabA: {fileID: -2705435586580316366, guid: cfbe320fcd9642d4c88a1630f5b97348, type: 3}
   bulletPrefabB: {fileID: -2705435586580316366, guid: 150396a3db72a364eb70bea91c6f571e, type: 3}
-  life: 0
+  life: 3
   power: 1
   isTouchTop: 0
   isTouchBottom: 0

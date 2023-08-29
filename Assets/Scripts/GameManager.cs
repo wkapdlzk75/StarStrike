@@ -8,8 +8,6 @@ public class GameManager : Manager
     public int stage;                   // 스테이지
     public int score;                // 점수
 
-    public GameObject player;
-
     private void Awake()
     {
         if (instance == null)
@@ -21,25 +19,6 @@ public class GameManager : Manager
         {
             Destroy(gameObject);
         }
-    }
-
-    void Start()
-    {
-        stage = 1;
-        score = 0;
-    }
-
-    // 플레이어 리스폰
-    public void RespawnPlayer()
-    {
-        player.transform.position = new Vector2(0, -4);
-        player.SetActive(true);
-    }
-
-    // 게임 종료
-    public void EndGame()
-    {
-        //popupUI.SetActive(true);
     }
 
 }
