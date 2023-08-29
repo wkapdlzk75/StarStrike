@@ -7,7 +7,7 @@ public class MobManager : Manager
 {
     public GameObject parent;
     public Mob[] mobPrefab;
-    int stage;                          // stage 정보
+    int stage;                          // 스테이지
     int repeatCount;                    // 적 스폰 반복 횟수
     public Transform[] spawnPoints;     // 적 스폰 위치
     public float spawnInterval;         // 적 스폰 시간 간격
@@ -16,16 +16,7 @@ public class MobManager : Manager
 
     private void Start()
     {
-
-        try
-        {
-            stage = LobbyManager.instance.stageInt;
-        }
-        catch (NullReferenceException e)
-        {
-            stage = 1;
-            //Debug.LogError("Player reference is null: " + e.Message);
-        }
+        stage = CurrentStage;
         repeatCount = 0;
         Invoke("GameStart", 3);    // 게임 시작후 3초 뒤 몹 생성
         //InvokeRepeating("Create", 5, 5);

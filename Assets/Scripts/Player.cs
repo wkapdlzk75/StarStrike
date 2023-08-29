@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Player : Unit
 {
@@ -35,7 +31,7 @@ public class Player : Unit
         Fire();
     }
 
-    // 총알 발사
+    // 총알 발사 *****
     public void Fire()
     {
         // bulletFiringInterval초 마다 총알 생성
@@ -75,7 +71,7 @@ public class Player : Unit
     }
 
 
-
+    // *****
     public void Move()
     {
         float moveHori = Input.GetAxisRaw("Horizontal");    // 좌우
@@ -138,6 +134,10 @@ public class Player : Unit
         if (_collision.transform.CompareTag("Mob"))
         {
             life--;
+            gameObject.SetActive(false);
+            Invoke("gameManager.RespawnPlayer", 3); // 3초 뒤 부활
+            
+            if (life == 0)
             Destroy(gameObject);
             gameManager.EndGame();
         }

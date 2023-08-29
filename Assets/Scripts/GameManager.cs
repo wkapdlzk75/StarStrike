@@ -1,48 +1,35 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class GameManager : Manager
 {
-    public Text scoreText;
-    public Text stageText;
-    public Text popupText;
-    int scoreInt;
+    public static GameManager instance;
 
-    public GameObject popupUI;
+    public const int MAX_STAGE = 4;     // 마지막 스테이지
+    public int stage;                   // 스테이지
+    public int score;                // 점수
+
     public GameObject player;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     void Start()
     {
-        InitGame();
+        stage = 1;
+        score = 0;
     }
 
-    public void InitGame()
-    {
-        scoreInt = 0;
-        scoreText.text = scoreInt.ToString();
-        popupUI.SetActive(false);
-
-        try
-        {
-            stageText.text = string.Format("스테이지 {0}", LobbyManager.instance.stageInt);
-        }
-        catch (NullReferenceException e)
-        {
-            stageText.text = string.Format("스테이지 {0}", 1);
-            //Debug.LogError("Player reference is null: " + e.Message);
-        }
-    }
-
-    // 점수 추가
-    public void Addscore(int _score)
-    {
-        scoreInt += _score;
-        scoreText.text = string.Format("{0:N0}", scoreInt);
-    }
-
+    // 플레이어 리스폰
     public void RespawnPlayer()
     {
         player.transform.position = new Vector2(0, -4);
@@ -52,7 +39,7 @@ public class GameManager : Manager
     // 게임 종료
     public void EndGame()
     {
-        popupUI.SetActive(true);
+        //popupUI.SetActive(true);
     }
 
 }

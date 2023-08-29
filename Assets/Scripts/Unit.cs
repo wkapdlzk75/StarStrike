@@ -1,6 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+// 몹, 플레이어를 하위 클래스로 둔 상위 클래스
+// 몹과 플레이어가 공통으로 가지고 있는 변수, 메소드
 
 public class Unit : MonoBehaviour
 {
