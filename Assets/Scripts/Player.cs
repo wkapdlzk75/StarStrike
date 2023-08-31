@@ -138,7 +138,7 @@ public class Player : Unit
         if (life <= 0)
         {
             Destroy(gameObject);
-            UIManagerGameScene.instance.EndGame();
+            GameManager.instance.EndGame();
         }
 
         gameObject.SetActive(false);

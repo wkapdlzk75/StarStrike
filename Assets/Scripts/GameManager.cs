@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class GameManager : Manager
 {
@@ -24,6 +25,13 @@ public class GameManager : Manager
     {
         score += _score;
         UIManagerGameScene.instance.UpdateScore();
+    }
+
+    // 게임 종료
+    public void EndGame()
+    {
+        score = 0;
+        UIManagerGameScene.instance.EndGame();
     }
 
 }

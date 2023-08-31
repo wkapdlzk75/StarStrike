@@ -90,13 +90,13 @@ public class Mob : Unit
 
             // 랜덤 아이템 드랍
             int ran = Random.Range(0, 100);
-            if (ran < 40)
-                Debug.Log("아이템 없음");
-            else if (ran < 60)
+            if (ran < 60)
+                return;//Debug.Log("아이템 없음");
+            else if (ran < 90)  // Coin
                 Instantiate(itemCoin, transform.position, itemCoin.transform.rotation);
-            else if (ran < 80)
+            else if (ran < 95)  // Power
                 Instantiate(itemPower, transform.position, itemPower.transform.rotation);
-            else if (ran < 100)
+            else if (ran < 100) // Boom
                 Instantiate(itemBoom, transform.position, itemBoom.transform.rotation);
         }
     }
