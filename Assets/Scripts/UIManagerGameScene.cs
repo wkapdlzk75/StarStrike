@@ -25,13 +25,9 @@ public class UIManagerGameScene : Manager
     private void Awake()
     {
         if (instance == null)
-        {
             instance = this;
-        }
         else if (instance != this)
-        {
             Destroy(gameObject);
-        }
     }
 
     void Start()
@@ -51,6 +47,7 @@ public class UIManagerGameScene : Manager
     public void UpdateLife(int _life)
     {
         lifeImage[_life].color = new Color(1, 1, 1, 0);   // 투명
+        //lifeImage[_life].color = new Color(1, 1, 1, 1);   // 불투명
     }
 
     // 게임 종료

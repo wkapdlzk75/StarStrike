@@ -17,11 +17,7 @@ public class Unit : MonoBehaviour
     public void OnHit(int _damage)
     {
         HP -= _damage;
-
-        if (HP <= 0)
-        {
-            Destroy(gameObject);
-        }
+        if (HP <= 0)    Destroy(gameObject);
     }
 
 }

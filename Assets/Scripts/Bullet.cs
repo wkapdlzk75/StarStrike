@@ -35,10 +35,8 @@ public class Bullet : MonoBehaviour
 
         // 플레이어가 맞았을 경우
         if (transform.CompareTag("MobBullet") && _collision.transform.CompareTag("Player"))
-        {
             _collision.gameObject.GetComponent<Player>().OnHit(Damage);
             //Debug.Log(Damage + " 만큼 플레이어가 데미지 입음");
-        }
 
     }
 

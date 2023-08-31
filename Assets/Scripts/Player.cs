@@ -14,6 +14,8 @@ public class Player : Unit
     public bool isTouchRight;   // 우
     public bool isTouchLeft;    // 좌
 
+    bool isDie;             // 플레이어 죽음 여부
+
     public GameManager gameManager;
 
     Animator animator;
@@ -26,6 +28,7 @@ public class Player : Unit
     void Start()
     {
         lastSpawnTime = Time.time;  // 시간 초기화
+        isDie = false;
     }
 
     void Update()
@@ -89,14 +92,14 @@ public class Player : Unit
 
         // 좌우 이동 버튼을 눌렀을 때와 뗐을 때
         if (Input.GetButtonDown("Horizontal") || Input.GetButtonUp("Horizontal"))
-        {   //에니메이터의 Input값을 moveHori값으로 설정한다
+            //에니메이터의 Input값을 moveHori값으로 설정한다
             animator.SetInteger("Input", (int)moveHori);
-        }
     }
 
     // 플레이어 리스폰
     public void RespawnPlayer()
     {
+        isDie = false;
         transform.position = new Vector2(0, -4);
         gameObject.SetActive(true);
     }
@@ -106,13 +109,13 @@ public class Player : Unit
     {
         life--;
         UIManagerGameScene.instance.UpdateLife(life);
+
         if (life <= 0)
         {
             Destroy(gameObject);
             UIManagerGameScene.instance.EndGame();
         }
 
-        
         gameObject.SetActive(false);
         Invoke("RespawnPlayer", 3); // 3초 뒤 부활
     }
@@ -137,7 +140,6 @@ public class Player : Unit
     {
         // 경계선에 닿을 경우 (밖으로 나갈 경우)
         if (_collision.transform.CompareTag("PlayerBorder"))
-        {
             switch (_collision.gameObject.name)
             {
                 case "Top": isTouchTop = true; break;
@@ -145,19 +147,19 @@ public class Player : Unit
                 case "Right": isTouchRight = true; break;
                 case "Left": isTouchLeft = true; break;
             }
-        }
 
         // 몹의 총알에 맞았을 경우
         if (_collision.transform.CompareTag("MobBullet"))
         {
             Destroy(_collision.gameObject);
-            if (HP<=0)
-                Die();
+            if (HP <= 0) Die();
         }
 
         // 몹과 충돌 했을 경우
         if (_collision.transform.CompareTag("Mob"))
         {
+            if (isDie) return;
+            isDie = true;
             Die();
         }
 
@@ -167,7 +169,6 @@ public class Player : Unit
     {
         // 경계선에 안 닿았을 경우 (안에 있을 경우)
         if (_collision.transform.CompareTag("PlayerBorder"))
-        {
             switch (_collision.gameObject.name)
             {
                 case "Top": isTouchTop = false; break;
@@ -175,6 +176,5 @@ public class Player : Unit
                 case "Right": isTouchRight = false; break;
                 case "Left": isTouchLeft = false; break;
             }
-        }
     }
 }

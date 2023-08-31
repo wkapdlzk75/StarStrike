@@ -74,14 +74,10 @@ public class MobManager : Manager
             int rangeMob = UnityEngine.Random.Range(5, 9);
             Mob mob = Instantiate(mobPrefab[_a], spawnPoints[rangeMob].position, spawnPoints[rangeMob].rotation, parent.transform);
             mob.player = player;
-            if (rangeMob == 5 || rangeMob == 6)         // 5, 6은 오른쪽 사이드 스폰   
-            {
-                mob.MoveSide(Vector2.left);   // 왼쪽으로 이동
-            }
+            if (rangeMob == 5 || rangeMob == 6)         // 5, 6은 오른쪽 사이드 스폰
+                mob.MoveSide(Vector2.left);             // 왼쪽으로 이동
             else if (rangeMob == 7 || rangeMob == 8)    // 7, 8은 왼쪽 사이드 스폰
-            {
-                mob.MoveSide(Vector2.right);    // 오른쪽으로 이동
-            }
+                mob.MoveSide(Vector2.right);            // 오른쪽으로 이동
 
         }
 

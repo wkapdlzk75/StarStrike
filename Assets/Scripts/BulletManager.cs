@@ -9,16 +9,11 @@ public class BulletManager : MonoBehaviour
     public GameObject mobobject;
 
     private void Awake()
-
     {
         if (instance == null)
-        {
             instance = this;
-        }
         else if (instance != this)
-        {
             Destroy(gameObject);
-        }
     }
 
     public Bullet Create(Transform tParent)
@@ -27,7 +22,5 @@ public class BulletManager : MonoBehaviour
         b.transform.SetParent(mobobject.transform);
         return b;
     }
-
-
 
 }

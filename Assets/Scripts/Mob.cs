@@ -29,7 +29,6 @@ public class Mob : Unit
     public void Fire()
     {
         if (player != null)
-        {
             if (mobName == "S")
             {
 
@@ -59,17 +58,13 @@ public class Mob : Unit
                 bb.velocity = playerPos * b.speed;
                 //Debug.Log(playerPos + " " + b.speed + " " + bb.velocity + "L");
             }
-        }
-        
 
     }
 
     public void MoveSide(Vector2 _vector)
     {
-        if (_vector == Vector2.left)
-            transform.rotation = Quaternion.Euler(0, 0, -45);
-        else if (_vector == Vector2.right)
-            transform.rotation = Quaternion.Euler(0, 0, 45);
+        if (_vector == Vector2.left)    transform.rotation = Quaternion.Euler(0, 0, -45);
+        else if (_vector == Vector2.right)  transform.rotation = Quaternion.Euler(0, 0, 45);
 
         rb.velocity += _vector * speed;
     }
@@ -99,14 +94,10 @@ public class Mob : Unit
     {
         // 경계선에 닿을 경우 (밖으로 나갈 경우)
         if (_collision.transform.CompareTag("Border"))
-        {
             Destroy(gameObject);
-        }
 
         // 유저와 충돌 했을 경우
         if (_collision.transform.CompareTag("Player"))
-        {
             Destroy(gameObject);
-        }
     }
 }

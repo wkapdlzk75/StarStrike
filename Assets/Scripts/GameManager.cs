@@ -16,9 +16,7 @@ public class GameManager : Manager
             DontDestroyOnLoad(gameObject);
         }
         else if (instance != this)
-        {
             Destroy(gameObject);
-        }
     }
 
     // 점수 추가 및 UI 갱신
