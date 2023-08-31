@@ -114,7 +114,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!61 &4888330454501246198
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -172,6 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183ac76c9d149aa4a81c3ba241ae2409, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MAX_HP: 0
   HP: 30
   Damage: 1
   speed: 3
@@ -179,13 +180,17 @@ MonoBehaviour:
   bulletsParent: {fileID: 0}
   bulletPrefabA: {fileID: -2705435586580316366, guid: cfbe320fcd9642d4c88a1630f5b97348, type: 3}
   bulletPrefabB: {fileID: -2705435586580316366, guid: 150396a3db72a364eb70bea91c6f571e, type: 3}
-  life: 3
-  power: 1
   isTouchTop: 0
   isTouchBottom: 0
   isTouchRight: 0
   isTouchLeft: 0
-  gameManager: {fileID: 0}
+  maxLife: 0
+  life: 3
+  maxPower: 3
+  power: 1
+  maxBoom: 3
+  boom: 0
+  boomEffect: {fileID: 0}
 --- !u!95 &3443354779711738876
 Animator:
   serializedVersion: 5

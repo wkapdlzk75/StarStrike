@@ -427,12 +427,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stage: 1
-  scoreInt: 0
-  scoreText: {fileID: 0}
-  stageText: {fileID: 0}
-  popupText: {fileID: 0}
-  popupUI: {fileID: 0}
-  player: {fileID: 0}
+  score: 0
 --- !u!1 &667400239
 GameObject:
   m_ObjectHideFlags: 0

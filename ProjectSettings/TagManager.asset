@@ -9,6 +9,7 @@ TagManager:
   - PlayerBullet
   - PlayerBorder
   - MobBullet
+  - Item
   layers:
   - Default
   - TransparentFX

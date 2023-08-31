@@ -12,8 +12,11 @@ public class UIManagerGameScene : Manager
     public Text popupText;      // 팝업 UI
 
     public Image[] lifeImage;   // 목숨 UI
+    public Image[] boomImage;   // 폭탄 UI
 
     public GameObject popupUI;  // 팝업 UI
+
+    //public Player player;       // 플레이어 정보
 
     // 점수 프로퍼티
     public int CurrentScore
@@ -21,6 +24,7 @@ public class UIManagerGameScene : Manager
         get { return GameManager.instance.score; }
         //set { GameManager.instance.score = value; }
     }
+    
 
     private void Awake()
     {
@@ -44,11 +48,23 @@ public class UIManagerGameScene : Manager
     }
 
     // 목숨 UI 갱신
-    public void UpdateLife(int _life)
+    public void UpdateLife(int _life, bool _value)
     {
-        lifeImage[_life].color = new Color(1, 1, 1, 0);   // 투명
-        //lifeImage[_life].color = new Color(1, 1, 1, 1);   // 불투명
+        if (_value) // true 추가
+            lifeImage[_life - 1].gameObject.SetActive(true);
+        else        // false 제거
+            lifeImage[_life].gameObject.SetActive(false);
     }
+
+    // 폭탄 UI 갱신
+    public void UpdateBoom(int _boom, bool _value)
+    {
+        if (_value) // true 추가
+            boomImage[_boom - 1].gameObject.SetActive(true);
+        else        // false 제거
+            boomImage[_boom].gameObject.SetActive(false);
+    }
+
 
     // 게임 종료
     public void EndGame()

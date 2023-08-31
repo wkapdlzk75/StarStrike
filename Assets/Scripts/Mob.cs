@@ -6,6 +6,10 @@ public class Mob : Unit
     public int score;
     public Sprite[] sprite;
 
+    public Item itemCoin;
+    public Item itemPower;
+    public Item itemBoom;
+
     SpriteRenderer spriteRenderer;
     Rigidbody2D rb;
 
@@ -72,6 +76,8 @@ public class Mob : Unit
     // 총알에 맞았을 경우
     public new void OnHit(int _damage)
     {
+        if (HP <= 0) return;
+
         HP -= _damage;
         //Debug.Log("현재 체력 : " + HP);
         spriteRenderer.sprite = sprite[1];
@@ -81,6 +87,17 @@ public class Mob : Unit
         {
             Destroy(gameObject);
             GameManager.instance.AddScore(score);
+
+            // 랜덤 아이템 드랍
+            int ran = Random.Range(0, 100);
+            if (ran < 40)
+                Debug.Log("아이템 없음");
+            else if (ran < 60)
+                Instantiate(itemCoin, transform.position, itemCoin.transform.rotation);
+            else if (ran < 80)
+                Instantiate(itemPower, transform.position, itemPower.transform.rotation);
+            else if (ran < 100)
+                Instantiate(itemBoom, transform.position, itemBoom.transform.rotation);
         }
     }
 

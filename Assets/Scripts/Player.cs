@@ -1,22 +1,25 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : Unit
 {
-    public int MAX_life;    // 최대 플레이어 목숨
-    public int life;        // 현재 플레이어 목숨
-    public int power;       // 파워 (총알 레벨)
-    float lastSpawnTime;    // 마지막 총알 발사 시각
-
     // 각각 상하좌우 경계선을 터치했는지 여부
     public bool isTouchTop;     // 위
     public bool isTouchBottom;  // 아래
     public bool isTouchRight;   // 우
     public bool isTouchLeft;    // 좌
 
-    bool isDie;             // 플레이어 죽음 여부
+    public int maxLife;     // 최대 플레이어 목숨
+    public int life;        // 현재 플레이어 목숨
+    public int maxPower;    // 최대 파워 (최대 총알 레벨)
+    public int power;       // 현재 파워 (현재 총알 레벨)
+    public int maxBoom;     // 최대 폭탄 갯수
+    public int boom;        // 현재 폭탄 갯수
 
-    public GameManager gameManager;
+    float lastSpawnTime;    // 마지막 총알 발사 시각
+    bool isDie;             // 플레이어 죽음 여부
+    bool isBoomTime;        // 폭탄 터짐 여부
+
+    public GameObject boomEffect; // 폭탄
 
     Animator animator;
 
@@ -35,6 +38,7 @@ public class Player : Unit
     {
         Move();
         Fire();
+        Boom();
     }
 
     // 총알 발사 *****
@@ -71,11 +75,32 @@ public class Player : Unit
         }
     }
 
-    public void CreateBullets()
+    // 폭탄 활성화
+    void Boom()
     {
+        if (!Input.GetButton("Fire2"))  return;
+        if (isBoomTime)                 return;
+        if (boom == 0)                  return;
 
+        boom--;
+        UIManagerGameScene.instance.UpdateBoom(boom, false);
+        boomEffect.SetActive(true);
+        isBoomTime = true;
+        Invoke("OffBoomEffect", 3);
+
+        // 몹 제거
+        GameObject[] mobs = GameObject.FindGameObjectsWithTag("Mob");
+        for (int i = 0; i < mobs.Length; i++)
+        {
+            Mob mob = mobs[i].GetComponent<Mob>();
+            mob.OnHit(1000);
+        }
+
+        // 몹 총알 제거
+        GameObject[] mobBullets = GameObject.FindGameObjectsWithTag("MobBullet");
+        for (int i = 0; i < mobBullets.Length; i++)
+            Destroy(mobBullets[i]);
     }
-
 
     // *****
     public void Move()
@@ -108,7 +133,7 @@ public class Player : Unit
     public void Die()
     {
         life--;
-        UIManagerGameScene.instance.UpdateLife(life);
+        UIManagerGameScene.instance.UpdateLife(life, false);
 
         if (life <= 0)
         {
@@ -163,6 +188,41 @@ public class Player : Unit
             Die();
         }
 
+        // 아이템
+        if (_collision.transform.CompareTag("Item"))
+        {
+            Item item = _collision.transform.GetComponent<Item>();
+            switch (item.type)
+            {
+                case "Coin":
+                    GameManager.instance.AddScore(100);
+                    break;
+                case "Power":
+                    if (power == maxPower)
+                        GameManager.instance.AddScore(50);
+                    else
+                        power++;
+                    break;
+                case "Boom":
+                    if (boom == maxBoom)
+                        GameManager.instance.AddScore(50);
+                    else
+                        boom++;
+                        UIManagerGameScene.instance.UpdateBoom(boom, true);
+                    break;
+
+            }
+            Destroy(_collision.gameObject);
+
+        }
+
+    }
+
+    // 폭탄 효과 끄기
+    void OffBoomEffect()
+    {
+        boomEffect.SetActive(false);
+        isBoomTime = false;
     }
 
     private void OnTriggerExit2D(Collider2D _collision)
