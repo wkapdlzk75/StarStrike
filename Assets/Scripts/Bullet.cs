@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
         {
             GameObject playerObject = GameObject.FindWithTag("Player");
             Player player = playerObject.GetComponent<Player>();
-            Damage += player.Damage;
+            Damage = player.Damage;
             rb.velocity = Vector2.up * speed;
         }
     }

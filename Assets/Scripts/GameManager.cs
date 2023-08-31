@@ -21,4 +21,11 @@ public class GameManager : Manager
         }
     }
 
+    // 점수 추가 및 UI 갱신
+    public void AddScore(int _score)
+    {
+        score += _score;
+        UIManagerGameScene.instance.UpdateScore();
+    }
+
 }

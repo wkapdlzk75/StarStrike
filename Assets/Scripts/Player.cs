@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class Player : Unit
 {
-    public int life;        // 플레이어 목숨
+    public int MAX_life;    // 최대 플레이어 목숨
+    public int life;        // 현재 플레이어 목숨
     public int power;       // 파워 (총알 레벨)
     float lastSpawnTime;    // 마지막 총알 발사 시각
 
@@ -103,13 +104,15 @@ public class Player : Unit
     // 플레이어 죽음
     public void Die()
     {
+        life--;
+        UIManagerGameScene.instance.UpdateLife(life);
         if (life <= 0)
         {
             Destroy(gameObject);
             UIManagerGameScene.instance.EndGame();
         }
 
-        life--;
+        
         gameObject.SetActive(false);
         Invoke("RespawnPlayer", 3); // 3초 뒤 부활
     }
@@ -144,7 +147,7 @@ public class Player : Unit
             }
         }
 
-        // 적의 총알에 맞았을 경우
+        // 몹의 총알에 맞았을 경우
         if (_collision.transform.CompareTag("MobBullet"))
         {
             Destroy(_collision.gameObject);

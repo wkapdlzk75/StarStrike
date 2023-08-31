@@ -85,7 +85,7 @@ public class Mob : Unit
         if (HP <= 0)
         {
             Destroy(gameObject);
-            UIManagerGameScene.instance.Addscore(score);
+            GameManager.instance.AddScore(score);
         }
     }
 
