@@ -125,6 +125,7 @@ public class Player : Unit
     public void RespawnPlayer()
     {
         isDie = false;
+        HP = MAX_HP;
         transform.position = new Vector2(0, -4);
         gameObject.SetActive(true);
     }
@@ -177,13 +178,20 @@ public class Player : Unit
         if (_collision.transform.CompareTag("MobBullet"))
         {
             Destroy(_collision.gameObject);
-            if (HP <= 0) Die();
+
+            if (isDie)  return;
+            
+            if (HP <= 0 && !isDie)
+            {
+                isDie = true;
+                Die();
+            }
         }
 
         // 몹과 충돌 했을 경우
         if (_collision.transform.CompareTag("Mob"))
         {
-            if (isDie) return;
+            if (isDie)  return;
             isDie = true;
             Die();
         }
