@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 // 공통 UI 관리
 
-public class Manager : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
     // 스테이지 프로퍼티
     public int CurrentStage

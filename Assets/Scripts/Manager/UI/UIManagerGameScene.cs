@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 // 게임 씬 UI 관리
 
-public class UIManagerGameScene : Manager
+public class UIManagerGameScene : UIManager
 {
     public static UIManagerGameScene instance;
 

@@ -3,10 +3,14 @@ using System.Collections;
 using UnityEditor;
 using UnityEngine;
 
-public class MobManager : Manager
+public class MobManager : MonoBehaviour
 {
+    public Mob[] mobPrefab;             // 몹 프리팹
+    Mob[] mobArrayL;
+    Mob[] mobArrayM;
+    Mob[] mobArrayS;
+
     public GameObject parent;
-    public Mob[] mobPrefab;
     int stage;                          // 스테이지
     int repeatCount;                    // 적 스폰 반복 횟수
     public Transform[] spawnPoints;     // 적 스폰 위치
@@ -16,7 +20,7 @@ public class MobManager : Manager
 
     private void Start()
     {
-        stage = CurrentStage;
+        stage = GameManager.instance.stage;
         repeatCount = 0;
         Invoke("GameStart", 3);    // 게임 시작후 3초 뒤 몹 생성
         //InvokeRepeating("Create", 5, 5);
@@ -46,8 +50,8 @@ public class MobManager : Manager
             while (repeatCount < 15)
             {
                 int rangeMob = UnityEngine.Random.Range(0, 3);
-                SpawnMob(rangeMob);
-                SideSpawnMob(rangeMob); // 50%의 확률로 스폰
+                SpawnMob(2);
+                SideSpawnMob(2); // 50%의 확률로 스폰
                 repeatCount++;
                 yield return new WaitForSeconds(spawnInterval);
             }

@@ -1,13 +1,11 @@
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
-public class GameManager : Manager
+public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public const int MAX_STAGE = 4;     // 마지막 스테이지
-    public int stage;                   // 스테이지
-    public int score;                // 점수
+    public int stage;   // 스테이지
+    public int score;   // 점수
 
     private void Awake()
     {
@@ -18,6 +16,11 @@ public class GameManager : Manager
         }
         else if (instance != this)
             Destroy(gameObject);
+    }
+
+    void Start()
+    {
+        stage = 1;
     }
 
     // 점수 추가 및 UI 갱신

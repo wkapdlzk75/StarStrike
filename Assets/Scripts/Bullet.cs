@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float speed;
+    public float speed; // 총알 스피드
     public int Damage;  // 공격력
 
     void Start()
