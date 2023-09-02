@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 
@@ -18,12 +20,53 @@ public class MobManager : MonoBehaviour
 
     public Player player;               // 플레이어
 
+    List<Spawn> spawnList;
+    public int spawnIndex;
+    public bool spawnEnd;
+
     private void Start()
     {
+        spawnList = new List<Spawn>();
         stage = GameManager.instance.stage;
         repeatCount = 0;
+        ReadSpawnFile();
         Invoke("GameStart", 3);    // 게임 시작후 3초 뒤 몹 생성
         //InvokeRepeating("Create", 5, 5);
+    }
+
+    // 파일 읽기
+    void ReadSpawnFile()
+    {
+        // 변수 초기화
+        spawnList.Clear();
+        spawnIndex = 0;
+        spawnEnd = false;
+
+        // 파일 읽기
+        TextAsset textFile = Resources.Load("Stage 1") as TextAsset;
+        StringReader stringReader = new StringReader(textFile.text);
+        
+        while(stringReader !=  null)
+        {
+            string line = stringReader.ReadLine();
+
+            if (line == null)
+                break;
+
+            // 리스폰 데이터 생성
+            Spawn spawnData = new Spawn();
+            spawnData.delay = float.Parse(line.Split(',')[0]);
+            spawnData.type = line.Split(',')[1];
+            spawnData.point = int.Parse(line.Split(',')[2]);
+            spawnList.Add(spawnData);
+        }
+
+        // 텍스트 파일 닫기
+        stringReader.Close();
+
+        // 첫번째 스폰 딜레이 적용
+        //spawnInterval = spawnList[0].delay;
+
     }
 
     // 게임 시작
