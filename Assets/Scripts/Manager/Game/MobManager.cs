@@ -29,7 +29,7 @@ public class MobManager : MonoBehaviour
         spawnList = new List<Spawn>();
         stage = GameManager.instance.stage;
         repeatCount = 0;
-        ReadSpawnFile();
+        //ReadSpawnFile();
         Invoke("GameStart", 3);    // 게임 시작후 3초 뒤 몹 생성
         //InvokeRepeating("Create", 5, 5);
     }

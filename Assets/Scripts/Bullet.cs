@@ -17,6 +17,14 @@ public class Bullet : MonoBehaviour
             Damage = player.Damage;
             rb.velocity = Vector2.up * speed;
         }
+
+        // 팔로워의 총알의 경우
+        if (transform.CompareTag("FollowerBullet"))
+        {
+            Damage = 1;
+            speed = 3;
+            rb.velocity = Vector2.up * speed;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D _collision)

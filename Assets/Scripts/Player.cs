@@ -15,7 +15,7 @@ public class Player : Unit
     public int maxBoom;     // 최대 폭탄 갯수
     public int boom;        // 현재 폭탄 갯수
 
-    float lastSpawnTime;    // 마지막 총알 발사 시각
+    float lastFireTime;    // 마지막 총알 발사 시각
     bool isDie;             // 플레이어 죽음 여부
     bool isBoomTime;        // 폭탄 터짐 여부
 
@@ -30,7 +30,7 @@ public class Player : Unit
 
     void Start()
     {
-        lastSpawnTime = Time.time;  // 시간 초기화
+        lastFireTime = Time.time;  // 시간 초기화
         isDie = false;
     }
 
@@ -48,27 +48,27 @@ public class Player : Unit
         switch (power)
         {
             case 1:
-                if (Time.time - lastSpawnTime > bulletFiringInterval)
+                if (Time.time - lastFireTime > bulletFiringInterval)
                 {
                     Instantiate(bulletPrefabA, transform.position + new Vector3(0, 0.7f, 0), transform.rotation, bulletsParent.transform);
-                    lastSpawnTime = Time.time;
+                    lastFireTime = Time.time;
                 }
                 break;
             case 2:
-                if (Time.time - lastSpawnTime > bulletFiringInterval)
+                if (Time.time - lastFireTime > bulletFiringInterval)
                 {
                     Instantiate(bulletPrefabA, transform.position + new Vector3(0.1f, 0.7f, 0), transform.rotation, bulletsParent.transform);
                     Instantiate(bulletPrefabA, transform.position + new Vector3(-0.1f, 0.7f, 0), transform.rotation, bulletsParent.transform);
-                    lastSpawnTime = Time.time;
+                    lastFireTime = Time.time;
                 }
                 break;
             case 3:
-                if (Time.time - lastSpawnTime > bulletFiringInterval)
+                if (Time.time - lastFireTime > bulletFiringInterval)
                 {
                     Instantiate(bulletPrefabA, transform.position + new Vector3(0.3f, 0.7f, 0), transform.rotation, bulletsParent.transform);
                     Instantiate(bulletPrefabB, transform.position + new Vector3(0, 0.7f, 0), transform.rotation, bulletsParent.transform);
                     Instantiate(bulletPrefabA, transform.position + new Vector3(-0.3f, 0.7f, 0), transform.rotation, bulletsParent.transform);
-                    lastSpawnTime = Time.time;
+                    lastFireTime = Time.time;
                 }
                 break;
 
