@@ -7,7 +7,7 @@ public class Follower : Unit
     float lastFireTime;
 
     public Vector3 followPos;
-    public int followeDelay;
+    public int followDelay;
     
     Transform parent;
     Queue<Vector3> parentPos = new Queue<Vector3>();
@@ -27,14 +27,16 @@ public class Follower : Unit
         Fire();
     }
 
+    // 플레이어 위치 추적
     void Watch()
     {
         // Queue = FIFO
         parentPos.Enqueue(parent.position);
-        if (parentPos.Count > followeDelay )
+        if (parentPos.Count > followDelay )
             followPos = parentPos.Dequeue();
     }
 
+    // 플레이어 따라가기
     void Follow()
     {
         transform.position = followPos;

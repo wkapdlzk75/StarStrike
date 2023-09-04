@@ -6,9 +6,11 @@ public class BulletManager : MonoBehaviour
 {
     public static BulletManager instance;
     public Bullet bulletPrefabA;
-    public GameObject mobobject;
 
-    public GameObject m_Bulletdir;
+    public GameObject boomEffect;
+    public GameObject followerBullets;
+    public GameObject mobBullets;
+    public GameObject playerBullets;
 
     private void Awake()
     {
@@ -21,7 +23,7 @@ public class BulletManager : MonoBehaviour
     public Bullet Create(Transform tParent)
     {
         Bullet b = Instantiate(bulletPrefabA, tParent.position + new Vector3(0, -0.5f, 0), tParent.rotation);//, bulletsParent.transform);
-        b.transform.SetParent(mobobject.transform);
+        b.transform.SetParent(mobBullets.transform);
         return b;
     }
 

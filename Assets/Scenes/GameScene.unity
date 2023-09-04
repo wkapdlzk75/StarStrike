@@ -1445,7 +1445,7 @@ GameObject:
   - component: {fileID: 1153542232}
   - component: {fileID: 1153542233}
   m_Layer: 0
-  m_Name: Bullets
+  m_Name: BulletManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1463,9 +1463,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1861766192}
-  - {fileID: 265954491}
+  - {fileID: 1798154708}
   - {fileID: 1942045691}
+  - {fileID: 265954491}
+  - {fileID: 1861766192}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1482,8 +1483,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefabA: {fileID: -2705435586580316366, guid: f2e0be8622f558d4baa683e66e88efc6, type: 3}
-  mobobject: {fileID: 265954490}
-  m_Bulletdir: {fileID: 0}
+  boomEffect: {fileID: 1798154706}
+  followerBullets: {fileID: 1942045690}
+  mobBullets: {fileID: 265954490}
+  playerBullets: {fileID: 1861766191}
 --- !u!1 &1181787924
 GameObject:
   m_ObjectHideFlags: 0
@@ -2585,7 +2588,7 @@ GameObject:
   - component: {fileID: 1798154707}
   - component: {fileID: 1798154709}
   m_Layer: 0
-  m_Name: Boom
+  m_Name: BoomEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2650,13 +2653,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1798154706}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_Father: {fileID: 1153542232}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1798154709
 Animator:
@@ -2955,7 +2958,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1942045691}
   m_Layer: 0
-  m_Name: BulletDir
+  m_Name: FollowerBullets
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

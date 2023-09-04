@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8697803874156305290}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.10931267, y: -0.2682715, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -170,5 +170,4 @@ MonoBehaviour:
   bulletPrefabA: {fileID: 8168913708945795877, guid: 12527a97d78206349876ab61f89eca22, type: 3}
   bulletPrefabB: {fileID: 0}
   followPos: {x: 0, y: 0, z: 0}
-  followeDelay: 10
-  parent: {fileID: 9059345728130051815, guid: 8204d864fae86a14bbc3128efb55a58f, type: 3}
+  followeDelay: 50

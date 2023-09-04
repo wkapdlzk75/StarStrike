@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : Unit
@@ -20,6 +21,7 @@ public class Player : Unit
     bool isBoomTime;        // 폭탄 터짐 여부
 
     public GameObject boomEffect; // 폭탄
+    //GameObject boomEffect2;
 
     Animator animator;
     public Follower m_Follow;
@@ -35,15 +37,19 @@ public class Player : Unit
         //Transform tchild=
 
         //bulletsParent = BulletManager.instance.gameObject.transform.Find("BulletDir").gameObject;
+        // 또는
         //bulletsParent = BulletManager.instance.m_Bulletdir;
+
         // Time.time;
+        //float f1 = Time.realtimeSinceStartup;
 
-        float f1 = Time.realtimeSinceStartup;
-
-        bulletsParent = BulletManager.instance.gameObject.transform.Find("BulletDir").gameObject;
-
-        float f2 = Time.realtimeSinceStartup;
-        print(string.Format("{0}", f2 - f1));
+        //bulletsParent = BulletManager.instance.gameObject.transform.Find("PlayerBullets").gameObject;
+        bulletsParent = BulletManager.instance.playerBullets;
+        //boomEffect2 = GameObject.Find("BoomEffect2");
+        boomEffect = BulletManager.instance.boomEffect;
+        //float f2 = Time.realtimeSinceStartup;
+        
+        //print(string.Format("{0}", f2 - f1));
 
         lastFireTime = Time.time;  // 시간 초기화
         isDie = false;
