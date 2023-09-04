@@ -8,6 +8,8 @@ public class BulletManager : MonoBehaviour
     public Bullet bulletPrefabA;
     public GameObject mobobject;
 
+    public GameObject m_Bulletdir;
+
     private void Awake()
     {
         if (instance == null)

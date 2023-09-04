@@ -22,6 +22,7 @@ public class Player : Unit
     public GameObject boomEffect; // 폭탄
 
     Animator animator;
+    public Follower m_Follow;
 
     void Awake()
     {
@@ -30,12 +31,29 @@ public class Player : Unit
 
     void Start()
     {
+        //GameObject.Find();
+        //Transform tchild=
+
+        //bulletsParent = BulletManager.instance.gameObject.transform.Find("BulletDir").gameObject;
+        //bulletsParent = BulletManager.instance.m_Bulletdir;
+        // Time.time;
+
+        float f1 = Time.realtimeSinceStartup;
+
+        bulletsParent = BulletManager.instance.gameObject.transform.Find("BulletDir").gameObject;
+
+        float f2 = Time.realtimeSinceStartup;
+        print(string.Format("{0}", f2 - f1));
+
         lastFireTime = Time.time;  // 시간 초기화
         isDie = false;
+        OnItemUse();
     }
 
     void Update()
     {
+        //Time.time = 22;
+
         Move();
         Fire();
         Boom();
@@ -78,9 +96,9 @@ public class Player : Unit
     // 폭탄 활성화
     void Boom()
     {
-        if (!Input.GetButton("Fire2"))  return;
-        if (isBoomTime)                 return;
-        if (boom == 0)                  return;
+        if (!Input.GetButton("Fire2")) return;
+        if (isBoomTime) return;
+        if (boom == 0) return;
 
         boom--;
         UIManagerGameScene.instance.UpdateBoom(boom, false);
@@ -179,8 +197,8 @@ public class Player : Unit
         {
             Destroy(_collision.gameObject);
 
-            if (isDie)  return;
-            
+            if (isDie) return;
+
             if (HP <= 0 && !isDie)
             {
                 isDie = true;
@@ -191,7 +209,7 @@ public class Player : Unit
         // 몹과 충돌 했을 경우
         if (_collision.transform.CompareTag("Mob"))
         {
-            if (isDie)  return;
+            if (isDie) return;
             isDie = true;
             Die();
         }
@@ -216,10 +234,11 @@ public class Player : Unit
                         GameManager.instance.AddScore(50);
                     else
                         boom++;
-                        UIManagerGameScene.instance.UpdateBoom(boom, true);
+                    UIManagerGameScene.instance.UpdateBoom(boom, true);
                     break;
 
             }
+
             Destroy(_collision.gameObject);
 
         }
@@ -244,5 +263,11 @@ public class Player : Unit
                 case "Right": isTouchRight = false; break;
                 case "Left": isTouchLeft = false; break;
             }
+    }
+
+    void OnItemUse()
+    {
+        Follower fl = Instantiate(m_Follow);
+        fl.Create(this);
     }
 }

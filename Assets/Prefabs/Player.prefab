@@ -34,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8229398453046063045
 SpriteRenderer:
@@ -191,6 +191,7 @@ MonoBehaviour:
   maxBoom: 3
   boom: 0
   boomEffect: {fileID: 0}
+  m_Follow: {fileID: 8596390432349849313, guid: f93f6ed1d6f5d9948bac94b7e920ebd6, type: 3}
 --- !u!95 &3443354779711738876
 Animator:
   serializedVersion: 5

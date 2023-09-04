@@ -8,14 +8,18 @@ public class Follower : Unit
 
     public Vector3 followPos;
     public int followeDelay;
-    public Transform parent;
-    public Queue<Vector3> parentPos;
+    
+    Transform parent;
+    Queue<Vector3> parentPos = new Queue<Vector3>();
 
     void Start()
     {
         lastFireTime = 0;
     }
-
+    public void Create(Player player)
+    {
+        parent = player.transform;
+    }
     void Update()
     {
         Watch();
@@ -25,13 +29,10 @@ public class Follower : Unit
 
     void Watch()
     {
-        Debug.Log(parent.position);
         // Queue = FIFO
         parentPos.Enqueue(parent.position);
-        Debug.Log(parentPos);
         if (parentPos.Count > followeDelay )
             followPos = parentPos.Dequeue();
-        Debug.Log(followPos);
     }
 
     void Follow()
