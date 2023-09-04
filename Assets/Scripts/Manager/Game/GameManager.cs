@@ -23,6 +23,13 @@ public class GameManager : MonoBehaviour
         stage = 1;
     }
 
+    // 게임 승리
+    public void VictoryGame()
+    {
+        // 게임 승리 처리 코드 작성
+        UIManagerGameScene.instance.VictoryGame();
+    }
+
     // 점수 추가 및 UI 갱신
     public void AddScore(int _score)
     {

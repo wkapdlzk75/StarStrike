@@ -87,6 +87,8 @@ public class MobManager : MonoBehaviour
                 repeatCount++;
                 yield return new WaitForSeconds(spawnInterval);
             }
+            new WaitForSeconds(3); // 여기
+
         }
         else
         {
