@@ -13,7 +13,6 @@ public class Background : MonoBehaviour
 
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
         viewHeight = Camera.main.orthographicSize * 2;
     }
 
