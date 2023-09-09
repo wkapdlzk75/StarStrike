@@ -22,7 +22,7 @@ public class Bullet : MonoBehaviour
         if (transform.CompareTag("FollowerBullet"))
         {
             Damage = 1;
-            speed = 3;
+            speed = 5;
             rb.velocity = Vector2.up * speed;
         }
     }

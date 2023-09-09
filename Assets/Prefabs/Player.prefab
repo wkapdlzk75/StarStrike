@@ -184,12 +184,14 @@ MonoBehaviour:
   isTouchBottom: 0
   isTouchRight: 0
   isTouchLeft: 0
-  maxLife: 0
-  life: 3
+  maxLife: 3
+  curLife: 3
   maxPower: 3
-  power: 1
+  curPower: 1
   maxBoom: 3
-  boom: 0
+  curBoom: 0
+  maxFollower: 3
+  curFollower: 0
   boomEffect: {fileID: 0}
   m_Follow: {fileID: 8596390432349849313, guid: f93f6ed1d6f5d9948bac94b7e920ebd6, type: 3}
 --- !u!95 &3443354779711738876

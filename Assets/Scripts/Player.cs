@@ -10,15 +10,17 @@ public class Player : Unit
     public bool isTouchLeft;    // 좌
 
     public int maxLife;     // 최대 플레이어 목숨
-    public int life;        // 현재 플레이어 목숨
+    public int curLife;     // 현재 플레이어 목숨
     public int maxPower;    // 최대 파워 (최대 총알 레벨)
-    public int power;       // 현재 파워 (현재 총알 레벨)
+    public int curPower;    // 현재 파워 (현재 총알 레벨)
     public int maxBoom;     // 최대 폭탄 갯수
-    public int boom;        // 현재 폭탄 갯수
+    public int curBoom;     // 현재 폭탄 갯수
+    public int maxFollower; // 최대 팔로워 갯수
+    public int curFollower; // 현재 팔로워 갯수
 
-    float lastFireTime;    // 마지막 총알 발사 시각
+    float lastFireTime;     // 마지막 총알 발사 시각
     bool isDie;             // 플레이어 죽음 여부
-    bool isBoomTime;        // 폭탄 터짐 여부
+    bool isBoomActive;        // 폭탄 터짐 여부
 
     public GameObject boomEffect; // 폭탄
     //GameObject boomEffect2;
@@ -33,33 +35,17 @@ public class Player : Unit
 
     void Start()
     {
-        //GameObject.Find();
-        //Transform tchild=
-
-        //bulletsParent = BulletManager.instance.gameObject.transform.Find("BulletDir").gameObject;
-        // 또는
-        //bulletsParent = BulletManager.instance.m_Bulletdir;
-
-        // Time.time;
-        //float f1 = Time.realtimeSinceStartup;
-
-        //bulletsParent = BulletManager.instance.gameObject.transform.Find("PlayerBullets").gameObject;
         bulletsParent = BulletManager.instance.playerBullets;
-        //boomEffect2 = GameObject.Find("BoomEffect2");
         boomEffect = BulletManager.instance.boomEffect;
-        //float f2 = Time.realtimeSinceStartup;
-        
-        //print(string.Format("{0}", f2 - f1));
-
         lastFireTime = Time.time;  // 시간 초기화
+        curFollower = 0;
+        curPower = 1;
         isDie = false;
-        OnItemUse();
+        //OnItemUse();
     }
 
     void Update()
     {
-        //Time.time = 22;
-
         Move();
         Fire();
         Boom();
@@ -69,7 +55,7 @@ public class Player : Unit
     public void Fire()
     {
         // bulletFiringInterval초 마다 총알 생성
-        switch (power)
+        switch (curPower)
         {
             case 1:
                 if (Time.time - lastFireTime > bulletFiringInterval)
@@ -103,13 +89,13 @@ public class Player : Unit
     void Boom()
     {
         if (!Input.GetButton("Fire2")) return;
-        if (isBoomTime) return;
-        if (boom == 0) return;
+        if (isBoomActive) return;
+        if (curBoom == 0) return;
 
-        boom--;
-        UIManagerGameScene.instance.UpdateBoom(boom, false);
+        curBoom--;
+        UIManagerGameScene.instance.UpdateBoom(curBoom, false);
         boomEffect.SetActive(true);
-        isBoomTime = true;
+        isBoomActive = true;
         Invoke("OffBoomEffect", 3);
 
         // 몹 제거
@@ -157,10 +143,10 @@ public class Player : Unit
     // 플레이어 죽음
     public void Die()
     {
-        life--;
-        UIManagerGameScene.instance.UpdateLife(life, false);
+        curLife--;
+        UIManagerGameScene.instance.UpdateLife(curLife, false);
 
-        if (life <= 0)
+        if (curLife <= 0)
         {
             Destroy(gameObject);
             GameManager.instance.EndGame();
@@ -230,17 +216,17 @@ public class Player : Unit
                     GameManager.instance.AddScore(100);
                     break;
                 case "Power":
-                    if (power == maxPower)
-                        GameManager.instance.AddScore(50);
+                    if (curPower == maxPower)
+                        OnItemUse();
                     else
-                        power++;
+                        curPower++;
                     break;
                 case "Boom":
-                    if (boom == maxBoom)
+                    if (curBoom == maxBoom)
                         GameManager.instance.AddScore(50);
                     else
-                        boom++;
-                    UIManagerGameScene.instance.UpdateBoom(boom, true);
+                        curBoom++;
+                    UIManagerGameScene.instance.UpdateBoom(curBoom, true);
                     break;
 
             }
@@ -255,7 +241,7 @@ public class Player : Unit
     void OffBoomEffect()
     {
         boomEffect.SetActive(false);
-        isBoomTime = false;
+        isBoomActive = false;
     }
 
     private void OnTriggerExit2D(Collider2D _collision)
@@ -273,6 +259,8 @@ public class Player : Unit
 
     void OnItemUse()
     {
+        if (maxFollower == curFollower)
+            return;
         Follower fl = Instantiate(m_Follow);
         fl.Create(this);
     }

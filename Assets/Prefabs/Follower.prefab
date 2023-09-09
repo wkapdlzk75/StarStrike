@@ -170,4 +170,4 @@ MonoBehaviour:
   bulletPrefabA: {fileID: 8168913708945795877, guid: 12527a97d78206349876ab61f89eca22, type: 3}
   bulletPrefabB: {fileID: 0}
   followPos: {x: 0, y: 0, z: 0}
-  followDelay: 30
+  followDelay: 15

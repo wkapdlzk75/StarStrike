@@ -30,10 +30,15 @@ public class Follower : Unit
     // 플레이어 위치 추적
     void Watch()
     {
+        if (!parentPos.Contains(parent.position))
+            parentPos.Enqueue(parent.position + new Vector3(-0.75f, -0.75f, 0));
+
         // Queue = FIFO
-        parentPos.Enqueue(parent.position + new Vector3(-0.75f, -0.75f, 0));
         if (parentPos.Count > followDelay)
             followPos = parentPos.Dequeue();
+        else if (parentPos.Count < followDelay)
+            followPos = parent.position;
+
     }
 
     // 플레이어 따라가기
