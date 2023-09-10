@@ -67,10 +67,13 @@ public class Mob : Unit
 
     void FireFowardToPlayer()
     {
-        Bullet br = Instantiate(bulletPrefabA, transform.position + new Vector3(0.58f, -1.4f, 0), transform.rotation);
-        Bullet brr = Instantiate(bulletPrefabA, transform.position + new Vector3(0.87f, -1.4f, 0), transform.rotation);
-        Bullet bl = Instantiate(bulletPrefabA, transform.position + new Vector3(-0.58f, -1.4f, 0), transform.rotation);
-        Bullet bll = Instantiate(bulletPrefabA, transform.position + new Vector3(-0.87f, -1.4f, 0), transform.rotation);
+        Vector2 playerPos = (player.transform.position - transform.position).normalized;
+        float angle = Mathf.Atan2(playerPos.y, playerPos.x) * Mathf.Rad2Deg;
+
+        Bullet br = Instantiate(bulletPrefabA, transform.position + new Vector3(0.58f, -1.4f, 0), Quaternion.Euler(0, 0, angle - 270));
+        Bullet brr = Instantiate(bulletPrefabA, transform.position + new Vector3(0.87f, -1.4f, 0), Quaternion.Euler(0, 0, angle - 270));
+        Bullet bl = Instantiate(bulletPrefabA, transform.position + new Vector3(-0.58f, -1.4f, 0), Quaternion.Euler(0, 0, angle - 270));
+        Bullet bll = Instantiate(bulletPrefabA, transform.position + new Vector3(-0.87f, -1.4f, 0), Quaternion.Euler(0, 0, angle - 270));
 
         br.Damage = gameObject.GetComponent<Mob>().Damage;
         brr.Damage = gameObject.GetComponent<Mob>().Damage;
@@ -81,8 +84,6 @@ public class Mob : Unit
         Rigidbody2D bbrr = brr.GetComponent<Rigidbody2D>();
         Rigidbody2D bbl = bl.GetComponent<Rigidbody2D>();
         Rigidbody2D bbll = bll.GetComponent<Rigidbody2D>();
-
-        Vector2 playerPos = (player.transform.position - transform.position).normalized;
 
         bbr.velocity = playerPos * br.speed;
         bbrr.velocity = playerPos * brr.speed;
