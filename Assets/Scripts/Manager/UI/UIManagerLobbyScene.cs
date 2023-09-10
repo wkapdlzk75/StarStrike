@@ -7,7 +7,7 @@ public class UIManagerLobbyScene : UIManager
     public static UIManagerLobbyScene instance;
     public Text stageText;
 
-    const int MAX_STAGE = 4;    // 마지막 스테이지
+    const int MAX_STAGE = 5;    // 마지막 스테이지
 
     private void Awake()
     {

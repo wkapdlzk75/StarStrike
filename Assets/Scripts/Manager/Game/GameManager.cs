@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     // 게임 승리
     public void VictoryGame()
     {
-        // 게임 승리 처리 코드 작성
+        score = 0;
         UIManagerGameScene.instance.VictoryGame();
     }
 

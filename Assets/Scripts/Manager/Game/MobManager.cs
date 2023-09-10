@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class MobManager : MonoBehaviour
@@ -87,21 +88,44 @@ public class MobManager : MonoBehaviour
                 repeatCount++;
                 yield return new WaitForSeconds(spawnInterval);
             }
-            new WaitForSeconds(3); // 여기
-
+            yield return new WaitForSeconds(3);
+            GameManager.instance.VictoryGame();
         }
-        else
+        else if (stage == 4)
         {
             while (repeatCount < 15)
             {
                 int rangeMob = UnityEngine.Random.Range(0, 3);
-                SpawnMob(2);
-                SideSpawnMob(2); // 50%의 확률로 스폰
+                SpawnMob(rangeMob);
+                SideSpawnMob(rangeMob); // 50%의 확률로 스폰
                 repeatCount++;
                 yield return new WaitForSeconds(spawnInterval);
             }
+            yield return new WaitForSeconds(5);
+            GameManager.instance.VictoryGame();
+        }
+        else if(stage == 5)
+        {
+            while (repeatCount < 1)
+            {
+                int rangeMob = UnityEngine.Random.Range(0, 3);
+                SpawnMob(rangeMob);
+                SideSpawnMob(rangeMob); // 50%의 확률로 스폰
+                repeatCount++;
+                yield return new WaitForSeconds(spawnInterval);
+            }
+            Debug.Log("7초 뒤 보스 스폰");
+            yield return new WaitForSeconds(7);
+            spawnBoss();
+
         }
 
+    }
+
+    void spawnBoss()
+    {
+        Mob mob = Instantiate(mobPrefab[3], spawnPoints[2].position, spawnPoints[2].rotation, parent.transform);
+        mob.player = player;
     }
 
     // 동시에 같은 몹 5마리 생성
