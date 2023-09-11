@@ -10,15 +10,12 @@ public class ItemManager : CSVManager
         public string name;
         public int value;
     }
-    List<string[]> ItemArray = new List<string[]>();
-    //public void Create()
-    //{
-    //    MakeData("test", ItemArray);
-    //}
+    
+    
 
     public override void Create()
     {
-        MakeData("test", ItemArray);
+        MakeData("test");
     }
 
 }

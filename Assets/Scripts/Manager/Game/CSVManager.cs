@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class CSVManager : MTSingleton<CSVManager>
 {
-       
-    //public TextAsset m_kCsv;
     struct ITEMSTRUCT
     {
         public int id;
@@ -20,7 +18,7 @@ public class CSVManager : MTSingleton<CSVManager>
     List<string[]> ItemArray = new List<string[]>();
 
     string[] m_column;// = record[0].Split(",");
-    public void MakeData(string szname, List<string[]> list)
+    public void MakeData(string szname)
     {
         TextAsset myTextAsset = Resources.Load<TextAsset>(szname);
         if (myTextAsset != null)
@@ -34,7 +32,7 @@ public class CSVManager : MTSingleton<CSVManager>
             for (int i = 1; i < record.Length; i++)
             {
                 string[] a = record[i].Split(",");
-                list.Add(a);
+                ItemArray.Add(a);
             }
             Debug.Log(myTextAsset.text);
         }
@@ -61,9 +59,10 @@ public class CSVManager : MTSingleton<CSVManager>
         Debug.Log(id - 1);
         string [] ss= ItemArray[id - 1];
         
+
         string str= ss[col];
         return str;
-        //return ItemArray[id-1][col];    // 여기 수정함
+        //return ItemArray[id-1][col];
     }
     public string GetItemString(int id, string column)
     {

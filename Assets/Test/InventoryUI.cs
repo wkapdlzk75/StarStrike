@@ -8,7 +8,7 @@ public class InventoryUI : MTSingleton<InventoryUI>
     public GameObject m_gvisible;
     public Slot m_SlotPrefab;
     public GameObject m_gDir;
-    List<Slot> m_Slots;
+    List<Slot> m_Slots = new List<Slot>();
     public void Open()
     {
         m_gvisible.SetActive(true);
@@ -22,9 +22,17 @@ public class InventoryUI : MTSingleton<InventoryUI>
     {
         return m_gDir.transform;
     }
-    void UpdateData()
+    private void ResetItem()
     {
-        m_Slots = new List<Slot>();
+     foreach(var v in m_Slots)
+     {
+            Destroy(v.gameObject);
+     }   
+     m_Slots.Clear();
+    }
+    public void UpdateData()
+    {
+        ResetItem();
         // 인벤토리 
         int cnt = 0;
         foreach (var v in InventoryManager.Instance.m_kData)
@@ -32,6 +40,7 @@ public class InventoryUI : MTSingleton<InventoryUI>
             Slot ss = Instantiate(m_SlotPrefab);
             ss.Create(cnt,v,this);
             cnt++;
+            m_Slots.Add(ss);
         }
 
     }

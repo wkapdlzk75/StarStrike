@@ -25,5 +25,6 @@ public class MainGame : MonoBehaviour
     public void OnAddItem()
     {
         InventoryManager.Instance.AddItem(1);
+        InventoryUI.Instance.UpdateData();
     }
 }
