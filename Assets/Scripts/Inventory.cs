@@ -17,20 +17,7 @@ public class Inventory : MonoBehaviour
 
     public void Create()
     {
-        for (int i = 0; i < MAXCOUNT; i++)
-        {
-            Slot slot = Instantiate(SlotPrefab);
-            if(m_Items.Count >i)
-            {
-                slot.Create(i, m_Items[i], this);
-            }
-            else
-            {
-                slot.Create(i, 0, this);
-            }
-            
-            slots.Add(slot);
-        }
+        
 
     }
 

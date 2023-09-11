@@ -15,17 +15,14 @@ public class CSVManager : MTSingleton<CSVManager>
         public int value;
     }
 
-    //List<ITEMSTRUCT> m_kItem = new List<ITEMSTRUCT>();
-    //Dictionary<int, ITEMSTRUCT> m_kItem  = new Dictionary<int, ITEMSTRUCT>();
-
     Dictionary<string,int > m_Columns  = new Dictionary<string,int>();
 
     List<string[]> ItemArray = new List<string[]>();
 
     string[] m_column;// = record[0].Split(",");
-    public void Create()
+    public void MakeData(string szname, List<string[]> list)
     {
-        TextAsset myTextAsset = Resources.Load<TextAsset>("test.txt");
+        TextAsset myTextAsset = Resources.Load<TextAsset>(szname);
         if (myTextAsset != null)
         {
             string[] record = myTextAsset.text.Split("\n");
@@ -37,7 +34,7 @@ public class CSVManager : MTSingleton<CSVManager>
             for (int i = 1; i < record.Length; i++)
             {
                 string[] a = record[i].Split(",");
-                ItemArray.Add(a);
+                list.Add(a);
             }
             Debug.Log(myTextAsset.text);
         }
@@ -48,17 +45,31 @@ public class CSVManager : MTSingleton<CSVManager>
 
     }
 
+    public virtual void Create()
+    {
+
+    }
     int GetComumn(string column)
     {
         return m_Columns[column];
     }
     string GetValue(int id,int col)
     {
-        return ItemArray[id][col];   
+        if (id == 0) return "";
+        //Debug.Log(id + "    " + col);
+        //Debug.Log(ItemArray[id][col] + "아이템");
+        Debug.Log(id - 1);
+        string [] ss= ItemArray[id - 1];
+        
+        string str= ss[col];
+        return str;
+        //return ItemArray[id-1][col];    // 여기 수정함
     }
     public string GetItemString(int id, string column)
     {
         int col = GetComumn(column);
+        //Debug.Log(col + "콜럼" + id);
+
         string value = GetValue(id, col);
         return value;
 

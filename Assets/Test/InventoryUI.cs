@@ -7,7 +7,7 @@ public class InventoryUI : MTSingleton<InventoryUI>
 
     public GameObject m_gvisible;
     public Slot m_SlotPrefab;
-
+    public GameObject m_gDir;
     List<Slot> m_Slots;
     public void Open()
     {
@@ -18,20 +18,21 @@ public class InventoryUI : MTSingleton<InventoryUI>
     {
         m_gvisible.SetActive(false);
     }
+    public Transform GetDir()
+    {
+        return m_gDir.transform;
+    }
     void UpdateData()
     {
         m_Slots = new List<Slot>();
         // 인벤토리 
-        int cnt = InventoryManager.Instance.m_kData.Count;
-
-        foreach ()
-        //for (int i = 0; i < cnt; i++)
-        //{
-        //    Slot ss = Instantiate(m_SlotPrefab);
-        //    ss.Create(i, InventoryManager.Instance.m_kData[i].ID);
-        //    m_Slots.Add(ss);
-        //}
-
+        int cnt = 0;
+        foreach (var v in InventoryManager.Instance.m_kData)
+        {
+            Slot ss = Instantiate(m_SlotPrefab);
+            ss.Create(cnt,v,this);
+            cnt++;
+        }
 
     }
 

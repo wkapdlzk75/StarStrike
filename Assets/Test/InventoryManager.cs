@@ -6,21 +6,24 @@ public class InventoryManager : MTSingleton<InventoryManager>
 {
     public List<ItemDB> m_kItems;// 가상으로 로드 추후에 바꿈
 
-    Dictionary<int,ItemDB> m_kData = new Dictionary<int, ItemDB> ();
-    void Start()
+    public List<int> m_kData = new List<int> ();
+    public void Create()
     {
         // 로딩, 아이템 로딩 
 
-        foreach (var item in m_kItems)
+        for(int i = 0; i < m_kItems.Count; i++) 
         {
-            m_kData.Add (item.ID, item);
+            int id = m_kItems[i].ID;
+            m_kData.Add (id );
         }
 
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    public void AddItem(int id)
     {
-        
+        //return ItemManager.instance.GetItem(id);    
+
+        m_kData.Add(id);
     }
+    
 }

@@ -9,8 +9,15 @@ public class Slot : MonoBehaviour
     public Image m_kImage;
     int m_nItem;
     int m_nSlot;
-    Inventory m_kParent;
-    public void Create(int slotIndex,int Item,Inventory parent)
+    InventoryUI m_kParent;
+
+    // 초기화
+    void Awake()
+    {
+       
+    }
+
+    public void Create(int slotIndex, int Item, InventoryUI parent)
     {
         m_nItem = Item;
         m_nSlot = slotIndex;
@@ -20,30 +27,16 @@ public class Slot : MonoBehaviour
         transform.localScale = Vector3.one;
         transform.localRotation = Quaternion.identity;
         transform.localPosition = Vector3.zero;
-        if(Item == 0)
+        if (Item == 0)// 아이템이 없을 경우
         {
-              
+
         }
         else
         {
             string ss = CSVManager.Instance.GetItemString(Item, "image");
-            string strimage = "sprite/" + ss;
-            m_kImage.sprite = Resources.Load(strimage) as Sprite;
+            string strimage = "Sprite/" + ss;
+            m_kImage.sprite = Resources.Load<Sprite>(strimage);
 
         }
-
-
-
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
