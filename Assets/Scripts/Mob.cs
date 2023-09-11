@@ -170,9 +170,9 @@ public class Mob : Unit
 
             // 랜덤 아이템 드랍
             int ran = mobName == "B" ? 0 : Random.Range(0, 100);
-            if (ran < 60)
+            if (ran < 1)
                 return;//Debug.Log("아이템 없음");
-            else if (ran < 90)  // Coin
+            else if (ran < 2)  // Coin
                 Instantiate(itemCoin, transform.position, itemCoin.transform.rotation);
             else if (ran < 95)  // Power
                 Instantiate(itemPower, transform.position, itemPower.transform.rotation);

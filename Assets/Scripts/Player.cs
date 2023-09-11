@@ -41,7 +41,7 @@ public class Player : Unit
         curFollower = 0;
         curPower = 1;
         isDie = false;
-        //OnItemUse();
+        OnItemUse();
     }
 
     void Update()

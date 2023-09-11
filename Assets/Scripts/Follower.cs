@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class Follower : Unit
     public Vector3 followPos;
     public int followDelay;
 
+    GameObject playerObject;
     Transform parent;
     Queue<Vector3> parentPos = new Queue<Vector3>();
 
@@ -18,6 +20,7 @@ public class Follower : Unit
     }
     public void Create(Player player)
     {
+        playerObject = player.gameObject;
         parent = player.transform;
     }
     void Update()
@@ -30,6 +33,15 @@ public class Follower : Unit
     // 플레이어 위치 추적
     void Watch()
     {
+        try {
+            if (!playerObject.activeSelf)
+                Destroy(gameObject);
+        } catch (Exception NullReferenceException)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         if (!parentPos.Contains(parent.position))
             parentPos.Enqueue(parent.position + new Vector3(-0.75f, -0.75f, 0));
 

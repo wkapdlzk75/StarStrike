@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class ItemManager : MTSingleton<ItemManager>
+public class CSVManager : MTSingleton<CSVManager>
 {
        
     //public TextAsset m_kCsv;

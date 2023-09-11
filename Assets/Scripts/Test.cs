@@ -9,7 +9,7 @@ public class Test : MonoBehaviour
     public Inventory m_kInventory;
     void Start()
     {
-        ItemManager.Instance.Create();
+        CSVManager.Instance.Create();
         m_kInventory.Create();
     }
 

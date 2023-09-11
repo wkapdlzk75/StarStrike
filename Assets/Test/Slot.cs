@@ -26,7 +26,7 @@ public class Slot : MonoBehaviour
         }
         else
         {
-            string ss = ItemManager.Instance.GetItemString(Item, "image");
+            string ss = CSVManager.Instance.GetItemString(Item, "image");
             string strimage = "sprite/" + ss;
             m_kImage.sprite = Resources.Load(strimage) as Sprite;
 
