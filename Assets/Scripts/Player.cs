@@ -41,7 +41,7 @@ public class Player : Unit
         curFollower = 0;
         curPower = 1;
         isDie = false;
-        OnItemUse();
+        //OnItemUse();
     }
 
     void Update()
@@ -143,6 +143,7 @@ public class Player : Unit
     // 플레이어 죽음
     public void Die()
     {
+        curFollower = 0;
         curLife--;
         UIManagerGameScene.instance.UpdateLife(curLife, false);
 
@@ -216,10 +217,12 @@ public class Player : Unit
                     GameManager.instance.AddScore(100);
                     break;
                 case "Power":
-                    if (curPower == maxPower)
-                        OnItemUse();
-                    else
+                    if (curPower < maxPower)
                         curPower++;
+                    else if (curFollower < maxFollower)
+                        OnItemUse(curFollower);
+                    else
+                        GameManager.instance.AddScore(50);
                     break;
                 case "Boom":
                     if (curBoom == maxBoom)
@@ -257,11 +260,12 @@ public class Player : Unit
             }
     }
 
-    void OnItemUse()
+    void OnItemUse(int num)
     {
         if (maxFollower == curFollower)
             return;
         Follower fl = Instantiate(m_Follow);
-        fl.Create(this);
+        fl.Create(this, num);
+        curFollower++;
     }
 }

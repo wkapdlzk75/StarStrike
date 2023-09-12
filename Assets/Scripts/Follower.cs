@@ -9,25 +9,38 @@ public class Follower : Unit
 
     public Vector3 followPos;
     public int followDelay;
+    int index;
 
     GameObject playerObject;
     Transform parent;
+    Vector3[] vector3Pos;
     Queue<Vector3> parentPos = new Queue<Vector3>();
 
     void Start()
     {
         lastFireTime = 0;
+        vector3Pos = new Vector3[4];
+        CreateArray();
     }
-    public void Create(Player player)
+    public void Create(Player player, int num)
     {
         playerObject = player.gameObject;
         parent = player.transform;
+        index = num;
     }
     void Update()
     {
         Watch();
         Follow();
         Fire();
+    }
+
+    void CreateArray()
+    {
+        vector3Pos[0] = new Vector3(-0.65f, -0.65f, 0);
+        vector3Pos[1] = new Vector3(0.65f, -0.65f, 0);
+        vector3Pos[2] = new Vector3(-1.3f, -1f, 0);
+        vector3Pos[3] = new Vector3(1.3f, -1f, 0);
     }
 
     // 플레이어 위치 추적
@@ -43,7 +56,7 @@ public class Follower : Unit
         }
 
         if (!parentPos.Contains(parent.position))
-            parentPos.Enqueue(parent.position + new Vector3(-0.75f, -0.75f, 0));
+            parentPos.Enqueue(parent.position + vector3Pos[index]);
 
         // Queue = FIFO
         if (parentPos.Count > followDelay)
