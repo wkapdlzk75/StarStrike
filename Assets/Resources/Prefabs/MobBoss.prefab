@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3230717713523154049}
   m_Layer: 0
   m_Name: MobBoss
-  m_TagString: Mob
+  m_TagString: MobBoss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -175,7 +175,7 @@ MonoBehaviour:
   MAX_HP: 300
   HP: 300
   Damage: 5
-  speed: 0.5
+  speed: 1
   bulletFiringInterval: 0
   bulletsParent: {fileID: 0}
   bulletPrefabA: {fileID: 5628264691331630020, guid: 1217b77220e2486438fa45c842d3e515, type: 3}

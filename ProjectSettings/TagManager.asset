@@ -12,6 +12,7 @@ TagManager:
   - Item
   - Follower
   - FollowerBullet
+  - MobBoss
   layers:
   - Default
   - TransparentFX

@@ -30,7 +30,7 @@ public class Mob : Unit
     {
         if (mobName == "B")
         {
-            Invoke("moveStop", 5);
+            Invoke("moveStop", 3);
             return;
         }
         // 최초 몹 소환 2초 후 총알 발사, bulletFiringInterval초 마다 총알 발사
@@ -66,9 +66,9 @@ public class Mob : Unit
     }
 
     void FireFowardToPlayer()
-    {   
+    {
         // 리스트나 배열로 해서 중복 제거
-        
+        if (player == null) return;
         Vector2 playerPos = (player.transform.position - transform.position).normalized;
         float angle = Mathf.Atan2(playerPos.y, playerPos.x) * Mathf.Rad2Deg;
 
@@ -168,16 +168,18 @@ public class Mob : Unit
 
         if (HP <= 0)
         {
-            Destroy(gameObject);
             GameManager.instance.AddScore(score);
+            if (mobName == "B")
+                GameManager.instance.VictoryGame();
+            Destroy(gameObject);
 
             // 랜덤 아이템 드랍
-            int ran = mobName == "B" ? 0 : Random.Range(0, 100);
-            if (ran < 1)
+            int ran = mobName == "B" ? -1 : Random.Range(0, 100);
+            if (ran < 0)
                 return;//Debug.Log("아이템 없음");
-            else if (ran < 2)  // Coin
+            else if (ran < 0)  // Coin
                 Instantiate(itemCoin, transform.position, itemCoin.transform.rotation);
-            else if (ran < 95)  // Power
+            else if (ran < 50)  // Power
                 Instantiate(itemPower, transform.position, itemPower.transform.rotation);
             else if (ran < 100) // Boom
                 Instantiate(itemBoom, transform.position, itemBoom.transform.rotation);
@@ -195,6 +197,10 @@ public class Mob : Unit
         // 경계선에 닿을 경우 (밖으로 나갈 경우)
         if (_collision.transform.CompareTag("Border"))
             Destroy(gameObject);
+
+        // 유저와 충돌 했을 경우
+        if (_collision.transform.CompareTag("Player") && transform.CompareTag("MobBoss"))
+            return;
 
         // 유저와 충돌 했을 경우
         if (_collision.transform.CompareTag("Player"))

@@ -199,7 +199,7 @@ public class Player : Unit
         }
 
         // 몹과 충돌 했을 경우
-        if (_collision.transform.CompareTag("Mob"))
+        if (_collision.transform.CompareTag("Mob") || _collision.transform.CompareTag("MobBoss"))
         {
             if (isDie) return;
             isDie = true;

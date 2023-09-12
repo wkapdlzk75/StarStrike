@@ -34,7 +34,8 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
 
         // 적이 맞았을 경우
-        if (transform.CompareTag("PlayerBullet") && _collision.transform.CompareTag("Mob"))
+        if ((transform.CompareTag("FollowerBullet") || transform.CompareTag("PlayerBullet")) && 
+            (_collision.transform.CompareTag("Mob") || _collision.transform.CompareTag("MobBoss")))
         {
             Destroy(gameObject);
             _collision.gameObject.GetComponent<Mob>().OnHit(Damage);
