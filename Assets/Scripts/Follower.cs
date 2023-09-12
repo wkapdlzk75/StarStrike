@@ -32,7 +32,7 @@ public class Follower : Unit
     {
         Watch();
         Follow();
-        Fire();
+        //Fire();
     }
 
     void CreateArray()
@@ -46,10 +46,12 @@ public class Follower : Unit
     // 플레이어 위치 추적
     void Watch()
     {
-        try {
+        try
+        {
             if (!playerObject.activeSelf)
                 Destroy(gameObject);
-        } catch (Exception NullReferenceException)
+        }
+        catch (Exception NullReferenceException)
         {
             Destroy(gameObject);
             return;
@@ -75,12 +77,6 @@ public class Follower : Unit
     // 총알 발사 *****
     public void Fire()
     {
-        // bulletFiringInterval초 마다 총알 생성
-
-        if (Time.time - lastFireTime > bulletFiringInterval)
-        {
-            Instantiate(bulletPrefabA, transform.position + new Vector3(0, 0.5f, 0), transform.rotation);
-            lastFireTime = Time.time;
-        }
+        Instantiate(bulletPrefabA, transform.position + new Vector3(0, 0.5f, 0), transform.rotation);
     }
 }

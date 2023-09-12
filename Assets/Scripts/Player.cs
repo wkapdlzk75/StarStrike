@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -18,6 +19,8 @@ public class Player : Unit
     public int maxFollower; // 최대 팔로워 갯수
     public int curFollower; // 현재 팔로워 갯수
 
+    int cnt;
+
     float lastFireTime;     // 마지막 총알 발사 시각
     bool isDie;             // 플레이어 죽음 여부
     bool isBoomActive;        // 폭탄 터짐 여부
@@ -27,6 +30,8 @@ public class Player : Unit
 
     Animator animator;
     public Follower m_Follow;
+    // 자식비행기들
+    private List<Follower> followers = new List<Follower>();
 
     void Awake()
     {
@@ -54,35 +59,50 @@ public class Player : Unit
     // 총알 발사 *****
     public void Fire()
     {
-        // bulletFiringInterval초 마다 총알 생성
-        switch (curPower)
+        if (Time.time - lastFireTime > bulletFiringInterval)
         {
-            case 1:
-                if (Time.time - lastFireTime > bulletFiringInterval)
-                {
+            // bulletFiringInterval초 마다 총알 생성
+            switch (curPower)
+            {
+                case 1:
                     Instantiate(bulletPrefabA, transform.position + new Vector3(0, 0.7f, 0), transform.rotation, bulletsParent.transform);
-                    lastFireTime = Time.time;
-                }
-                break;
-            case 2:
-                if (Time.time - lastFireTime > bulletFiringInterval)
-                {
+                    break;
+                case 2:
                     Instantiate(bulletPrefabA, transform.position + new Vector3(0.1f, 0.7f, 0), transform.rotation, bulletsParent.transform);
                     Instantiate(bulletPrefabA, transform.position + new Vector3(-0.1f, 0.7f, 0), transform.rotation, bulletsParent.transform);
-                    lastFireTime = Time.time;
-                }
-                break;
-            case 3:
-                if (Time.time - lastFireTime > bulletFiringInterval)
-                {
+                    break;
+                case 3:
                     Instantiate(bulletPrefabA, transform.position + new Vector3(0.3f, 0.7f, 0), transform.rotation, bulletsParent.transform);
                     Instantiate(bulletPrefabB, transform.position + new Vector3(0, 0.7f, 0), transform.rotation, bulletsParent.transform);
                     Instantiate(bulletPrefabA, transform.position + new Vector3(-0.3f, 0.7f, 0), transform.rotation, bulletsParent.transform);
-                    lastFireTime = Time.time;
-                }
-                break;
+                    break;
+            }
 
+            cnt++;
+
+            if(cnt == 3)
+            {
+                foreach (var item in followers)
+                    item.Fire();
+                cnt = 0;
+            }
+
+            lastFireTime = Time.time;
         }
+
+        // 3초에 한번식 자식들도 발사
+        //시간을 재고
+        // 발사 시간이 되면
+        // if()
+        // followers list내에 있는 자식들에게 모두 발사명령
+
+
+        //var fls = GetComponentsInChildren<Follower>();
+        //foreach (var item in fls)
+        //{
+        //    item.Fire();
+        //}
+
     }
 
     // 폭탄 활성화
@@ -267,5 +287,6 @@ public class Player : Unit
         Follower fl = Instantiate(m_Follow);
         fl.Create(this, num);
         curFollower++;
+        followers.Add(fl);
     }
 }
