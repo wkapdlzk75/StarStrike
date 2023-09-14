@@ -46,8 +46,8 @@ public class MobManager : MonoBehaviour
         // 파일 읽기
         TextAsset textFile = Resources.Load("Stage 1") as TextAsset;
         StringReader stringReader = new StringReader(textFile.text);
-        
-        while(stringReader !=  null)
+
+        while (stringReader != null)
         {
             string line = stringReader.ReadLine();
 
@@ -104,9 +104,9 @@ public class MobManager : MonoBehaviour
             yield return new WaitForSeconds(5);
             GameManager.instance.VictoryGame();
         }
-        else if(stage == 5)
+        else if (stage == 5)
         {
-            while (repeatCount < 1)
+            while (repeatCount < 15)
             {
                 int rangeMob = UnityEngine.Random.Range(0, 3);
                 SpawnMob(rangeMob);

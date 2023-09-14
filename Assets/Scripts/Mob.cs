@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using UnityEngine;
 
 public class Mob : Unit
@@ -42,37 +44,51 @@ public class Mob : Unit
         //if (!gameObject.activeSelf)
         //    return;
         rb.velocity = Vector2.zero;
-        InvokeRepeating("bossRandomFire", 5,5);
+        InvokeRepeating("bossRandomFire", 4, 6);
     }
 
     void bossRandomFire()
     {
-        int ran = Random.Range(0, 1);
+        int ran = Random.Range(0, 4);
         switch (ran)
         {
             case 0:
                 FireFowardToPlayer();
                 break;
             case 1:
-                FireShotgunToPlayer();
+                FireShotToPlayer();
                 break;
             case 2:
-                FireShotgun();
+                FireArc();
                 break;
             case 3:
-                FireAround();
+                FireHalfAround();
                 break;
         }
     }
-
     void FireFowardToPlayer()
+    {
+        StartCoroutine(FireFowardToPlayerCoroutine1());
+        Debug.Log("4발씩 발사");
+    }
+
+    IEnumerator FireFowardToPlayerCoroutine1()
+    {
+        for (int i = 0; i < 7; i++)
+        {
+            FireFowardToPlayerCoroutine2();
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    void FireFowardToPlayerCoroutine2()
     {
         // 리스트나 배열로 해서 중복 제거
         if (player == null) return;
         Vector2 playerPos = (player.transform.position - transform.position).normalized;
         float angle = Mathf.Atan2(playerPos.y, playerPos.x) * Mathf.Rad2Deg;
 
-                                                                        // 좌우 대칭 함수
+        // 좌우 대칭 함수
         Bullet br = Instantiate(bulletPrefabA, transform.position + new Vector3(0.58f, -1.4f, 0), Quaternion.Euler(0, 0, angle - 270));
         Bullet brr = Instantiate(bulletPrefabA, transform.position + new Vector3(0.87f, -1.4f, 0), Quaternion.Euler(0, 0, angle - 270));
         Bullet bl = Instantiate(bulletPrefabA, transform.position + new Vector3(-0.58f, -1.4f, 0), Quaternion.Euler(0, 0, angle - 270));
@@ -93,21 +109,82 @@ public class Mob : Unit
         bbl.velocity = playerPos * bl.speed;
         bbll.velocity = playerPos * bll.speed;
 
-        Debug.Log("4발 발사");
+
     }
-    void FireShotgunToPlayer()
+    void FireShotToPlayer()
     {
-        Debug.Log("샷건2 발사");
+        if (player == null) return;
+        Vector2 playerPos = (player.transform.position - transform.position).normalized;
+        for (int i = 0; i < 10; i++)
+        {
+            Bullet bb = Instantiate(bulletPrefabB, transform.position + new Vector3(0, -1.4f, 0), Quaternion.Euler(0, 0, 0));
+            bb.Damage = gameObject.GetComponent<Mob>().Damage;
+            Rigidbody2D rb = bb.GetComponent<Rigidbody2D>();
+            Vector2 ranVec = new Vector2(Random.Range(-0.4f, 0.4f), Random.Range(-0.05f, -0.15f));
+            playerPos += ranVec;
+            rb.velocity = playerPos * bb.speed;
+        }
+
+        Debug.Log("무차별 발사");
     }
 
-    void FireShotgun()
+
+    void FireArc()
     {
-        Debug.Log("샷건 발사");
+        StartCoroutine(FireArcCoroutine1());
+        Debug.Log("부채꼴 발사");
     }
 
-    void FireAround()
+    IEnumerator FireArcCoroutine1()
     {
+        for (int i = 0; i < 51; i++)
+        {
+            FireArcCoroutine2(i);
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    void FireArcCoroutine2(int i)
+    {
+        Bullet bb = Instantiate(bulletPrefabB, transform.position + new Vector3(0, -1.4f, 0), Quaternion.Euler(0, 0, 0));
+        bb.Damage = gameObject.GetComponent<Mob>().Damage;
+        Rigidbody2D rb = bb.GetComponent<Rigidbody2D>();
+        Vector2 dirVec = new Vector2(Mathf.Cos(Mathf.PI * i / 20), -1);
+
+        rb.velocity = dirVec * bb.speed;
+    }
+
+    void FireHalfAround()
+    {
+        StartCoroutine(FireHalfAroundCoroutine1());
         Debug.Log("원형 발사");
+    }
+
+    IEnumerator FireHalfAroundCoroutine1()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            FireHalfAroundCoroutine2(i);
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    void FireHalfAroundCoroutine2(int a)
+    {
+        int count = 15;
+        int MAX = a % 2 == 0 ? count : count + 1;
+        for (int i = 0; i <= MAX; i++)
+        {
+            Bullet bb = Instantiate(bulletPrefabB, transform.position + new Vector3(0, -1.4f, 0), Quaternion.Euler(0, 0, 0));
+            bb.Damage = gameObject.GetComponent<Mob>().Damage;
+            Rigidbody2D rb = bb.GetComponent<Rigidbody2D>();
+            Vector2 dirVec = new Vector2(Mathf.Cos(Mathf.PI * i / MAX), -Mathf.Sin(Mathf.PI * i / MAX));
+            Vector3 rotVec = new Vector3(0, 0, Mathf.Atan2(dirVec.y, dirVec.x) * Mathf.Rad2Deg + 90);
+            bb.transform.rotation = Quaternion.Euler(rotVec);
+            rb.velocity = dirVec * bb.speed / 2;
+
+        }
+
     }
 
     // 몹에 따른 총알 발사
@@ -175,11 +252,11 @@ public class Mob : Unit
 
             // 랜덤 아이템 드랍
             int ran = mobName == "B" ? -1 : Random.Range(0, 100);
-            if (ran < 0)
+            if (ran < 60)
                 return;//Debug.Log("아이템 없음");
-            else if (ran < 0)  // Coin
+            else if (ran < 90)  // Coin
                 Instantiate(itemCoin, transform.position, itemCoin.transform.rotation);
-            else if (ran < 50)  // Power
+            else if (ran < 95)  // Power
                 Instantiate(itemPower, transform.position, itemPower.transform.rotation);
             else if (ran < 100) // Boom
                 Instantiate(itemBoom, transform.position, itemBoom.transform.rotation);
