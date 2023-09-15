@@ -99,7 +99,7 @@ public class MobManager : MonoBehaviour
         }
         else if (stage == 5)
         {
-            while (repeatCount < 15)
+            while (repeatCount < 0)
             {
                 int rangeMob = Random.Range(0, 3);
                 SpawnMob(rangeMob);

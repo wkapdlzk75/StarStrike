@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    public int MAX_HP;                  // 최대 체력
-    public int HP;                      // 현재 체력
-    public int Damage;                  // 공격력
+    public int maxHp;                  // 최대 체력
+    public int curHp;                      // 현재 체력
+    public int damage;                  // 공격력
     public float speed;                 // 이동 속도
     public float bulletFiringInterval;  // 총알 발사 간격
 
@@ -16,7 +16,7 @@ public class Unit : MonoBehaviour
     public Bullet bulletPrefabB;        // 총알 프리팹B
     public void OnHit(int _damage)
     {
-        HP -= _damage;
+        curHp -= _damage;
     }
 
 }

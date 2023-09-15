@@ -3,7 +3,9 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float speed; // 총알 스피드
-    public int Damage;  // 공격력
+    public int damage;  // 공격력
+
+    public string nameBullet;
 
     void Start()
     {
@@ -14,14 +16,14 @@ public class Bullet : MonoBehaviour
         {
             GameObject playerObject = GameObject.FindWithTag("Player");
             Player player = playerObject.GetComponent<Player>();
-            Damage = player.Damage;
+            damage = player.damage;
             rb.velocity = Vector2.up * speed;
         }
 
         // 팔로워의 총알의 경우
         if (transform.CompareTag("FollowerBullet"))
         {
-            Damage = 1;
+            damage = 1;
             speed = 5;
             rb.velocity = Vector2.up * speed;
         }
@@ -31,22 +33,31 @@ public class Bullet : MonoBehaviour
     {
         // 경계선에 닿을 경우 (밖으로 나갈 경우)
         if (_collision.transform.CompareTag("Border"))
-            Destroy(gameObject);
+            PushBullet();
 
         // 적이 맞았을 경우
         if ((transform.CompareTag("FollowerBullet") || transform.CompareTag("PlayerBullet")) && 
             (_collision.transform.CompareTag("Mob") || _collision.transform.CompareTag("MobBoss")))
         {
-            Destroy(gameObject);
-            _collision.gameObject.GetComponent<Mob>().OnHit(Damage);
+            PushBullet();
+            _collision.gameObject.GetComponent<Mob>().OnHit(damage);
             //Debug.Log(gameObject.name + " 를 " + Damage + " 만큼 입힘.");
         }
 
         // 플레이어가 맞았을 경우
         if (transform.CompareTag("MobBullet") && _collision.transform.CompareTag("Player"))
-            _collision.gameObject.GetComponent<Player>().OnHit(Damage);
+            _collision.gameObject.GetComponent<Player>().OnHit(damage);
             //Debug.Log(Damage + " 만큼 플레이어가 데미지 입음");
 
+    }
+
+    void PushBullet()
+    {
+        // gameObject.name.Substring();
+        string myName = gameObject.name.Replace("(Clone)", "");
+        // gameObject.name.Split('(')[0];
+
+        ObjectManager.Instance.PushRangedObject(myName, gameObject);
     }
 
 }

@@ -155,7 +155,7 @@ public class Player : Unit
     public void RespawnPlayer()
     {
         isDie = false;
-        HP = MAX_HP;
+        curHp = maxHp;
         transform.position = new Vector2(0, -4);
         gameObject.SetActive(true);
     }
@@ -212,7 +212,7 @@ public class Player : Unit
 
             if (isDie) return;
 
-            if (HP <= 0 && !isDie)
+            if (curHp <= 0 && !isDie)
             {
                 isDie = true;
                 Die();
