@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class CSVManager : MTSingleton<CSVManager>
+public class CSVManager : SSSingleton<CSVManager>
 {
     struct ITEMSTRUCT
     {

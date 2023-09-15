@@ -1,12 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Follower : Unit
 {
-    float lastFireTime;
-
     public Vector3 followPos;
     public int followDelay;
     int index;
@@ -18,7 +15,6 @@ public class Follower : Unit
 
     void Start()
     {
-        lastFireTime = 0;
         vector3Pos = new Vector3[4];
         CreateArray();
     }

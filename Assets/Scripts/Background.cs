@@ -1,6 +1,4 @@
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Background : MonoBehaviour
 {

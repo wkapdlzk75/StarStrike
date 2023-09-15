@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryUI : MTSingleton<InventoryUI>
+public class InventoryUI : SSSingleton<InventoryUI>
 {
 
     public GameObject m_gvisible;

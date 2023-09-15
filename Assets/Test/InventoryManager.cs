@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryManager : MTSingleton<InventoryManager>
+public class InventoryManager : SSSingleton<InventoryManager>
 {
     public List<ItemDB> m_kItems;// 가상으로 로드 추후에 바꿈
 

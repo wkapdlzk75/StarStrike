@@ -1,29 +1,5 @@
-/*using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-public class SSSingleton<T> : MonoBehaviour
-{
-    static private T _instance;
-    public static T instance
-    {
-        get
-        {
-            return _instance;
-        }
-
-    }
-    private void Awake()
-    {
-        _instance = GetComponent<T>();
-    }
-
-}*/
-
-
-using UnityEngine;
-
-public class MTSingleton<T> : MonoBehaviour where T : MonoBehaviour
+public class SSSingleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static T _instance;
 

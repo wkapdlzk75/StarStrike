@@ -32,22 +32,22 @@ public class Mob : Unit
     {
         if (mobName == "B")
         {
-            Invoke("moveStop", 3);
+            Invoke("MoveStop", 3);
             return;
         }
         // 최초 몹 소환 2초 후 총알 발사, bulletFiringInterval초 마다 총알 발사
         InvokeRepeating("Fire", 2, bulletFiringInterval);
     }
 
-    void moveStop()
+    void MoveStop()
     {
         //if (!gameObject.activeSelf)
         //    return;
         rb.velocity = Vector2.zero;
-        InvokeRepeating("bossRandomFire", 4, 6);
+        InvokeRepeating("BossRandomFire", 4, 6);
     }
 
-    void bossRandomFire()
+    void BossRandomFire()
     {
         int ran = Random.Range(0, 4);
         switch (ran)
@@ -94,10 +94,10 @@ public class Mob : Unit
         Bullet bl = Instantiate(bulletPrefabA, transform.position + new Vector3(-0.58f, -1.4f, 0), Quaternion.Euler(0, 0, angle - 270));
         Bullet bll = Instantiate(bulletPrefabA, transform.position + new Vector3(-0.87f, -1.4f, 0), Quaternion.Euler(0, 0, angle - 270));
 
-        br.Damage = gameObject.GetComponent<Mob>().Damage;
-        brr.Damage = gameObject.GetComponent<Mob>().Damage;
-        bl.Damage = gameObject.GetComponent<Mob>().Damage;
-        bll.Damage = gameObject.GetComponent<Mob>().Damage;
+        br.Damage = Damage;
+        brr.Damage = Damage;
+        bl.Damage = Damage;
+        bll.Damage = Damage;
 
         Rigidbody2D bbr = br.GetComponent<Rigidbody2D>();
         Rigidbody2D bbrr = brr.GetComponent<Rigidbody2D>();
@@ -118,7 +118,7 @@ public class Mob : Unit
         for (int i = 0; i < 10; i++)
         {
             Bullet bb = Instantiate(bulletPrefabB, transform.position + new Vector3(0, -1.4f, 0), Quaternion.Euler(0, 0, 0));
-            bb.Damage = gameObject.GetComponent<Mob>().Damage;
+            bb.Damage = Damage;
             Rigidbody2D rb = bb.GetComponent<Rigidbody2D>();
             Vector2 ranVec = new Vector2(Random.Range(-0.4f, 0.4f), Random.Range(-0.05f, -0.15f));
             playerPos += ranVec;
@@ -147,7 +147,7 @@ public class Mob : Unit
     void FireArcCoroutine2(int i)
     {
         Bullet bb = Instantiate(bulletPrefabB, transform.position + new Vector3(0, -1.4f, 0), Quaternion.Euler(0, 0, 0));
-        bb.Damage = gameObject.GetComponent<Mob>().Damage;
+        bb.Damage = Damage;
         Rigidbody2D rb = bb.GetComponent<Rigidbody2D>();
         Vector2 dirVec = new Vector2(Mathf.Cos(Mathf.PI * i / 20), -1);
 
@@ -176,7 +176,7 @@ public class Mob : Unit
         for (int i = 0; i <= MAX; i++)
         {
             Bullet bb = Instantiate(bulletPrefabB, transform.position + new Vector3(0, -1.4f, 0), Quaternion.Euler(0, 0, 0));
-            bb.Damage = gameObject.GetComponent<Mob>().Damage;
+            bb.Damage = Damage;
             Rigidbody2D rb = bb.GetComponent<Rigidbody2D>();
             Vector2 dirVec = new Vector2(Mathf.Cos(Mathf.PI * i / MAX), -Mathf.Sin(Mathf.PI * i / MAX));
             Vector3 rotVec = new Vector3(0, 0, Mathf.Atan2(dirVec.y, dirVec.x) * Mathf.Rad2Deg + 90);
@@ -190,36 +190,22 @@ public class Mob : Unit
     // 몹에 따른 총알 발사
     public void Fire()
     {
-        if (player != null)
-            if (mobName == "S")
-            {
+        if (player == null) return;
 
-                Bullet b = BulletManager.instance.Create(transform);
-                b.Damage = gameObject.GetComponent<Mob>().Damage;
-                //Bullet b = Instantiate(bulletPrefabA, transform.position + new Vector3(0, -0.5f, 0), transform.rotation);//, bulletsParent.transform);
-                Rigidbody2D bb = b.GetComponent<Rigidbody2D>();
-                Vector2 playerPos = (player.transform.position - transform.position).normalized;
-                bb.velocity = playerPos * b.speed;
-                //Debug.Log(playerPos + " " + b.speed + " " + bb.velocity + "S");
-            }
-            else if (mobName == "M")
-            {
-                Bullet b = Instantiate(bulletPrefabA, transform.position + new Vector3(0, -0.5f, 0), transform.rotation);//, bulletsParent.transform);
-                b.Damage = gameObject.GetComponent<Mob>().Damage;
-                Rigidbody2D bb = b.GetComponent<Rigidbody2D>();
-                Vector2 playerPos = (player.transform.position - transform.position).normalized;
-                bb.velocity = playerPos * b.speed;
-                //Debug.Log(playerPos + " " + b.speed + " " + bb.velocity + "M");
-            }
-            else if (mobName == "L")
-            {
-                Bullet b = Instantiate(bulletPrefabB, transform.position + new Vector3(0, -0.5f, 0), transform.rotation);//, bulletsParent.transform);
-                b.Damage = gameObject.GetComponent<Mob>().Damage;
-                Rigidbody2D bb = b.GetComponent<Rigidbody2D>();
-                Vector2 playerPos = (player.transform.position - transform.position).normalized;
-                bb.velocity = playerPos * b.speed;
-                //Debug.Log(playerPos + " " + b.speed + " " + bb.velocity + "L");
-            }
+        Bullet b;
+
+        if (mobName == "S")
+            b = BulletManager.instance.Create(transform);
+        else
+            b = Instantiate(mobName == "M" ? bulletPrefabA : bulletPrefabB, transform.position + new Vector3(0, -0.5f, 0), transform.rotation);
+
+        if (b != null)
+        {
+            b.Damage = Damage;
+            Rigidbody2D bb = b.GetComponent<Rigidbody2D>();
+            Vector2 playerPos = (player.transform.position - transform.position).normalized;
+            bb.velocity = playerPos * b.speed;
+        }
 
     }
 
@@ -239,28 +225,33 @@ public class Mob : Unit
         HP -= _damage;
         if (mobName == "B")
             animator.SetTrigger("OnHit");
-        //Debug.Log("현재 체력 : " + HP);
+
         spriteRenderer.sprite = sprite[1];
         Invoke("ReturnSprite", 0.1f);
 
         if (HP <= 0)
         {
             GameManager.instance.AddScore(score);
-            if (mobName == "B")
-                GameManager.instance.VictoryGame();
+
+            if (mobName == "B") GameManager.instance.VictoryGame();
+
             Destroy(gameObject);
 
-            // 랜덤 아이템 드랍
-            int ran = mobName == "B" ? -1 : Random.Range(0, 100);
-            if (ran < 60)
-                return;//Debug.Log("아이템 없음");
-            else if (ran < 90)  // Coin
-                Instantiate(itemCoin, transform.position, itemCoin.transform.rotation);
-            else if (ran < 95)  // Power
-                Instantiate(itemPower, transform.position, itemPower.transform.rotation);
-            else if (ran < 100) // Boom
-                Instantiate(itemBoom, transform.position, itemBoom.transform.rotation);
+            DropRandomItem();
         }
+    }
+
+    // 랜덤 아이템 드랍
+    void DropRandomItem()
+    {
+        int ran = mobName == "B" ? -1 : Random.Range(0, 100);
+        if (ran < 60) return;   //Debug.Log("아이템 없음");
+        else if (ran < 90)      // Coin
+            Instantiate(itemCoin, transform.position, itemCoin.transform.rotation);
+        else if (ran < 95)      // Power
+            Instantiate(itemPower, transform.position, itemPower.transform.rotation);
+        else if (ran < 100)     // Boom
+            Instantiate(itemBoom, transform.position, itemBoom.transform.rotation);
     }
 
     // 원래 스프라이트로 변경
@@ -275,7 +266,7 @@ public class Mob : Unit
         if (_collision.transform.CompareTag("Border"))
             Destroy(gameObject);
 
-        // 유저와 충돌 했을 경우
+        // 유저가 보스와 충돌 했을 경우
         if (_collision.transform.CompareTag("Player") && transform.CompareTag("MobBoss"))
             return;
 

@@ -1,17 +1,11 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using UnityEditor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class MobManager : MonoBehaviour
 {
     public Mob[] mobPrefab;             // 몹 프리팹
-    Mob[] mobArrayL;
-    Mob[] mobArrayM;
-    Mob[] mobArrayS;
 
     public GameObject parent;
     int stage;                          // 스테이지
@@ -32,7 +26,6 @@ public class MobManager : MonoBehaviour
         repeatCount = 0;
         //ReadSpawnFile();
         Invoke("GameStart", 3);    // 게임 시작후 3초 뒤 몹 생성
-        //InvokeRepeating("Create", 5, 5);
     }
 
     // 파일 읽기
@@ -83,7 +76,7 @@ public class MobManager : MonoBehaviour
             // stage 에 따른 랜덤 몹 생성
             while (repeatCount < 5 * stage)
             {
-                int rangeMob = UnityEngine.Random.Range(0, stage);
+                int rangeMob = Random.Range(0, stage);
                 SpawnMob(rangeMob);
                 repeatCount++;
                 yield return new WaitForSeconds(spawnInterval);
@@ -95,7 +88,7 @@ public class MobManager : MonoBehaviour
         {
             while (repeatCount < 15)
             {
-                int rangeMob = UnityEngine.Random.Range(0, 3);
+                int rangeMob = Random.Range(0, 3);
                 SpawnMob(rangeMob);
                 SideSpawnMob(rangeMob); // 50%의 확률로 스폰
                 repeatCount++;
@@ -108,7 +101,7 @@ public class MobManager : MonoBehaviour
         {
             while (repeatCount < 15)
             {
-                int rangeMob = UnityEngine.Random.Range(0, 3);
+                int rangeMob = Random.Range(0, 3);
                 SpawnMob(rangeMob);
                 SideSpawnMob(rangeMob); // 50%의 확률로 스폰
                 repeatCount++;
@@ -124,6 +117,8 @@ public class MobManager : MonoBehaviour
 
     void spawnBoss()
     {
+        //ObjectManager.Instance.PushRangedObject("MobBoss",);
+
         Mob mob = Instantiate(mobPrefab[3], spawnPoints[2].position, spawnPoints[2].rotation, parent.transform);
         mob.player = player;
     }
@@ -141,10 +136,10 @@ public class MobManager : MonoBehaviour
     // 몹 사이드 랜덤 스폰
     public void SideSpawnMob(int _a)
     {
-        int probability = UnityEngine.Random.Range(0, 2);
+        int probability = Random.Range(0, 2);
         if (probability == 0)
         {
-            int rangeMob = UnityEngine.Random.Range(5, 9);
+            int rangeMob = Random.Range(5, 9);
             Mob mob = Instantiate(mobPrefab[_a], spawnPoints[rangeMob].position, spawnPoints[rangeMob].rotation, parent.transform);
             mob.player = player;
             if (rangeMob == 5 || rangeMob == 6)         // 5, 6은 오른쪽 사이드 스폰
