@@ -56,6 +56,11 @@ public class Player : Unit
         Boom();
     }
 
+    public void OnHit(int _damage)
+    {
+        curHp -= _damage;
+    }
+
     // 총알 발사 *****
     public void Fire()
     {

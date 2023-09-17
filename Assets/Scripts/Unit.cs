@@ -14,9 +14,4 @@ public class Unit : MonoBehaviour
     public GameObject bulletsParent;    // 총알의 관리 오브젝트 (부모)
     public Bullet bulletPrefabA;        // 총알 프리팹A
     public Bullet bulletPrefabB;        // 총알 프리팹B
-    public void OnHit(int _damage)
-    {
-        curHp -= _damage;
-    }
-
 }
