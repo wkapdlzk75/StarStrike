@@ -35,4 +35,9 @@ public class SSSingleton<T> : MonoBehaviour where T : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public void Func()
+    {
+        Debug.Log("1");
+    }
 }

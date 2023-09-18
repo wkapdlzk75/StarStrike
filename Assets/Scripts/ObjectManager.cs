@@ -10,10 +10,18 @@ public class ObjectManager : SSSingleton<ObjectManager>
     // 파일 경로를 구성하기 위한 문자열 빌더
     private StringBuilder keyString;
 
-    new void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         rangeObjectDict = new Dictionary<string, KeyValuePair<string, ObjectPool>>();  // 딕셔너리 초기화
         keyString = new StringBuilder();    // 문자열 빌더 초기화
+        Func();
+    }
+
+    void Func()
+    {
+        base.Func();
+        Debug.Log("2");
     }
 
     // 지정된 오브젝트 이름에 대해 오브젝트 풀에서 게임 오브젝트를 가져와 주어진 액션을 실행합니다.
@@ -29,6 +37,21 @@ public class ObjectManager : SSSingleton<ObjectManager>
 
         // 오브젝트 풀에서 게임 오브젝트를 가져와 액션을 실행합니다.
         pool.VisibleObject(filePath, this.transform, action);
+    }
+
+    // 지정된 오브젝트 이름에 대해 오브젝트 풀에서 게임 오브젝트를 가져와 주어진 액션을 실행합니다.
+    public GameObject GetRangedObject(string objectName)
+    {
+        // 딕셔너리에 키가 없으면 키와 값을 추가합니다.
+        if (!rangeObjectDict.ContainsKey(objectName))
+            this.PushKeyValue(objectName);
+
+        // 파일 경로와 오브젝트 풀을 딕셔너리에서 가져옵니다.
+        var filePath = rangeObjectDict[objectName].Key;
+        var pool = rangeObjectDict[objectName].Value;
+
+        // 오브젝트 풀에서 게임 오브젝트를 가져와 액션을 실행합니다.
+        return pool.VisibleObject(filePath, this.transform);
     }
 
     // 게임 오브젝트를 오브젝트 풀에 푸시합니다. 스케일을 초기 상태로 재설정합니다.

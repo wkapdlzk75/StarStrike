@@ -27,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 425070421916778620}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &618361119123651623
 SpriteRenderer:
@@ -177,9 +177,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04fd5c01caa8e9b44acd8154109d7f43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MAX_HP: 5
-  HP: 5
-  Damage: 2
+  maxHp: 2
+  curHp: 2
+  damage: 2
   speed: 1.2
   bulletFiringInterval: 4
   bulletsParent: {fileID: 0}
@@ -190,7 +190,4 @@ MonoBehaviour:
   sprite:
   - {fileID: -1147401495359466748, guid: 93226235712397949939ad597de82f85, type: 3}
   - {fileID: -7844560889915226194, guid: 93226235712397949939ad597de82f85, type: 3}
-  itemCoin: {fileID: 1953064523027144019, guid: 088bd40506fb7844b9d5298e85950c31, type: 3}
-  itemPower: {fileID: 4970926292624189027, guid: 31605f9b397e6114cae272e3b9184262, type: 3}
-  itemBoom: {fileID: 4161336018293274527, guid: ca816dd362310dc4bac8eac62d3a5743, type: 3}
   player: {fileID: 3417139447586565172, guid: 8204d864fae86a14bbc3128efb55a58f, type: 3}

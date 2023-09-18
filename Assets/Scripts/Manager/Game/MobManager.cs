@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class MobManager : MonoBehaviour
+public class MobManager : SSSingleton<MobManager>
 {
     public Mob[] mobPrefab;             // 몹 프리팹
 

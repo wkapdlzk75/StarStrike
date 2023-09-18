@@ -5,9 +5,9 @@ public class Item : MonoBehaviour
     public string type;
     Rigidbody2D rb;
 
-    private void Awake()
+    private void OnEnable()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = Vector2.down * 0.5f;
+        rb.velocity = Vector2.down * 0.6f;
     }
 }

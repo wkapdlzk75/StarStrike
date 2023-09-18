@@ -251,11 +251,10 @@ public class Player : Unit
                         curBoom++;
                     UIManagerGameScene.instance.UpdateBoom(curBoom, true);
                     break;
-
             }
 
-            Destroy(_collision.gameObject);
-
+            string myName = _collision.gameObject.name.Replace("(Clone)", "");
+            ObjectManager.Instance.PushRangedObject(myName, _collision.gameObject);
         }
 
     }

@@ -1,18 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Mob : Unit
 {
     public string mobName;
     public int score;
     public Sprite[] sprite;
-
-    public Item itemCoin;
-    public Item itemPower;
-    public Item itemBoom;
 
     SpriteRenderer spriteRenderer;
     Animator animator;
@@ -50,39 +46,25 @@ public class Mob : Unit
 
     void BossRandomFire()
     {
-        int ran = Random.Range(0, 2);
+        int ran = Random.Range(0, 4);
         switch (ran)
         {
             case 0:
-                FireFowardToPlayer();
+                StartCoroutine(ShotCoroutine(10, 0.1f, FireFowardToPlayer));
                 break;
             case 1:
-                FireShotToPlayer();
+                StartCoroutine(ShotCoroutine(1, 0, FireShotToPlayer));
                 break;
             case 2:
-                FireArc();
+                StartCoroutine(ShotCoroutine(10, 0.1f, FireArc, 1));
                 break;
             case 3:
-                FireHalfAround();
+                StartCoroutine(ShotCoroutine(10, 0.1f, FireHalfAround, 1));
                 break;
         }
     }
+
     void FireFowardToPlayer()
-    {
-        StartCoroutine(FireFowardToPlayerCoroutine1());
-        Debug.Log("4발씩 발사");
-    }
-
-    IEnumerator FireFowardToPlayerCoroutine1()
-    {
-        for (int i = 0; i < 7; i++)
-        {
-            FireFowardToPlayerCoroutine2();
-            yield return new WaitForSeconds(0.1f);
-        }
-    }
-
-    void FireFowardToPlayerCoroutine2()
     {
         // 리스트나 배열로 해서 중복 제거
         if (player == null) return;
@@ -114,47 +96,53 @@ public class Mob : Unit
         }
     }
 
+    void FireShotToPlayer2(GameObject poolingBullet)
+    {
+        Vector2 playerPos = (player.transform.position - transform.position).normalized;
+        
+        poolingBullet.transform.position = transform.position + new Vector3(0, -1.4f, 0);
+        poolingBullet.transform.rotation = Quaternion.Euler(0, 0, 0);
+
+        var bullet = poolingBullet.GetComponent<Bullet>();
+        bullet.nameBullet = "MobBulletD";
+        bullet.damage = damage;
+
+        Vector2 ranVec = new Vector2(Random.Range(-0.4f, 0.4f), Random.Range(-0.05f, -0.15f));
+        playerPos += ranVec;
+        poolingBullet.GetComponent<Rigidbody2D>().velocity = playerPos * bullet.speed;
+    }
+
     void FireShotToPlayer()
     {
         if (player == null) return;
-        Vector2 playerPos = (player.transform.position - transform.position).normalized;
 
         for (int i = 0; i < 10; i++)
         {
-            ObjectManager.Instance.GetRangedObject("MobBulletD", (poolingBullet) =>
-            {
-                poolingBullet.transform.position = transform.position + new Vector3(0, -1.4f, 0);
-                poolingBullet.transform.rotation = Quaternion.Euler(0, 0, 0);
-
-                var bullet = poolingBullet.GetComponent<Bullet>();
-                bullet.nameBullet = "MobBulletD";
-                bullet.damage = damage;
-                Vector2 ranVec = new Vector2(Random.Range(-0.4f, 0.4f), Random.Range(-0.05f, -0.15f));
-                playerPos += ranVec;
-                poolingBullet.GetComponent<Rigidbody2D>().velocity = playerPos * bullet.speed;
-            });
+            FireShotToPlayer2(ObjectManager.Instance.GetRangedObject("MobBulletD"));
         }
 
         Debug.Log("무차별 발사");
     }
 
-
-    void FireArc()
+    IEnumerator ShotCoroutine(int count, float delay, Action action)
     {
-        StartCoroutine(FireArcCoroutine1());
-        Debug.Log("부채꼴 발사");
-    }
-
-    IEnumerator FireArcCoroutine1()
-    {
-        for (int i = 0; i < 51; i++)
+        for (int i = 0; i < count; i++)
         {
-            FireArcCoroutine2(i);
-            yield return new WaitForSeconds(0.1f);
+            action();
+            yield return new WaitForSeconds(delay);
         }
     }
 
-    void FireArcCoroutine2(int i)
+    IEnumerator ShotCoroutine(int count, float delay, Action<int> action, int pram)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            action(pram);
+            yield return new WaitForSeconds(delay);
+        }
+    }
+
+    void FireArc(int i)
     {
         ObjectManager.Instance.GetRangedObject("MobBulletD", (poolingBullet) =>
         {
@@ -170,22 +158,7 @@ public class Mob : Unit
 
     }
 
-    void FireHalfAround()
-    {
-        StartCoroutine(FireHalfAroundCoroutine1());
-        Debug.Log("원형 발사");
-    }
-
-    IEnumerator FireHalfAroundCoroutine1()
-    {
-        for (int i = 0; i < 5; i++)
-        {
-            FireHalfAroundCoroutine2(i);
-            yield return new WaitForSeconds(0.5f);
-        }
-    }
-
-    void FireHalfAroundCoroutine2(int a)
+    void FireHalfAround(int a)
     {
         int count = 15;
         int MAX = a % 2 == 0 ? count : count + 1;
@@ -218,17 +191,39 @@ public class Mob : Unit
         //Bullet b;
 
         if (mobName == "S")
-            //b = BulletManager.instance.Create(transform);
-        else
-            b = Instantiate(mobName == "M" ? bulletPrefabA : bulletPrefabB, transform.position + new Vector3(0, -0.5f, 0), transform.rotation);
-
-        if (b != null)
         {
-            b.damage = damage;
-            Rigidbody2D bb = b.GetComponent<Rigidbody2D>();
-            Vector2 playerPos = (player.transform.position - transform.position).normalized;
-            bb.velocity = playerPos * b.speed;
+            //b = BulletManager.instance.Create(transform);
+            ObjectManager.Instance.GetRangedObject("MobBulletA", (poolingBullet) =>
+            {
+                poolingBullet.transform.position = transform.position + new Vector3(0, -1.4f, 0);
+                poolingBullet.transform.rotation = Quaternion.Euler(0, 0, 0);
+
+                var bullet = poolingBullet.GetComponent<Bullet>();
+                bullet.nameBullet = "MobBulletA";
+                bullet.damage = damage;
+                Vector2 playerPos = (player.transform.position - transform.position).normalized;
+                poolingBullet.GetComponent<Rigidbody2D>().velocity = playerPos * bullet.speed;
+            });
         }
+        else
+        {
+            //b = Instantiate(mobName == "M" ? bulletPrefabA : bulletPrefabB, transform.position + new Vector3(0, -0.5f, 0), transform.rotation);
+
+            string bb = mobName == "M" ? "MobBulletA" : "MobBulletB";
+
+            ObjectManager.Instance.GetRangedObject(bb, (poolingBullet) =>
+            {
+                poolingBullet.transform.position = transform.position + new Vector3(0, -1.4f, 0);
+                poolingBullet.transform.rotation = Quaternion.Euler(0, 0, 0);
+
+                var bullet = poolingBullet.GetComponent<Bullet>();
+                bullet.nameBullet = bb;
+                bullet.damage = damage;
+                Vector2 playerPos = (player.transform.position - transform.position).normalized;
+                poolingBullet.GetComponent<Rigidbody2D>().velocity = playerPos * bullet.speed;
+            });
+        }
+
 
     }
 
@@ -270,11 +265,29 @@ public class Mob : Unit
         int ran = mobName == "B" ? -1 : Random.Range(0, 100);
         if (ran < 60) return;   //Debug.Log("아이템 없음");
         else if (ran < 90)      // Coin
-            Instantiate(itemCoin, transform.position, itemCoin.transform.rotation);
+        {
+            ObjectManager.Instance.GetRangedObject("ItemCoin", (item) =>
+            {
+                item.transform.position = transform.position;
+                item.transform.rotation = Quaternion.Euler(0, 0, 0);
+            });
+        }
         else if (ran < 95)      // Power
-            Instantiate(itemPower, transform.position, itemPower.transform.rotation);
+        {
+            ObjectManager.Instance.GetRangedObject("ItemPower", (item) =>
+            {
+                item.transform.position = transform.position;
+                item.transform.rotation = Quaternion.Euler(0, 0, 0);
+            });
+        }
         else if (ran < 100)     // Boom
-            Instantiate(itemBoom, transform.position, itemBoom.transform.rotation);
+        {
+            ObjectManager.Instance.GetRangedObject("ItemBoom", (item) =>
+            {
+                item.transform.position = transform.position;
+                item.transform.rotation = Quaternion.Euler(0, 0, 0);
+            });
+        }
     }
 
     // 원래 스프라이트로 변경

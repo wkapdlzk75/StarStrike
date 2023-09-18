@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemManager : CSVManager
+public class ItemDataManager : CSVManager
 {
     struct ITEMSTRUCT
     {
@@ -19,6 +19,9 @@ public class ItemManager : CSVManager
     }
 
 }
+
+
+
 /*
 public class StageManger: CSVManager
 {
