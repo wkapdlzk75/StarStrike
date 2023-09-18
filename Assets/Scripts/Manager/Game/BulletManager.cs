@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletManager : MonoBehaviour
@@ -20,11 +18,11 @@ public class BulletManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public Bullet Create(Transform tParent)
+    /*public Bullet Create(Transform tParent)
     {
-        Bullet b = Instantiate(bulletPrefabA, tParent.position + new Vector3(0, -0.5f, 0), tParent.rotation);//, bulletsParent.transform);
+        Bullet b = Instantiate(bulletPrefabA, tParent.position + new Vector3(0, -0.5f, 0), tParent.rotation);
         b.transform.SetParent(mobBullets.transform);
         return b;
-    }
+    }*/
 
 }
