@@ -6,17 +6,17 @@ public class Bullet : MonoBehaviour
     public int damage;  // 공격력
 
     public string nameBullet;
+    Rigidbody2D rb;
+    GameObject playerObject;
 
-    void Start()
+    void OnEnable()
     {
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-
         // 플레이어의 총알의 경우
         if (transform.CompareTag("PlayerBullet"))
         {
-            GameObject playerObject = GameObject.FindWithTag("Player");
-            Player player = playerObject.GetComponent<Player>();
-            damage = player.damage;
+            rb = GetComponent<Rigidbody2D>();
+            playerObject = GameObject.FindWithTag("Player");
+            damage = playerObject.GetComponent<Player>().damage;
             rb.velocity = Vector2.up * speed;
         }
 

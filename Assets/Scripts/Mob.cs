@@ -253,7 +253,7 @@ public class Mob : Unit
 
             if (mobName == "B") GameManager.instance.VictoryGame();
 
-            Destroy(gameObject);
+            PushObject(gameObject);
 
             DropRandomItem();
         }
@@ -300,7 +300,7 @@ public class Mob : Unit
     {
         // 경계선에 닿을 경우 (밖으로 나갈 경우)
         if (_collision.transform.CompareTag("Border"))
-            Destroy(gameObject);
+            PushObject(gameObject);
 
         // 유저가 보스와 충돌 했을 경우
         if (_collision.transform.CompareTag("Player") && transform.CompareTag("MobBoss"))
@@ -308,6 +308,16 @@ public class Mob : Unit
 
         // 유저와 충돌 했을 경우
         if (_collision.transform.CompareTag("Player"))
-            Destroy(gameObject);
+            PushObject(gameObject);
+    }
+
+
+    void PushObject(GameObject _gameObject)
+    {
+        // gameObject.name.Substring();
+        string myName = _gameObject.name.Replace("(Clone)", "");
+        // gameObject.name.Split('(')[0];
+
+        ObjectManager.Instance.PushRangedObject(myName, _gameObject);
     }
 }

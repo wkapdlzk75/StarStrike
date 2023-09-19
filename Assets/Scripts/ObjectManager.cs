@@ -15,13 +15,6 @@ public class ObjectManager : SSSingleton<ObjectManager>
         base.Awake();
         rangeObjectDict = new Dictionary<string, KeyValuePair<string, ObjectPool>>();  // 딕셔너리 초기화
         keyString = new StringBuilder();    // 문자열 빌더 초기화
-        Func();
-    }
-
-    void Func()
-    {
-        base.Func();
-        Debug.Log("2");
     }
 
     // 지정된 오브젝트 이름에 대해 오브젝트 풀에서 게임 오브젝트를 가져와 주어진 액션을 실행합니다.

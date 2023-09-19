@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class MobManager : SSSingleton<MobManager>
 {
-    public Mob[] mobPrefab;             // 몹 프리팹
-
     public GameObject parent;
     int stage;                          // 스테이지
     int repeatCount;                    // 적 스폰 반복 횟수
@@ -19,7 +17,9 @@ public class MobManager : SSSingleton<MobManager>
     public int spawnIndex;
     public bool spawnEnd;
 
-    private void Start()
+    string[] mobPrefab = { "MobS", "MobM", "MobL" };
+
+    private void OnEnable()
     {
         spawnList = new List<Spawn>();
         stage = GameManager.instance.stage;
@@ -117,10 +117,12 @@ public class MobManager : SSSingleton<MobManager>
 
     void spawnBoss()
     {
-        //ObjectManager.Instance.PushRangedObject("MobBoss",);
-
-        Mob mob = Instantiate(mobPrefab[3], spawnPoints[2].position, spawnPoints[2].rotation, parent.transform);
-        mob.player = player;
+        ObjectManager.Instance.GetRangedObject("MobBoss", (poolingBullet) =>
+        {
+            poolingBullet.transform.position = spawnPoints[2].position;
+            poolingBullet.transform.rotation = spawnPoints[2].rotation;
+            poolingBullet.GetComponent<Mob>().player = player;
+        });
     }
 
     // 동시에 같은 몹 5마리 생성
@@ -128,8 +130,13 @@ public class MobManager : SSSingleton<MobManager>
     {
         for (int i = 0; i < 5; i++)
         {
-            Mob mob = Instantiate(mobPrefab[_a], spawnPoints[i].position, spawnPoints[i].rotation, parent.transform);
-            mob.player = player;
+            int temp = i;
+            ObjectManager.Instance.GetRangedObject(mobPrefab[_a], (poolingBullet) =>
+            {
+                poolingBullet.transform.position = spawnPoints[temp].position;
+                poolingBullet.transform.rotation = spawnPoints[temp].rotation;
+                poolingBullet.GetComponent<Mob>().player = player;
+            });
         }
     }
 
@@ -137,15 +144,22 @@ public class MobManager : SSSingleton<MobManager>
     public void SideSpawnMob(int _a)
     {
         int probability = Random.Range(0, 2);
+
         if (probability == 0)
         {
             int rangeMob = Random.Range(5, 9);
-            Mob mob = Instantiate(mobPrefab[_a], spawnPoints[rangeMob].position, spawnPoints[rangeMob].rotation, parent.transform);
-            mob.player = player;
-            if (rangeMob == 5 || rangeMob == 6)         // 5, 6은 오른쪽 사이드 스폰
-                mob.MoveSide(Vector2.left);             // 왼쪽으로 이동
-            else if (rangeMob == 7 || rangeMob == 8)    // 7, 8은 왼쪽 사이드 스폰
-                mob.MoveSide(Vector2.right);            // 오른쪽으로 이동
+
+            ObjectManager.Instance.GetRangedObject(mobPrefab[_a], (pooling) =>
+            {
+                pooling.transform.position = spawnPoints[rangeMob].position;
+                pooling.transform.rotation = spawnPoints[rangeMob].rotation;
+                Mob mob = pooling.GetComponent<Mob>();
+                mob.player = player;
+                if (rangeMob == 5 || rangeMob == 6)         // 5, 6은 오른쪽 사이드 스폰
+                    mob.MoveSide(Vector2.left);             // 왼쪽으로 이동
+                else if (rangeMob == 7 || rangeMob == 8)    // 7, 8은 왼쪽 사이드 스폰
+                    mob.MoveSide(Vector2.right);            // 오른쪽으로 이동
+            });
 
         }
 

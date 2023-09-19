@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : Unit
@@ -26,11 +25,9 @@ public class Player : Unit
     bool isBoomActive;        // 폭탄 터짐 여부
 
     public GameObject boomEffect; // 폭탄
-    //GameObject boomEffect2;
 
     Animator animator;
     public Follower m_Follow;
-    // 자식비행기들
     private List<Follower> followers = new List<Follower>();
 
     void Awake()
@@ -56,25 +53,42 @@ public class Player : Unit
         Boom();
     }
 
+    private void poolingBullet(string bulletPrefab, Vector3 vector)
+    {
+        ObjectManager.Instance.GetRangedObject(bulletPrefab, (poolingBullet) =>
+        {
+            poolingBullet.transform.position = transform.position + vector;
+            poolingBullet.transform.rotation = Quaternion.Euler(0, 0, 0);
+        });
+    }
+
+    void PushObject(GameObject _gameObject)
+    {
+        // gameObject.name.Substring();
+        string myName = _gameObject.name.Replace("(Clone)", "");
+        // gameObject.name.Split('(')[0];
+
+        ObjectManager.Instance.PushRangedObject(myName, _gameObject);
+    }
+
     // 총알 발사 *****
     public void Fire()
     {
         if (Time.time - lastFireTime > bulletFiringInterval)
         {
-            // bulletFiringInterval초 마다 총알 생성
             switch (curPower)
             {
                 case 1:
-                    Instantiate(bulletPrefabA, transform.position + new Vector3(0, 0.7f, 0), transform.rotation, bulletsParent.transform);
+                    poolingBullet("PlayerBulletA", new Vector3(0, 0.7f, 0));
                     break;
                 case 2:
-                    Instantiate(bulletPrefabA, transform.position + new Vector3(0.1f, 0.7f, 0), transform.rotation, bulletsParent.transform);
-                    Instantiate(bulletPrefabA, transform.position + new Vector3(-0.1f, 0.7f, 0), transform.rotation, bulletsParent.transform);
+                    poolingBullet("PlayerBulletA", new Vector3(0.1f, 0.7f, 0));
+                    poolingBullet("PlayerBulletA", new Vector3(-0.1f, 0.7f, 0));
                     break;
                 case 3:
-                    Instantiate(bulletPrefabA, transform.position + new Vector3(0.3f, 0.7f, 0), transform.rotation, bulletsParent.transform);
-                    Instantiate(bulletPrefabB, transform.position + new Vector3(0, 0.7f, 0), transform.rotation, bulletsParent.transform);
-                    Instantiate(bulletPrefabA, transform.position + new Vector3(-0.3f, 0.7f, 0), transform.rotation, bulletsParent.transform);
+                    poolingBullet("PlayerBulletA", new Vector3(0.3f, 0.7f, 0));
+                    poolingBullet("PlayerBulletB", new Vector3(0, 0.7f, 0));
+                    poolingBullet("PlayerBulletA", new Vector3(-0.3f, 0.7f, 0));
                     break;
             }
 
@@ -89,19 +103,6 @@ public class Player : Unit
 
             lastFireTime = Time.time;
         }
-
-        // 3초에 한번식 자식들도 발사
-        //시간을 재고
-        // 발사 시간이 되면
-        // if()
-        // followers list내에 있는 자식들에게 모두 발사명령
-
-
-        //var fls = GetComponentsInChildren<Follower>();
-        //foreach (var item in fls)
-        //{
-        //    item.Fire();
-        //}
 
     }
 
@@ -129,7 +130,7 @@ public class Player : Unit
         // 몹 총알 제거
         GameObject[] mobBullets = GameObject.FindGameObjectsWithTag("MobBullet");
         for (int i = 0; i < mobBullets.Length; i++)
-            Destroy(mobBullets[i]);
+            PushObject(mobBullets[i]);
     }
 
     // *****
@@ -169,7 +170,7 @@ public class Player : Unit
 
         if (curLife <= 0)
         {
-            Destroy(gameObject);
+            PushObject(gameObject);
             GameManager.instance.EndGame();
         }
 
@@ -208,7 +209,7 @@ public class Player : Unit
         // 몹의 총알에 맞았을 경우
         if (_collision.transform.CompareTag("MobBullet"))
         {
-            Destroy(_collision.gameObject);
+            PushObject(_collision.gameObject);
 
             if (isDie) return;
 
