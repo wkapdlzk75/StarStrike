@@ -37,7 +37,6 @@ public class Player : Unit
 
     void Start()
     {
-        bulletsParent = BulletManager.instance.playerBullets;
         boomEffect = BulletManager.instance.boomEffect;
         lastFireTime = Time.time;  // 시간 초기화
         curFollower = 0;

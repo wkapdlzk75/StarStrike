@@ -1,26 +1,18 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
 public class CSVManager : SSSingleton<CSVManager>
 {
-    struct ITEMSTRUCT
-    {
-        public int id;
-        public string name;
-        public int value;
-    }
-
     Dictionary<string,int > m_Columns  = new Dictionary<string,int>();
 
     List<string[]> ItemArray = new List<string[]>();
 
-    string[] m_column;// = record[0].Split(",");
-    public void MakeData(string szname)
+    string[] m_column;
+
+    public void MakeData(string fileName)
     {
-        TextAsset myTextAsset = Resources.Load<TextAsset>(szname);
+        TextAsset myTextAsset = Resources.Load<TextAsset>(fileName);
         if (myTextAsset != null)
         {
             string[] record = myTextAsset.text.Split("\n");
@@ -47,38 +39,35 @@ public class CSVManager : SSSingleton<CSVManager>
     {
 
     }
+
     int GetComumn(string column)
     {
         return m_Columns[column];
     }
+
     string GetValue(int id,int col)
     {
         if (id == 0) return "";
-        //Debug.Log(id + "    " + col);
-        //Debug.Log(ItemArray[id][col] + "아이템");
         Debug.Log(id - 1);
         string [] ss= ItemArray[id - 1];
-        
-
         string str= ss[col];
         return str;
-        //return ItemArray[id-1][col];
     }
+
     public string GetItemString(int id, string column)
     {
         int col = GetComumn(column);
-        //Debug.Log(col + "콜럼" + id);
-
         string value = GetValue(id, col);
         return value;
 
     }
+
     public int GetItemInt(int id, string column)
     {
         string str = GetItemString(id, column);
-
         return Convert.ToInt32(str);
     }
+
     public float GetItemFloat(int id, string column)
     {
         string str = GetItemString(id, column);
@@ -88,5 +77,3 @@ public class CSVManager : SSSingleton<CSVManager>
     }
 
 }
-
-

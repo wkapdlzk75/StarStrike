@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class MobManager : SSSingleton<MobManager>
+public class MobManager : MonoBehaviour
 {
     public GameObject parent;
     int stage;                          // 스테이지

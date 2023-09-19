@@ -11,9 +11,11 @@ public class Unit : MonoBehaviour
     public float speed;                 // 이동 속도
     public float bulletFiringInterval;  // 총알 발사 간격
 
-    public GameObject bulletsParent;    // 총알의 관리 오브젝트 (부모)
-    public Bullet bulletPrefabA;        // 총알 프리팹A
-    public Bullet bulletPrefabB;        // 총알 프리팹B
+    void Start()
+    {
+        //CSVManager.Instance.MakeData("Enemy");
+    }
+    
     public void OnHit(int _damage)
     {
         curHp -= _damage;

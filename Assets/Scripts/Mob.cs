@@ -16,19 +16,14 @@ public class Mob : Unit
 
     public Player player;
 
-    void Awake()
+    private void OnEnable()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = Vector2.down * speed;
         if (mobName == "B")
-            animator = GetComponent<Animator>();
-    }
-
-    private void Start()
-    {
-        if (mobName == "B")
         {
+            animator = GetComponent<Animator>();
             Invoke("MoveStop", 3);
             return;
         }
@@ -188,11 +183,8 @@ public class Mob : Unit
     {
         if (player == null) return;
 
-        //Bullet b;
-
         if (mobName == "S")
         {
-            //b = BulletManager.instance.Create(transform);
             ObjectManager.Instance.GetRangedObject("MobBulletA", (poolingBullet) =>
             {
                 poolingBullet.transform.position = transform.position + new Vector3(0, -1.4f, 0);
@@ -207,8 +199,6 @@ public class Mob : Unit
         }
         else
         {
-            //b = Instantiate(mobName == "M" ? bulletPrefabA : bulletPrefabB, transform.position + new Vector3(0, -0.5f, 0), transform.rotation);
-
             string bb = mobName == "M" ? "MobBulletA" : "MobBulletB";
 
             ObjectManager.Instance.GetRangedObject(bb, (poolingBullet) =>

@@ -73,6 +73,6 @@ public class Follower : Unit
     // 총알 발사 *****
     public void Fire()
     {
-        Instantiate(bulletPrefabA, transform.position + new Vector3(0, 0.5f, 0), transform.rotation);
+        //Instantiate(bulletPrefabA, transform.position + new Vector3(0, 0.5f, 0), transform.rotation);
     }
 }
