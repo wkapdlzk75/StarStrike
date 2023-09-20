@@ -1,5 +1,5 @@
-﻿Name,MaxHP,Damage,Speed,FiringInterval,Score
-EnemyS,3,1,1.5,5,1
-EnemyM,5,2,1.2,4,2
-EnemyL,10,3,1,3,3
-EnemyBoss,300,5,1,6,100
+﻿Key,Name,MaxHP,Damage,Speed,FiringInterval,Score
+1,EnemyS,3,1,1.5,5,1
+2,EnemyM,5,2,1.2,4,2
+3,EnemyL,10,3,1,3,3
+4,EnemyBoss,300,5,1,6,100

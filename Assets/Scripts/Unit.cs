@@ -13,7 +13,14 @@ public class Unit : MonoBehaviour
 
     void Start()
     {
-        //CSVManager.Instance.MakeData("Enemy");
+        CSVManager.Instance.MakeData("Enemy");
+        string str = CSVManager.Instance.GetItemString(1, "Name");
+        //int a = CSVManager.Instance.GetItemInt(1,"MaxHP");
+        //Debug.Log(str);
+        //Debug.Log(a);
+
+
+
     }
     
     public void OnHit(int _damage)

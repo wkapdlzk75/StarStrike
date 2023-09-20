@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 이 클래스는 CSV 파일을 불러와 데이터를 저장하고 조회하는 기능을 제공합니다.
+
 public class CSVManager : SSSingleton<CSVManager>
 {
     Dictionary<string,int > m_Columns  = new Dictionary<string,int>();
@@ -40,23 +42,30 @@ public class CSVManager : SSSingleton<CSVManager>
 
     }
 
-    int GetComumn(string column)
+    // 컬럼에 해당하는 인덱스를 반환
+    int GetColumn(string column)
     {
         return m_Columns[column];
     }
 
-    string GetValue(int id,int col)
+    // id와 column에 해당하는 레코드를 가져옴
+    string GetValue(int id,int column)
     {
         if (id == 0) return "";
-        Debug.Log(id - 1);
-        string [] ss= ItemArray[id - 1];
-        string str= ss[col];
+        string[] ss= ItemArray[id - 1];
+        string str= ss[column];
         return str;
     }
 
+    /*public int GetId(string name)
+    {
+        GetColumn(Key);
+        return;
+    }*/
+
     public string GetItemString(int id, string column)
     {
-        int col = GetComumn(column);
+        int col = GetColumn(column);
         string value = GetValue(id, col);
         return value;
 
