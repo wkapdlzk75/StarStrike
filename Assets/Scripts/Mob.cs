@@ -21,14 +21,24 @@ public class Mob : Unit
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = Vector2.down * speed;
+
+        // 여기에 체력 설정해도 좋음
+
         if (mobName == "B")
         {
             animator = GetComponent<Animator>();
             Invoke("MoveStop", 3);
             return;
         }
+
         // 최초 몹 소환 2초 후 총알 발사, bulletFiringInterval초 마다 총알 발사
         InvokeRepeating("Fire", 2, bulletFiringInterval);
+    }
+
+    public void mobInit()
+    {
+        curHp = maxHp;
+
     }
 
     void MoveStop()
@@ -239,10 +249,15 @@ public class Mob : Unit
 
         if (curHp <= 0)
         {
-            GameManager.instance.AddScore(score);
+            GameManager.Instance.AddScore(score);
 
-            if (mobName == "B") GameManager.instance.VictoryGame();
+            if (mobName == "B")
+            {
+                CancelInvoke("BossRandomFire");
+                GameManager.Instance.VictoryGame();
+            }
 
+            CancelInvoke("Fire");
             PushObject(gameObject);
 
             DropRandomItem();

@@ -8,8 +8,8 @@ public class UIManager : MonoBehaviour
     // 스테이지 프로퍼티
     public int CurrentStage
     {
-        get { return GameManager.instance.stage; }
-        set { GameManager.instance.stage = value; }
+        get { return GameManager.Instance.stage; }
+        set { GameManager.Instance.stage = value; }
     }
 
     // 씬 변경 메소드

@@ -13,10 +13,10 @@ public class ItemDataManager : CSVManager
     
     
 
-    public override void Create()
+    /*public override void Create()
     {
         MakeData("test");
-    }
+    }*/
 
 }
 

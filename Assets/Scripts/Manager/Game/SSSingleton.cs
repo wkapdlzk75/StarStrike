@@ -35,4 +35,9 @@ public class SSSingleton<T> : MonoBehaviour where T : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+
+    public static T Create() {
+        return (T)_instance;
+    }
 }

@@ -170,7 +170,7 @@ public class Player : Unit
         if (curLife <= 0)
         {
             PushObject(gameObject);
-            GameManager.instance.EndGame();
+            GameManager.Instance.EndGame();
         }
 
         gameObject.SetActive(false);
@@ -234,7 +234,7 @@ public class Player : Unit
             switch (item.type)
             {
                 case "Coin":
-                    GameManager.instance.AddScore(100);
+                    GameManager.Instance.AddScore(100);
                     break;
                 case "Power":
                     if (curPower < maxPower)
@@ -242,11 +242,11 @@ public class Player : Unit
                     else if (curFollower < maxFollower)
                         OnItemUse(curFollower);
                     else
-                        GameManager.instance.AddScore(50);
+                        GameManager.Instance.AddScore(50);
                     break;
                 case "Boom":
                     if (curBoom == maxBoom)
-                        GameManager.instance.AddScore(50);
+                        GameManager.Instance.AddScore(50);
                     else
                         curBoom++;
                     UIManagerGameScene.instance.UpdateBoom(curBoom, true);

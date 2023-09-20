@@ -10,7 +10,7 @@ public class MainGame : MonoBehaviour
         // 데이타 로드 
 
        // CSVManager.Instance.Create();
-        ItemDataManager.Instance.Create();
+        //ItemDataManager.Instance.Create();
         InventoryManager.Instance.Create();
 
         // UI 로드 

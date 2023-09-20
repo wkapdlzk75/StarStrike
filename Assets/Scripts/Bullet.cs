@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -11,6 +12,8 @@ public class Bullet : MonoBehaviour
 
     void OnEnable()
     {
+        Invoke("AutoPush", 10);
+
         // 플레이어의 총알의 경우
         if (transform.CompareTag("PlayerBullet"))
         {
@@ -29,6 +32,11 @@ public class Bullet : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        CancelInvoke("AutoPush");
+    }
+
     private void OnTriggerEnter2D(Collider2D _collision)
     {
         // 경계선에 닿을 경우 (밖으로 나갈 경우)
@@ -36,7 +44,7 @@ public class Bullet : MonoBehaviour
             PushBullet();
 
         // 적이 맞았을 경우
-        if ((transform.CompareTag("FollowerBullet") || transform.CompareTag("PlayerBullet")) && 
+        if ((transform.CompareTag("FollowerBullet") || transform.CompareTag("PlayerBullet")) &&
             (_collision.transform.CompareTag("Mob") || _collision.transform.CompareTag("MobBoss")))
         {
             PushBullet();
@@ -49,8 +57,22 @@ public class Bullet : MonoBehaviour
 
     }
 
+
+
+    void AutoPush()
+    {
+
+        if (gameObject.activeSelf)
+        {
+            PushBullet();
+            
+        }
+    }
+
     void PushBullet()
     {
+        if (!gameObject.activeSelf) { return; }
+
         // gameObject.name.Substring();
         string myName = gameObject.name.Replace("(Clone)", "");
         // gameObject.name.Split('(')[0];

@@ -1,31 +1,30 @@
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : SSSingleton<GameManager>
 {
-    public static GameManager instance;
-
     public int stage;   // 스테이지
     public int score;   // 점수
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else if (instance != this)
-            Destroy(gameObject);
+        base.Awake();
+
+        ObjectManager.Create();
+        BackGroundManager.Create();
+        CSVManager.Create();
+        MobManager.Create();
     }
 
     void Start()
     {
+
         stage = 1;
     }
 
     // 게임 승리
     public void VictoryGame()
     {
+        ObjectManager.Instance.AllPush();
         score = 0;
         UIManagerGameScene.instance.VictoryGame();
     }
@@ -40,6 +39,7 @@ public class GameManager : MonoBehaviour
     // 게임 종료
     public void EndGame()
     {
+        ObjectManager.Instance.AllPush();
         score = 0;
         UIManagerGameScene.instance.EndGame();
     }

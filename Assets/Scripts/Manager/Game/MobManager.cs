@@ -3,8 +3,20 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class MobManager : MonoBehaviour
+public class MobManager : SSSingleton<MobManager>
 {
+    public struct st_MobData
+    {
+        public int key;
+        public string name;
+        public int max_Hp;
+        public int damage;
+        public float speed;
+        public float firingInterval;
+        public int score;
+    }
+
+
     public GameObject parent;
     int stage;                          // 스테이지
     int repeatCount;                    // 적 스폰 반복 횟수
@@ -17,15 +29,74 @@ public class MobManager : MonoBehaviour
     public int spawnIndex;
     public bool spawnEnd;
 
-    string[] mobPrefab = { "MobS", "MobM", "MobL" };
+    // string[] mobPrefabString = { "MobS", "MobM", "MobL" };
+
+    Dictionary<string, st_MobData> mobDataDic = new Dictionary<string, st_MobData>();
+
+    protected override void Awake()
+    {
+        base.Awake();
+        CreateMobData();
+    }
 
     private void OnEnable()
     {
         spawnList = new List<Spawn>();
-        stage = GameManager.instance.stage;
+        stage = GameManager.Instance.stage;
         repeatCount = 0;
         //ReadSpawnFile();
         Invoke("GameStart", 3);    // 게임 시작후 3초 뒤 몹 생성
+    }
+
+    void CreateMobData()
+    {
+        var data = CSVManager.Read("MobData");
+
+        for (int i = 0; i < data.Count; i++)
+        {
+            var mobData = new st_MobData();
+            // mobData.key = (int)data[i]["Key"];
+            // mobData.key = int.Parse(data[i]["Key"].ToString());
+
+            if (!int.TryParse(data[i]["Key"].ToString(), out mobData.key))   // 성공 했을 때에만 값이 들어감
+            {
+                // Debug.Log("몹 키 파싱 실패");
+                Debug.LogError("몹 키 파싱 실패"); // 심각한 상황인 경우
+                // Debug.LogWarning(); // 경미한? 상황인 경우
+                continue;
+            }
+
+            mobData.name = data[i]["Name"].ToString();
+
+            if (!int.TryParse(data[i]["MaxHp"].ToString(), out mobData.max_Hp))
+            {
+                continue;
+            }
+
+            if (!int.TryParse(data[i]["Damage"].ToString(), out mobData.damage))
+            {
+                continue;
+            }
+
+            if (!float.TryParse(data[i]["Speed"].ToString(), out mobData.speed))
+            {
+                continue;
+            }
+
+            if (!float.TryParse(data[i]["FiringInterval"].ToString(), out mobData.firingInterval))
+            {
+                continue;
+            }
+
+            if (!int.TryParse(data[i]["Score"].ToString(), out mobData.score))
+            {
+                continue;
+            }
+
+            mobDataDic.Add(mobData.name, mobData);
+
+            // float a = mobDataDic[3].speed;
+        }
     }
 
     // 파일 읽기
@@ -76,34 +147,32 @@ public class MobManager : MonoBehaviour
             // stage 에 따른 랜덤 몹 생성
             while (repeatCount < 5 * stage)
             {
-                int rangeMob = Random.Range(0, stage);
-                SpawnMob(rangeMob);
+                SpawnMob("MobS");
                 repeatCount++;
                 yield return new WaitForSeconds(spawnInterval);
             }
             yield return new WaitForSeconds(3);
-            GameManager.instance.VictoryGame();
+            GameManager.Instance.VictoryGame();
         }
         else if (stage == 4)
         {
             while (repeatCount < 15)
             {
-                int rangeMob = Random.Range(0, 3);
-                SpawnMob(rangeMob);
-                SideSpawnMob(rangeMob); // 50%의 확률로 스폰
+                SpawnMob("MobS");
+                SideSpawnMob("MobS"); // 50%의 확률로 스폰
                 repeatCount++;
                 yield return new WaitForSeconds(spawnInterval);
             }
             yield return new WaitForSeconds(5);
-            GameManager.instance.VictoryGame();
+            GameManager.Instance.VictoryGame();
         }
         else if (stage == 5)
         {
             while (repeatCount < 0)
             {
                 int rangeMob = Random.Range(0, 3);
-                SpawnMob(rangeMob);
-                SideSpawnMob(rangeMob); // 50%의 확률로 스폰
+                SpawnMob("MobS");
+                SideSpawnMob("MobS"); // 50%의 확률로 스폰
                 repeatCount++;
                 yield return new WaitForSeconds(spawnInterval);
             }
@@ -117,31 +186,35 @@ public class MobManager : MonoBehaviour
 
     void spawnBoss()
     {
-        ObjectManager.Instance.GetRangedObject("MobBoss", (poolingBullet) =>
+        ObjectManager.Instance.GetRangedObject("MobBoss", (poolingMob) =>
         {
-            poolingBullet.transform.position = spawnPoints[2].position;
-            poolingBullet.transform.rotation = spawnPoints[2].rotation;
-            poolingBullet.GetComponent<Mob>().player = player;
+            poolingMob.transform.position = spawnPoints[2].position;
+            poolingMob.transform.rotation = spawnPoints[2].rotation;
+            Mob mob = poolingMob.GetComponent<Mob>();
+            mob.player = player;
+            mob.mobInit();
         });
     }
 
     // 동시에 같은 몹 5마리 생성
-    public void SpawnMob(int _a)
+    public void SpawnMob(string mobName)
     {
         for (int i = 0; i < 5; i++)
         {
             int temp = i;
-            ObjectManager.Instance.GetRangedObject(mobPrefab[_a], (poolingBullet) =>
+            ObjectManager.Instance.GetRangedObject(mobDataDic[mobName].name, (poolingMob) =>
             {
-                poolingBullet.transform.position = spawnPoints[temp].position;
-                poolingBullet.transform.rotation = spawnPoints[temp].rotation;
-                poolingBullet.GetComponent<Mob>().player = player;
+                poolingMob.transform.position = spawnPoints[temp].position;
+                poolingMob.transform.rotation = spawnPoints[temp].rotation;
+                Mob mob = poolingMob.GetComponent<Mob>();
+                mob.player = player;
+                mob.mobInit();
             });
         }
     }
 
     // 몹 사이드 랜덤 스폰
-    public void SideSpawnMob(int _a)
+    public void SideSpawnMob(string mobName)
     {
         int probability = Random.Range(0, 2);
 
@@ -149,12 +222,15 @@ public class MobManager : MonoBehaviour
         {
             int rangeMob = Random.Range(5, 9);
 
-            ObjectManager.Instance.GetRangedObject(mobPrefab[_a], (pooling) =>
+            ObjectManager.Instance.GetRangedObject(mobDataDic[mobName].name, (pooling) =>
             {
                 pooling.transform.position = spawnPoints[rangeMob].position;
                 pooling.transform.rotation = spawnPoints[rangeMob].rotation;
+
                 Mob mob = pooling.GetComponent<Mob>();
                 mob.player = player;
+                mob.mobInit();
+
                 if (rangeMob == 5 || rangeMob == 6)         // 5, 6은 오른쪽 사이드 스폰
                     mob.MoveSide(Vector2.left);             // 왼쪽으로 이동
                 else if (rangeMob == 7 || rangeMob == 8)    // 7, 8은 왼쪽 사이드 스폰

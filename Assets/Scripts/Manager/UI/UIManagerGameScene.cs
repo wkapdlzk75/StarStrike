@@ -21,8 +21,8 @@ public class UIManagerGameScene : UIManager
     // 점수 프로퍼티
     public int CurrentScore
     {
-        get { return GameManager.instance.score; }
-        //set { GameManager.instance.score = value; }
+        get { return GameManager.Instance.score; }
+        //set { GameManager.Instance.score = value; }
     }
     
 
