@@ -2880,7 +2880,7 @@ GameObject:
   - component: {fileID: 1906230619}
   - component: {fileID: 1906230620}
   m_Layer: 0
-  m_Name: MobManager
+  m_Name: MobSpawnManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2913,11 +2913,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcba5eab69a838d48bc9938ad1ede3ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mobPrefab:
-  - {fileID: 6799149859323477553, guid: 5151f0a158263994a9268ffc896bafc6, type: 3}
-  - {fileID: 5699787130572496748, guid: e3e22bbb7c4444d4884bafc3057d6dd6, type: 3}
-  - {fileID: 4141005349819534465, guid: 132e5bb7e8e9e6841999d9a22fbbf973, type: 3}
-  - {fileID: 3403505714988589900, guid: 3ca0dc83876e2aa4e812bd7068f20e3f, type: 3}
   parent: {fileID: 1906230618}
   spawnPoints:
   - {fileID: 1321109237}
@@ -3131,6 +3126,10 @@ PrefabInstance:
     - target: {fileID: 9191966088342041048, guid: 8204d864fae86a14bbc3128efb55a58f, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 9191966088342041048, guid: 8204d864fae86a14bbc3128efb55a58f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

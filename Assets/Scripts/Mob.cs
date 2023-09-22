@@ -16,6 +16,8 @@ public class Mob : Unit
 
     public Player player;
 
+    private bool initEnd = false;
+
     private void OnEnable()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -32,13 +34,15 @@ public class Mob : Unit
         }
 
         // 최초 몹 소환 2초 후 총알 발사, bulletFiringInterval초 마다 총알 발사
-        InvokeRepeating("Fire", 2, bulletFiringInterval);
+        //InvokeRepeating("Fire", 2, bulletFiringInterval);
+
+        StartCoroutine(Fire());
     }
 
     public void mobInit()
     {
         curHp = maxHp;
-
+        initEnd = true;
     }
 
     void MoveStop()
@@ -189,42 +193,50 @@ public class Mob : Unit
     }
 
     // 몹에 따른 총알 발사
-    public void Fire()
+    IEnumerator Fire()
     {
-        if (player == null) return;
+        yield return new WaitUntil(() => initEnd == true );
 
-        if (mobName == "S")
+        if (player == null || !player.gameObject.activeSelf)
         {
-            ObjectManager.Instance.GetRangedObject("MobBulletA", (poolingBullet) =>
-            {
-                poolingBullet.transform.position = transform.position + new Vector3(0, -1.4f, 0);
-                poolingBullet.transform.rotation = Quaternion.Euler(0, 0, 0);
-
-                var bullet = poolingBullet.GetComponent<Bullet>();
-                bullet.nameBullet = "MobBulletA";
-                bullet.damage = damage;
-                Vector2 playerPos = (player.transform.position - transform.position).normalized;
-                poolingBullet.GetComponent<Rigidbody2D>().velocity = playerPos * bullet.speed;
-            });
-        }
-        else
-        {
-            string bb = mobName == "M" ? "MobBulletA" : "MobBulletB";
-
-            ObjectManager.Instance.GetRangedObject(bb, (poolingBullet) =>
-            {
-                poolingBullet.transform.position = transform.position + new Vector3(0, -1.4f, 0);
-                poolingBullet.transform.rotation = Quaternion.Euler(0, 0, 0);
-
-                var bullet = poolingBullet.GetComponent<Bullet>();
-                bullet.nameBullet = bb;
-                bullet.damage = damage;
-                Vector2 playerPos = (player.transform.position - transform.position).normalized;
-                poolingBullet.GetComponent<Rigidbody2D>().velocity = playerPos * bullet.speed;
-            });
+            yield break;
         }
 
+        while (gameObject.activeSelf)
+        {
+            if (mobName == "S")
+            {
+                ObjectManager.Instance.GetRangedObject("MobBulletA", (poolingBullet) =>
+                {
+                    poolingBullet.transform.position = transform.position + new Vector3(0, -1.4f, 0);
+                    poolingBullet.transform.rotation = Quaternion.Euler(0, 0, 0);
 
+                    var bullet = poolingBullet.GetComponent<Bullet>();
+                    bullet.nameBullet = "MobBulletA";
+                    bullet.damage = damage;
+                    Vector2 playerPos = (player.transform.position - transform.position).normalized;
+                    poolingBullet.GetComponent<Rigidbody2D>().velocity = playerPos * bullet.speed;
+                });
+            }
+            else
+            {
+                string bb = mobName == "M" ? "MobBulletA" : "MobBulletB";
+
+                ObjectManager.Instance.GetRangedObject(bb, (poolingBullet) =>
+                {
+                    poolingBullet.transform.position = transform.position + new Vector3(0, -1.4f, 0);
+                    poolingBullet.transform.rotation = Quaternion.Euler(0, 0, 0);
+
+                    var bullet = poolingBullet.GetComponent<Bullet>();
+                    bullet.nameBullet = bb;
+                    bullet.damage = damage;
+                    Vector2 playerPos = (player.transform.position - transform.position).normalized;
+                    poolingBullet.GetComponent<Rigidbody2D>().velocity = playerPos * bullet.speed;
+                });
+            }
+
+            yield return new WaitForSeconds(bulletFiringInterval);
+        }
     }
 
     public void MoveSide(Vector2 _vector)

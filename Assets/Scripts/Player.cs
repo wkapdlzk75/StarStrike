@@ -30,8 +30,11 @@ public class Player : Unit
     public Follower m_Follow;
     private List<Follower> followers = new List<Follower>();
 
+    public bool fireAble;
+
     void Awake()
     {
+        GameManager.Instance.player = this;
         animator = GetComponent<Animator>();
     }
 
@@ -42,8 +45,10 @@ public class Player : Unit
         curFollower = 0;
         curPower = 1;
         isDie = false;
+        fireAble = true;
         //OnItemUse();
     }
+
 
     void Update()
     {
@@ -73,6 +78,8 @@ public class Player : Unit
     // 총알 발사 *****
     public void Fire()
     {
+        if (!fireAble) return;
+
         if (Time.time - lastFireTime > bulletFiringInterval)
         {
             switch (curPower)
@@ -169,12 +176,16 @@ public class Player : Unit
 
         if (curLife <= 0)
         {
-            PushObject(gameObject);
+            //Destroy(gameObject);
+            gameObject.SetActive(false);
             GameManager.Instance.EndGame();
         }
+        else
+        {
+            gameObject.SetActive(false);
+            Invoke("RespawnPlayer", 3); // 3초 뒤 부활
+        }
 
-        gameObject.SetActive(false);
-        Invoke("RespawnPlayer", 3); // 3초 뒤 부활
     }
 
     // 경계선 처리

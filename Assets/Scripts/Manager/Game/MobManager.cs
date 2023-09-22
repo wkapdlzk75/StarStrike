@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class MobManager : SSSingleton<MobManager>
+public class MobManager : MonoBehaviour
 {
     public struct st_MobData
     {
@@ -33,9 +33,8 @@ public class MobManager : SSSingleton<MobManager>
 
     Dictionary<string, st_MobData> mobDataDic = new Dictionary<string, st_MobData>();
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         CreateMobData();
     }
 
@@ -48,6 +47,7 @@ public class MobManager : SSSingleton<MobManager>
         Invoke("GameStart", 3);    // 게임 시작후 3초 뒤 몹 생성
     }
 
+    // 싱글톤으로 옮기기
     void CreateMobData()
     {
         var data = CSVManager.Read("MobData");
@@ -191,6 +191,7 @@ public class MobManager : SSSingleton<MobManager>
             poolingMob.transform.position = spawnPoints[2].position;
             poolingMob.transform.rotation = spawnPoints[2].rotation;
             Mob mob = poolingMob.GetComponent<Mob>();
+
             mob.player = player;
             mob.mobInit();
         });

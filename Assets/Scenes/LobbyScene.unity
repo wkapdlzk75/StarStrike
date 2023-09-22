@@ -678,6 +678,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stage: 1
   score: 0
+  player: {fileID: 0}
 --- !u!1 &667400239
 GameObject:
   m_ObjectHideFlags: 0
