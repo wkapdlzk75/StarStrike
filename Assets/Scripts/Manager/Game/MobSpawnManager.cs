@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class MobManager : MonoBehaviour
+public class MobSpawnManager : MonoBehaviour
 {
     public struct st_MobData
     {
@@ -15,7 +15,6 @@ public class MobManager : MonoBehaviour
         public float firingInterval;
         public int score;
     }
-
 
     public GameObject parent;
     int stage;                          // 스테이지
@@ -31,11 +30,11 @@ public class MobManager : MonoBehaviour
 
     // string[] mobPrefabString = { "MobS", "MobM", "MobL" };
 
-    Dictionary<string, st_MobData> mobDataDic = new Dictionary<string, st_MobData>();
+    
 
     protected void Awake()
     {
-        CreateMobData();
+        MobDataManager.Instance.CreateMobData();
     }
 
     private void OnEnable()
@@ -47,57 +46,7 @@ public class MobManager : MonoBehaviour
         Invoke("GameStart", 3);    // 게임 시작후 3초 뒤 몹 생성
     }
 
-    // 싱글톤으로 옮기기
-    void CreateMobData()
-    {
-        var data = CSVManager.Read("MobData");
-
-        for (int i = 0; i < data.Count; i++)
-        {
-            var mobData = new st_MobData();
-            // mobData.key = (int)data[i]["Key"];
-            // mobData.key = int.Parse(data[i]["Key"].ToString());
-
-            if (!int.TryParse(data[i]["Key"].ToString(), out mobData.key))   // 성공 했을 때에만 값이 들어감
-            {
-                // Debug.Log("몹 키 파싱 실패");
-                Debug.LogError("몹 키 파싱 실패"); // 심각한 상황인 경우
-                // Debug.LogWarning(); // 경미한? 상황인 경우
-                continue;
-            }
-
-            mobData.name = data[i]["Name"].ToString();
-
-            if (!int.TryParse(data[i]["MaxHp"].ToString(), out mobData.max_Hp))
-            {
-                continue;
-            }
-
-            if (!int.TryParse(data[i]["Damage"].ToString(), out mobData.damage))
-            {
-                continue;
-            }
-
-            if (!float.TryParse(data[i]["Speed"].ToString(), out mobData.speed))
-            {
-                continue;
-            }
-
-            if (!float.TryParse(data[i]["FiringInterval"].ToString(), out mobData.firingInterval))
-            {
-                continue;
-            }
-
-            if (!int.TryParse(data[i]["Score"].ToString(), out mobData.score))
-            {
-                continue;
-            }
-
-            mobDataDic.Add(mobData.name, mobData);
-
-            // float a = mobDataDic[3].speed;
-        }
-    }
+    
 
     // 파일 읽기
     void ReadSpawnFile()
@@ -152,7 +101,7 @@ public class MobManager : MonoBehaviour
                 yield return new WaitForSeconds(spawnInterval);
             }
             yield return new WaitForSeconds(3);
-            GameManager.Instance.VictoryGame();
+            GameManager.Instance.EndGame(true);
         }
         else if (stage == 4)
         {
@@ -164,7 +113,7 @@ public class MobManager : MonoBehaviour
                 yield return new WaitForSeconds(spawnInterval);
             }
             yield return new WaitForSeconds(5);
-            GameManager.Instance.VictoryGame();
+            GameManager.Instance.EndGame(true);
         }
         else if (stage == 5)
         {
@@ -203,7 +152,7 @@ public class MobManager : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             int temp = i;
-            ObjectManager.Instance.GetRangedObject(mobDataDic[mobName].name, (poolingMob) =>
+            ObjectManager.Instance.GetRangedObject(MobDataManager.Instance.mobDataDic[mobName].name, (poolingMob) =>
             {
                 poolingMob.transform.position = spawnPoints[temp].position;
                 poolingMob.transform.rotation = spawnPoints[temp].rotation;
@@ -223,7 +172,7 @@ public class MobManager : MonoBehaviour
         {
             int rangeMob = Random.Range(5, 9);
 
-            ObjectManager.Instance.GetRangedObject(mobDataDic[mobName].name, (pooling) =>
+            ObjectManager.Instance.GetRangedObject(MobDataManager.Instance.mobDataDic[mobName].name, (pooling) =>
             {
                 pooling.transform.position = spawnPoints[rangeMob].position;
                 pooling.transform.rotation = spawnPoints[rangeMob].rotation;

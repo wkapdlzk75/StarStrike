@@ -44,17 +44,14 @@ public class GameManager : SSSingleton<GameManager>
 
     void Start()
     {
-
+        player.gameObject.SetActive(false);
         stage = 1;
     }
 
-    // 게임 승리
-    public void VictoryGame()
+    // 게임시작
+    public void GameStart()
     {
-        player.fireAble = false;
-        ObjectManager.Instance.AllPush();
-        score = 0;
-        UIManagerGameScene.instance.VictoryGame();
+        player.gameObject.SetActive(true);
     }
 
     // 점수 추가 및 UI 갱신
@@ -65,12 +62,12 @@ public class GameManager : SSSingleton<GameManager>
     }
 
     // 게임 종료
-    public void EndGame()
+    public void EndGame(bool game)
     {
         player.fireAble = false;
         ObjectManager.Instance.AllPush();
         score = 0;
-        UIManagerGameScene.instance.EndGame();
+        UIManagerGameScene.instance.EndGame(game);
     }
 
 }

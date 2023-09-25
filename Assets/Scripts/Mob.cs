@@ -24,7 +24,7 @@ public class Mob : Unit
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = Vector2.down * speed;
 
-        // 여기에 체력 설정해도 좋음
+        // 여기에 체력 설정해도 좋음 아니면 초기화 함수
 
         if (mobName == "B")
         {
@@ -266,7 +266,7 @@ public class Mob : Unit
             if (mobName == "B")
             {
                 CancelInvoke("BossRandomFire");
-                GameManager.Instance.VictoryGame();
+                GameManager.Instance.EndGame(true);
             }
 
             CancelInvoke("Fire");

@@ -34,6 +34,8 @@ public class Player : Unit
 
     void Awake()
     {
+        DontDestroyOnLoad(gameObject);
+        gameObject.SetActive(false);
         GameManager.Instance.player = this;
         animator = GetComponent<Animator>();
     }
@@ -178,7 +180,7 @@ public class Player : Unit
         {
             //Destroy(gameObject);
             gameObject.SetActive(false);
-            GameManager.Instance.EndGame();
+            GameManager.Instance.EndGame(false);
         }
         else
         {

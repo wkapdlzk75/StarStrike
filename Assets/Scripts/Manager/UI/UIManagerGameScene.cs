@@ -65,16 +65,18 @@ public class UIManagerGameScene : UIManager
             boomImage[_boom].gameObject.SetActive(false);
     }
 
-    public void VictoryGame()
-    {
-        popupText.text = "Victory";
-        EndGame();
-    }
-
-
     // 게임 종료
-    public void EndGame()
+    public void EndGame(bool game)
     {
+        if (game)
+        {
+            popupText.text = "Victory";
+        }
+        else
+        {
+            popupText.text = "Defeat";
+        }
+
         popupUI.SetActive(true);
     }
 
