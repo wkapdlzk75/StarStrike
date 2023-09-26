@@ -1,22 +1,13 @@
 using UnityEngine;
 
-public class BulletManager : MonoBehaviour
+public class BulletManager : SSSingleton<BulletManager>
 {
-    public static BulletManager instance;
     public Bullet bulletPrefabA;
 
     public GameObject boomEffect;
     public GameObject followerBullets;
     public GameObject mobBullets;
     public GameObject playerBullets;
-
-    private void Awake()
-    {
-        if (instance == null)
-            instance = this;
-        else if (instance != this)
-            Destroy(gameObject);
-    }
 
     /*public Bullet Create(Transform tParent)
     {

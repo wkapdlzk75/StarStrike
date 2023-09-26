@@ -1,15 +1,30 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static MobSpawnManager;
 
 public class MobDataManager : SSSingleton<MobDataManager>
 {
+    public struct st_MobData
+    {
+        public int key;
+        public string name;
+        public int max_Hp;
+        public int damage;
+        public float speed;
+        public float firingInterval;
+        public int score;
+    }
+
     public Dictionary<string, st_MobData> mobDataDic = new Dictionary<string, st_MobData>();
 
 
     public void CreateMobData()
     {
+        //if (mobDataDic.Count > 0) { mobDataDic.Clear(); }
+        if (mobDataDic.Count > 0)
+        {
+            return;
+        }
+
         var data = CSVManager.Read("MobData");
 
         for (int i = 0; i < data.Count; i++)

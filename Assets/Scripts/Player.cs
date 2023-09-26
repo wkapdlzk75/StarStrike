@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,15 +35,15 @@ public class Player : Unit
 
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-        gameObject.SetActive(false);
+        //DontDestroyOnLoad(gameObject);
         GameManager.Instance.player = this;
         animator = GetComponent<Animator>();
+        //gameObject.SetActive(false);
     }
 
     void Start()
     {
-        boomEffect = BulletManager.instance.boomEffect;
+        StartCoroutine(PlayerInit());
         lastFireTime = Time.time;  // 시간 초기화
         curFollower = 0;
         curPower = 1;
@@ -51,6 +52,11 @@ public class Player : Unit
         //OnItemUse();
     }
 
+    IEnumerator PlayerInit()
+    {
+        yield return new WaitUntil(() => BulletManager.Instance.boomEffect != null);
+        boomEffect = BulletManager.Instance.boomEffect;
+    }
 
     void Update()
     {
@@ -102,7 +108,7 @@ public class Player : Unit
 
             cnt++;
 
-            if(cnt == 3)
+            if (cnt == 3)
             {
                 foreach (var item in followers)
                     item.Fire();

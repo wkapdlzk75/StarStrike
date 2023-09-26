@@ -1,36 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class MobSpawnManager : MonoBehaviour
 {
-    public struct st_MobData
-    {
-        public int key;
-        public string name;
-        public int max_Hp;
-        public int damage;
-        public float speed;
-        public float firingInterval;
-        public int score;
-    }
-
     public GameObject parent;
     int stage;                          // 스테이지
     int repeatCount;                    // 적 스폰 반복 횟수
     public Transform[] spawnPoints;     // 적 스폰 위치
     public float spawnInterval;         // 적 스폰 시간 간격
 
-    public Player player;               // 플레이어
-
     List<Spawn> spawnList;
     public int spawnIndex;
     public bool spawnEnd;
 
-    // string[] mobPrefabString = { "MobS", "MobM", "MobL" };
-
-    
+    List<List<string>> spawnMob = new List<List<string>>();
 
     protected void Awake()
     {
@@ -46,7 +32,33 @@ public class MobSpawnManager : MonoBehaviour
         Invoke("GameStart", 3);    // 게임 시작후 3초 뒤 몹 생성
     }
 
-    
+    void ReadStage()
+    {
+        var data = CSVManager.Read("Stage " + stage.ToString());
+
+        for (int i = 0; i < data.Count; i++)
+        {
+            List<string> list = new List<string>();
+            for (int j = 0; j < data[i].Count; j++)
+            {
+                var temp = data[i][j.ToString()];
+                list.Add(temp.ToString());
+
+            }
+            spawnMob.Add(list);
+            
+        }
+
+        for (int i = 0; i < data.Count; i++)
+        {
+            string temp = "";
+            for (int j = 0; j < data[i].Count; j++)
+            {
+                temp += spawnMob[i][j] + " ";
+            }
+            Debug.Log(temp);
+        }
+    }
 
     // 파일 읽기
     void ReadSpawnFile()
@@ -87,6 +99,7 @@ public class MobSpawnManager : MonoBehaviour
     public void GameStart()
     {
         StartCoroutine(RepeatSpawnMob());
+        ReadStage();
     }
 
     IEnumerator RepeatSpawnMob()
@@ -140,8 +153,7 @@ public class MobSpawnManager : MonoBehaviour
             poolingMob.transform.position = spawnPoints[2].position;
             poolingMob.transform.rotation = spawnPoints[2].rotation;
             Mob mob = poolingMob.GetComponent<Mob>();
-
-            mob.player = player;
+            mob.player = GameManager.Instance.player;
             mob.mobInit();
         });
     }
@@ -157,7 +169,7 @@ public class MobSpawnManager : MonoBehaviour
                 poolingMob.transform.position = spawnPoints[temp].position;
                 poolingMob.transform.rotation = spawnPoints[temp].rotation;
                 Mob mob = poolingMob.GetComponent<Mob>();
-                mob.player = player;
+                mob.player = GameManager.Instance.player;
                 mob.mobInit();
             });
         }
@@ -178,7 +190,7 @@ public class MobSpawnManager : MonoBehaviour
                 pooling.transform.rotation = spawnPoints[rangeMob].rotation;
 
                 Mob mob = pooling.GetComponent<Mob>();
-                mob.player = player;
+                mob.player = GameManager.Instance.player;
                 mob.mobInit();
 
                 if (rangeMob == 5 || rangeMob == 6)         // 5, 6은 오른쪽 사이드 스폰

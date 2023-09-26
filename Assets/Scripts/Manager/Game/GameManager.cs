@@ -5,6 +5,7 @@ public class GameManager : SSSingleton<GameManager>
 {
     public int stage;   // 스테이지
     public int score;   // 점수
+    public int highScore;
     
     public Player player;
 
@@ -36,22 +37,27 @@ public class GameManager : SSSingleton<GameManager>
     {
         base.Awake();
 
-        ObjectManager.Create();
-        BackGroundManager.Create();
-        CSVManager.Create();
+        //GameObject.Find("awef");
+
+
+        int.TryParse(SaveLoadManager.Load(), out highScore);
+        Debug.Log(highScore);
+
+
+        
         //MobManager.Create();
     }
 
     void Start()
     {
-        player.gameObject.SetActive(false);
+        //player.gameObject.SetActive(false);
         stage = 1;
     }
 
     // 게임시작
     public void GameStart()
     {
-        player.gameObject.SetActive(true);
+        //player.gameObject.SetActive(true);
     }
 
     // 점수 추가 및 UI 갱신
@@ -66,6 +72,10 @@ public class GameManager : SSSingleton<GameManager>
     {
         player.fireAble = false;
         ObjectManager.Instance.AllPush();
+
+        if (highScore < score)
+            highScore = score;
+        SaveLoadManager.Save(highScore);
         score = 0;
         UIManagerGameScene.instance.EndGame(game);
     }
