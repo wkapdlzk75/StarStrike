@@ -10,6 +10,7 @@ public class UIManagerGameScene : UIManager
     public Text scoreText;      // 점수 UI
     public Text stageText;      // 스테이지 UI
     public Text popupText;      // 팝업 UI
+    public Text goldText;       // 골드 텍스트 UI
 
     public Image[] lifeImage;   // 목숨 UI
     public Image[] boomImage;   // 폭탄 UI
@@ -21,7 +22,7 @@ public class UIManagerGameScene : UIManager
     // 점수 프로퍼티
     public int CurrentScore
     {
-        get { return GameManager.Instance.score; }
+        get { return GameManager.Instance.curScore; }
         //set { GameManager.Instance.score = value; }
     }
     
@@ -38,13 +39,20 @@ public class UIManagerGameScene : UIManager
     {
         stageText.text = string.Format("스테이지 {0}", CurrentStage);
         UpdateScore();
+        UpdateGold();
         popupUI.SetActive(false);
     }
 
-    // 점수 추가
+    // 점수 갱신
     public void UpdateScore()
     {
         scoreText.text = string.Format("{0:N0}", CurrentScore);
+    }
+
+    // 골드 갱신
+    public void UpdateGold()
+    {
+        goldText.text = string.Format("{0:N0}", GameManager.Instance.inGameGold);
     }
 
     // 목숨 UI 갱신

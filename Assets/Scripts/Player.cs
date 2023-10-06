@@ -15,7 +15,7 @@ public class Player : Unit
     public int maxPower;    // 최대 파워 (최대 총알 레벨)
     public int curPower;    // 현재 파워 (현재 총알 레벨)
     public int maxBoom;     // 최대 폭탄 갯수
-    public int curBoom;     // 현재 폭탄 갯수
+    //public int curBoom;     // 현재 폭탄 갯수
     public int maxFollower; // 최대 팔로워 갯수
     public int curFollower; // 현재 팔로워 갯수
 
@@ -136,10 +136,10 @@ public class Player : Unit
     {
         if (!Input.GetButton("Fire2")) return;
         if (isBoomActive) return;
-        if (curBoom == 0) return;
+        if (GameManager.Instance.GetResourceAmount(GameManager.EResource.boom) == 0) return;
 
-        curBoom--;
-        UIManagerGameScene.instance.UpdateBoom(curBoom, false);
+        GameManager.Instance.RemoveResource(GameManager.EResource.boom, 1);
+        UIManagerGameScene.instance.UpdateBoom(GameManager.Instance.GetResourceAmount(GameManager.EResource.boom), false);
         boomEffect.SetActive(true);
         isBoomActive = true;
         Invoke("OffBoomEffect", 3);
@@ -284,6 +284,9 @@ public class Player : Unit
             switch (item.type)
             {
                 case "Coin":
+                    //GameManager.Instance.AddResource(GameManager.EResource.gold, 100);
+                    GameManager.Instance.inGameGold += 100;
+                    UIManagerGameScene.instance.UpdateGold();
                     GameManager.Instance.AddScore(100);
                     break;
                 case "Power":
@@ -295,11 +298,16 @@ public class Player : Unit
                         GameManager.Instance.AddScore(50);
                     break;
                 case "Boom":
-                    if (curBoom == maxBoom)
+                    if (GameManager.Instance.GetResourceAmount(GameManager.EResource.boom) == maxBoom)
+                    {
                         GameManager.Instance.AddScore(50);
+                    }
                     else
-                        curBoom++;
-                    UIManagerGameScene.instance.UpdateBoom(curBoom, true);
+                    {
+                        GameManager.Instance.AddResource(GameManager.EResource.boom, 1);
+                    }
+                        
+                    UIManagerGameScene.instance.UpdateBoom(GameManager.Instance.GetResourceAmount(GameManager.EResource.boom), true);
                     break;
             }
 

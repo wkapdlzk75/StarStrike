@@ -6,6 +6,7 @@ public class UIManagerLobbyScene : UIManager
 {
     public static UIManagerLobbyScene instance;
     public Text stageText;
+    public Text goldText;
 
     const int MAX_STAGE = 5;    // 마지막 스테이지
 
@@ -20,6 +21,13 @@ public class UIManagerLobbyScene : UIManager
     void Start()
     {
         UIUpdateStage();
+        UpdateGold();
+    }
+
+    // 골드 갱신
+    public void UpdateGold()
+    {
+        goldText.text = string.Format("{0:N0}", GameManager.Instance.GetResourceAmount(GameManager.EResource.gold));
     }
 
     // 스테이지 변경
