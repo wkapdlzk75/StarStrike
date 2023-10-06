@@ -17,14 +17,17 @@ public class Unit : MonoBehaviour
         //int a = CSVManager.Instance.GetItemInt(1,"MaxHP");
         //Debug.Log(str);
         //Debug.Log(a);
-
-
-
     }
-    
-    public void OnHit(int _damage)
+
+    public void ActiveExplosion(string type)
     {
-        curHp -= _damage;
+        ObjectManager.Instance.GetRangedObject("Explosion", (explosion) =>
+        {
+            Explosion ex = explosion.GetComponent<Explosion>();
+            ex.transform.position = transform.position;
+            ex.transform.rotation = Quaternion.Euler(0, 0, 0);
+            ex.StartExplosion(type);
+        });
     }
 
 }

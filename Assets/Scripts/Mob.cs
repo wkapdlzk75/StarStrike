@@ -108,7 +108,7 @@ public class Mob : Unit
     void FireShotToPlayer2(GameObject poolingBullet)
     {
         Vector2 playerPos = (player.transform.position - transform.position).normalized;
-        
+
         poolingBullet.transform.position = transform.position + new Vector3(0, -1.4f, 0);
         poolingBullet.transform.rotation = Quaternion.Euler(0, 0, 0);
 
@@ -195,7 +195,7 @@ public class Mob : Unit
     // 몹에 따른 총알 발사
     IEnumerator Fire()
     {
-        yield return new WaitUntil(() => initEnd == true );
+        yield return new WaitUntil(() => initEnd == true);
 
         if (player == null || !player.gameObject.activeSelf)
         {
@@ -248,7 +248,7 @@ public class Mob : Unit
     }
 
     // 총알에 맞았을 경우
-    public new void OnHit(int _damage)
+    public void OnHit(int _damage)
     {
         if (curHp <= 0) return;
 
@@ -262,7 +262,7 @@ public class Mob : Unit
         if (curHp <= 0)
         {
             GameManager.Instance.AddScore(score);
-
+            ActiveExplosion(mobName);
             if (mobName == "B")
             {
                 CancelInvoke("BossRandomFire");
@@ -325,7 +325,11 @@ public class Mob : Unit
 
         // 유저와 충돌 했을 경우
         if (_collision.transform.CompareTag("Player"))
+        {
+            if (player.isRespawnTime) return;
             PushObject(gameObject);
+        }
+
     }
 
 

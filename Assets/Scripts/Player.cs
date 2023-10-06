@@ -23,11 +23,13 @@ public class Player : Unit
 
     float lastFireTime;     // 마지막 총알 발사 시각
     bool isDie;             // 플레이어 죽음 여부
-    bool isBoomActive;        // 폭탄 터짐 여부
+    bool isBoomActive;      // 폭탄 터짐 여부
+    public bool isRespawnTime;     // 플레이어 부활
 
     public GameObject boomEffect; // 폭탄
 
     Animator animator;
+    SpriteRenderer spriteRenderer;
     public Follower m_Follow;
     private List<Follower> followers = new List<Follower>();
 
@@ -38,6 +40,7 @@ public class Player : Unit
         //DontDestroyOnLoad(gameObject);
         GameManager.Instance.player = this;
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         //gameObject.SetActive(false);
     }
 
@@ -49,8 +52,16 @@ public class Player : Unit
         curPower = 1;
         isDie = false;
         fireAble = true;
+        isRespawnTime = false;
         //OnItemUse();
     }
+
+    private void OnEnable()
+    {
+
+    }
+
+
 
     IEnumerator PlayerInit()
     {
@@ -166,14 +177,31 @@ public class Player : Unit
             animator.SetInteger("Input", (int)moveHori);
     }
 
+    public void OnHit(int _damage)
+    {
+        if (isRespawnTime) return;
+        curHp -= _damage;
+    }
+
+    IEnumerator PlayerSprite()
+    {
+        spriteRenderer.color = new Color(1, 1, 1, 0.4f); // 반투명 상태로 설정
+        yield return new WaitForSeconds(10); // 3초 대기
+        spriteRenderer.color = new Color(1, 1, 1, 1); // 투명도를 원래대로 돌림
+        isRespawnTime = false;
+    }
+
     // 플레이어 리스폰
     public void RespawnPlayer()
     {
+        isRespawnTime = true;
         isDie = false;
         curHp = maxHp;
         transform.position = new Vector2(0, -4);
         gameObject.SetActive(true);
+        StartCoroutine(PlayerSprite());
     }
+
 
     // 플레이어 죽음
     public void Die()
@@ -181,6 +209,7 @@ public class Player : Unit
         curFollower = 0;
         curLife--;
         UIManagerGameScene.instance.UpdateLife(curLife, false);
+        ActiveExplosion("P");
 
         if (curLife <= 0)
         {
@@ -230,6 +259,7 @@ public class Player : Unit
             PushObject(_collision.gameObject);
 
             if (isDie) return;
+            if (isRespawnTime) return;
 
             if (curHp <= 0 && !isDie)
             {
@@ -242,6 +272,7 @@ public class Player : Unit
         if (_collision.transform.CompareTag("Mob") || _collision.transform.CompareTag("MobBoss"))
         {
             if (isDie) return;
+            if (isRespawnTime) return;
             isDie = true;
             Die();
         }
