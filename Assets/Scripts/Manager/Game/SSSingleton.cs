@@ -38,6 +38,6 @@ public class SSSingleton<T> : MonoBehaviour where T : MonoBehaviour
 
 
     public static T Create() {
-        return (T)_instance;
+        return (T) Instance;
     }
 }

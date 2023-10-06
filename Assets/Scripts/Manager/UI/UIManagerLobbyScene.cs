@@ -1,3 +1,5 @@
+using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 // 로비 씬 UI 관리
@@ -7,11 +9,17 @@ public class UIManagerLobbyScene : UIManager
     public static UIManagerLobbyScene instance;
     public Text stageText;
     public Text goldText;
+    public Text highScoreText;
 
     const int MAX_STAGE = 5;    // 마지막 스테이지
 
     private void Awake()
     {
+        GameManager.Create();
+        ObjectManager.Create();
+        BackGroundManager.Create();
+        CSVManager.Create();
+
         if (instance == null)
             instance = this;
         else if (instance != this)
@@ -20,14 +28,26 @@ public class UIManagerLobbyScene : UIManager
 
     void Start()
     {
+        StartCoroutine(LoadData());
+    }
+
+    IEnumerator LoadData()
+    {
+        yield return new WaitUntil(()=> SaveLoadManager.loadEnd);
         UIUpdateStage();
         UpdateGold();
+        UpdateHighScore();
     }
 
     // 골드 갱신
     public void UpdateGold()
     {
         goldText.text = string.Format("{0:N0}", GameManager.Instance.GetResourceAmount(GameManager.EResource.gold));
+    }
+
+    public void UpdateHighScore()
+    {
+        highScoreText.text = string.Format("{0:N0}", GameManager.Instance.highScore);
     }
 
     // 스테이지 변경

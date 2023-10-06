@@ -8,7 +8,7 @@ public class GameManager : SSSingleton<GameManager>
     public int highScore;   // 최대 점수
     public int inGameGold;
 
-    Dictionary<EResource, int> inventory = new Dictionary<EResource, int>();
+    public Dictionary<EResource, int> inventory = new Dictionary<EResource, int>();
 
     public enum EResource
     {
@@ -48,10 +48,11 @@ public class GameManager : SSSingleton<GameManager>
 
         //GameObject.Find("awef");
 
-        int.TryParse(SaveLoadManager.Load(), out highScore);
-        Debug.Log(highScore);
-
+        //int.TryParse(SaveLoadManager.Load(), out highScore);
         //MobManager.Create();
+        Debug.Log(highScore);
+        SaveLoadManager.Load();
+
     }
 
     void Start()
@@ -114,10 +115,13 @@ public class GameManager : SSSingleton<GameManager>
         ObjectManager.Instance.AllPush();
         AddResource(EResource.gold, inGameGold);
 
+
         if (highScore < curScore)
             highScore = curScore;
-        SaveLoadManager.Save(highScore);
+
+        //SaveLoadManager.Save(highScore);
         curScore = 0;
+        SaveLoadManager.Save();
         UIManagerGameScene.instance.EndGame(game);
     }
 

@@ -19,9 +19,6 @@ public class JsonTest : MonoBehaviour
         }
     }
 
-    
-    
-
     void SaveData(TestJsonClass[] data)
     {
         /*
