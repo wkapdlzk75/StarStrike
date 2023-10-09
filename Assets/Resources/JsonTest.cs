@@ -7,7 +7,7 @@ public class JsonTest : MonoBehaviour
     public TextAsset JsonFile;//Variable that contains json data
     private void Start()
     {
-        LoadData();
+        //LoadData();
     }
 
     void LoadData()

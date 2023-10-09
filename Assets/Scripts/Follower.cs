@@ -47,7 +47,7 @@ public class Follower : Unit
             if (!playerObject.activeSelf)
                 Destroy(gameObject);
         }
-        catch (Exception NullReferenceException)
+        catch (Exception)
         {
             Destroy(gameObject);
             return;

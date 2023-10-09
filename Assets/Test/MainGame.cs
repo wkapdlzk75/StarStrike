@@ -11,7 +11,7 @@ public class MainGame : MonoBehaviour
 
        // CSVManager.Instance.Create();
         //ItemDataManager.Instance.Create();
-        InventoryManager.Instance.Create();
+        InventoryManager.Instance.LoadItem();
 
         // UI 로드 
         InventoryUI.Instance.Open();

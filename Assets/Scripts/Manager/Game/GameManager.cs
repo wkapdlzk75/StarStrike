@@ -50,7 +50,7 @@ public class GameManager : SSSingleton<GameManager>
 
         //int.TryParse(SaveLoadManager.Load(), out highScore);
         //MobManager.Create();
-        Debug.Log(highScore);
+        //Debug.Log(highScore);
         SaveLoadManager.Load();
 
     }

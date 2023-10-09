@@ -7,7 +7,7 @@ public class InventoryManager : SSSingleton<InventoryManager>
     public List<ItemDB> m_kItems;// 가상으로 로드 추후에 바꿈
 
     public List<int> m_kData = new List<int> ();
-    public void Create()
+    public void LoadItem()
     {
         // 로딩, 아이템 로딩 
 

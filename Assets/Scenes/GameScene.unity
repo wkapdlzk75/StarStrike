@@ -3049,7 +3049,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcba5eab69a838d48bc9938ad1ede3ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 1906230618}
   spawnPoints:
   - {fileID: 1321109237}
   - {fileID: 1406028875}
@@ -3060,7 +3059,6 @@ MonoBehaviour:
   - {fileID: 1819798903}
   - {fileID: 1510218598}
   - {fileID: 1269554962}
-  spawnInterval: 5
   spawnIndex: 0
   spawnEnd: 0
 --- !u!1 &1942045690
