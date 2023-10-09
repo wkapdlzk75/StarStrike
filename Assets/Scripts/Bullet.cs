@@ -5,6 +5,8 @@ public class Bullet : MonoBehaviour
 {
     public float speed; // 총알 스피드
     public int damage;  // 공격력
+    public float scale = 1f;
+
 
     public string nameBullet;
     Rigidbody2D rb;
@@ -12,6 +14,7 @@ public class Bullet : MonoBehaviour
 
     void OnEnable()
     {
+        transform.localScale = Vector3.one * scale;
         Invoke("AutoPush", 10);
 
         // 플레이어의 총알의 경우
@@ -65,7 +68,7 @@ public class Bullet : MonoBehaviour
         if (gameObject.activeSelf)
         {
             PushBullet();
-            
+
         }
     }
 
