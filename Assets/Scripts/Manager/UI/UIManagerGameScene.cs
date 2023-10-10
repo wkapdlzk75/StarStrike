@@ -17,8 +17,6 @@ public class UIManagerGameScene : UIManager
 
     public GameObject popupUI;  // 팝업 UI
 
-    //public Player player;       // 플레이어 정보
-
     // 점수 프로퍼티
     public int CurrentScore
     {
@@ -40,6 +38,7 @@ public class UIManagerGameScene : UIManager
         stageText.text = string.Format("스테이지 {0}", CurrentStage);
         UpdateScore();
         UpdateGold();
+        UpdateBoom(GameManager.Instance.GetResourceAmount(GameManager.EResource.boom));
         popupUI.SetActive(false);
     }
 
@@ -65,13 +64,22 @@ public class UIManagerGameScene : UIManager
     }
 
     // 폭탄 UI 갱신
-    public void UpdateBoom(int _boom, bool _value)
+    public void UpdateBoom(int _boom)
     {
-        if (_value) // true 추가
-            boomImage[_boom - 1].gameObject.SetActive(true);
-        else        // false 제거
-            boomImage[_boom].gameObject.SetActive(false);
+        // 모든 이미지를 먼저 비활성화
+        for (int i = 0; i < boomImage.Length; i++)
+        {
+            boomImage[i].gameObject.SetActive(false);
+        }
+
+        // _boom 갯수만큼만 활성화
+        for (int i = 0; i < _boom; i++)
+        {
+            if (i < boomImage.Length) // 배열의 범위를 벗어나지 않게 체크
+                boomImage[i].gameObject.SetActive(true);
+        }
     }
+
 
     // 게임 종료
     public void EndGame(bool game)

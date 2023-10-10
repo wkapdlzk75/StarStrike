@@ -139,7 +139,7 @@ public class Player : Unit
         if (GameManager.Instance.GetResourceAmount(GameManager.EResource.boom) == 0) return;
 
         GameManager.Instance.RemoveResource(GameManager.EResource.boom, 1);
-        UIManagerGameScene.instance.UpdateBoom(GameManager.Instance.GetResourceAmount(GameManager.EResource.boom), false);
+        UIManagerGameScene.instance.UpdateBoom(GameManager.Instance.GetResourceAmount(GameManager.EResource.boom));
         boomEffect.SetActive(true);
         isBoomActive = true;
         Invoke("OffBoomEffect", 3);
@@ -307,7 +307,7 @@ public class Player : Unit
                         GameManager.Instance.AddResource(GameManager.EResource.boom, 1);
                     }
                         
-                    UIManagerGameScene.instance.UpdateBoom(GameManager.Instance.GetResourceAmount(GameManager.EResource.boom), true);
+                    UIManagerGameScene.instance.UpdateBoom(GameManager.Instance.GetResourceAmount(GameManager.EResource.boom));
                     break;
             }
 

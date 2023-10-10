@@ -3562,7 +3562,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageText: {fileID: 176583710}
   goldText: {fileID: 2033956026995274403}
-  boomText: {fileID: 0}
+  boomText: {fileID: 2129121563}
   highScoreText: {fileID: 1909168462}
 --- !u!224 &1790041566
 RectTransform:

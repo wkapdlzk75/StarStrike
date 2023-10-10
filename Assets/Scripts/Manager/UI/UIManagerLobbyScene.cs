@@ -36,14 +36,15 @@ public class UIManagerLobbyScene : UIManager
     {
         yield return new WaitUntil(()=> SaveLoadManager.loadEnd);
         UIUpdateStage();
-        UpdateGold();
+        UpdateGoods();
         UpdateHighScore();
     }
 
     // 골드 갱신
-    public void UpdateGold()
+    public void UpdateGoods()
     {
         goldText.text = string.Format("{0:N0}", GameManager.Instance.GetResourceAmount(GameManager.EResource.gold));
+        boomText.text = string.Format("{0:N0}", GameManager.Instance.GetResourceAmount(GameManager.EResource.boom));
     }
 
     public void UpdateHighScore()
