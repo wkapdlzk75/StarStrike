@@ -9,6 +9,7 @@ public class UIManagerLobbyScene : UIManager
     public static UIManagerLobbyScene instance;
     public Text stageText;
     public Text goldText;
+    public Text boomText;
     public Text highScoreText;
 
     const int MAX_STAGE = 5;    // 마지막 스테이지
