@@ -36,8 +36,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 316, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 324, y: 0.000025749}
+  m_SizeDelta: {x: 249.6198, y: 97.275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3890310443139683907
 CanvasRenderer:
@@ -130,6 +130,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5216016217990733035}
+  - component: {fileID: 7104755202655164546}
   m_Layer: 5
   m_Name: GameObject
   m_TagString: Untagged
@@ -159,6 +160,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7104755202655164546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758570226376212915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1d076df3b99b324fa20b52566317f3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainText: {fileID: 7945464700110424534}
+  enhanceText: {fileID: 6823559557714918271}
+  enhanceButton: {fileID: 3206418617265537084}
 --- !u!1 &5300561597616583352
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,7 +449,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uACF5\uACA9\uB825 \uC5C5\uADF8\uB808\uC774\uB4DC"
+  m_text: "\uC5C5\uADF8\uB808\uC774\uB4DC"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 31f791c0d8a851c4db6c9e1b87a150b8, type: 2}
   m_sharedMaterial: {fileID: 1156420168011804211, guid: 31f791c0d8a851c4db6c9e1b87a150b8, type: 2}

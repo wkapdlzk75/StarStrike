@@ -55,6 +55,8 @@ public class Player : Unit
         isRespawnTime = false;
         maxHp = GameManager.Instance.GetStatus(GameManager.EPlayerStatus.maxHp);
         damage = GameManager.Instance.GetStatus(GameManager.EPlayerStatus.damage);
+
+        curHp = maxHp;
     }
 
     private void OnEnable()
@@ -187,7 +189,7 @@ public class Player : Unit
     IEnumerator PlayerSprite()
     {
         spriteRenderer.color = new Color(1, 1, 1, 0.4f); // 반투명 상태로 설정
-        yield return new WaitForSeconds(10); // 3초 대기
+        yield return new WaitForSeconds(3); // 3초 대기
         spriteRenderer.color = new Color(1, 1, 1, 1); // 투명도를 원래대로 돌림
         isRespawnTime = false;
     }

@@ -172,14 +172,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183ac76c9d149aa4a81c3ba241ae2409, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 10
-  curHp: 10
-  damage: 1
+  maxHp: 30
+  curHp: 30
+  damage: 10
   speed: 3
   bulletFiringInterval: 0.2
-  bulletsParent: {fileID: 0}
-  bulletPrefabA: {fileID: -2705435586580316366, guid: cfbe320fcd9642d4c88a1630f5b97348, type: 3}
-  bulletPrefabB: {fileID: -2705435586580316366, guid: 150396a3db72a364eb70bea91c6f571e, type: 3}
   isTouchTop: 0
   isTouchBottom: 0
   isTouchRight: 0
@@ -189,11 +186,12 @@ MonoBehaviour:
   maxPower: 3
   curPower: 1
   maxBoom: 3
-  curBoom: 0
   maxFollower: 4
   curFollower: 0
+  isRespawnTime: 0
   boomEffect: {fileID: 0}
   m_Follow: {fileID: 8596390432349849313, guid: f93f6ed1d6f5d9948bac94b7e920ebd6, type: 3}
+  fireAble: 0
 --- !u!95 &3443354779711738876
 Animator:
   serializedVersion: 5

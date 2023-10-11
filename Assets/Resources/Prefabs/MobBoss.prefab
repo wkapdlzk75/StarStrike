@@ -172,14 +172,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04fd5c01caa8e9b44acd8154109d7f43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 100
-  curHp: 100
-  damage: 10
+  maxHp: 1000
+  curHp: 1000
+  damage: 50
   speed: 1
   bulletFiringInterval: 0
-  bulletsParent: {fileID: 0}
-  bulletPrefabA: {fileID: 5628264691331630020, guid: 1217b77220e2486438fa45c842d3e515, type: 3}
-  bulletPrefabB: {fileID: -4753918303420001081, guid: 2b57fc5c4f4f5f84abdf22ac2ab4adc8, type: 3}
   mobName: B
   score: 300
   sprite:

@@ -9,6 +9,9 @@ public class GameManager : SSSingleton<GameManager>
     public int inGameGold;
     public Player player;
 
+    public const int initDamage = 10;
+    public const int initMaxHp = 30;
+
     public Dictionary<EResource, int> inventory = new Dictionary<EResource, int>();
     public Dictionary<EPlayerStatus, int> playerStatus = new Dictionary<EPlayerStatus, int>();
 
@@ -34,6 +37,19 @@ public class GameManager : SSSingleton<GameManager>
     void Start()
     {
         stage = 1;
+    }
+
+    public int GetEnhanceCount(EPlayerStatus ePlayerStatus)
+    {
+        switch (ePlayerStatus)
+        {
+            case EPlayerStatus.maxHp:
+                return (playerStatus[ePlayerStatus] - initMaxHp) / 1;   // 1씩 오를 경우 1로 나눔
+            case EPlayerStatus.damage:
+                return (playerStatus[ePlayerStatus] - initDamage) / 1;
+            default:
+                return 0;
+        }
     }
 
     // 스탯 증가

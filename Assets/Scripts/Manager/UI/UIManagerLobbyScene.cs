@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class UIManagerLobbyScene : UIManager
 {
-    public static UIManagerLobbyScene instance;
+    public static UIManagerLobbyScene Instance;
     public Text stageText;
     public Text goldText1;
     public Text goldText2;
@@ -22,9 +22,9 @@ public class UIManagerLobbyScene : UIManager
         BackGroundManager.Create();
         CSVManager.Create();
 
-        if (instance == null)
-            instance = this;
-        else if (instance != this)
+        if (Instance == null)
+            Instance = this;
+        else if (Instance != this)
             Destroy(gameObject);
     }
 
