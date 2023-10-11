@@ -67,6 +67,8 @@ public static class SaveLoadManager
         ES3.Save("highScore", GameManager.Instance.highScore);
         ES3.Save("gold", GameManager.Instance.GetResourceAmount(GameManager.EResource.gold));
         ES3.Save("boom", GameManager.Instance.GetResourceAmount(GameManager.EResource.boom));
+        ES3.Save("maxHp", GameManager.Instance.GetStatus(GameManager.EPlayerStatus.maxHp));
+        ES3.Save("damage", GameManager.Instance.GetStatus(GameManager.EPlayerStatus.damage));
     }
 
 

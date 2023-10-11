@@ -53,7 +53,8 @@ public class Player : Unit
         isDie = false;
         fireAble = true;
         isRespawnTime = false;
-        //OnItemUse();
+        maxHp = GameManager.Instance.GetStatus(GameManager.EPlayerStatus.maxHp);
+        damage = GameManager.Instance.GetStatus(GameManager.EPlayerStatus.damage);
     }
 
     private void OnEnable()

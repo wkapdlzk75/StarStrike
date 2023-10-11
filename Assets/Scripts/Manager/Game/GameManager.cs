@@ -7,60 +7,57 @@ public class GameManager : SSSingleton<GameManager>
     public int curScore;    // 점수
     public int highScore;   // 최대 점수
     public int inGameGold;
+    public Player player;
 
     public Dictionary<EResource, int> inventory = new Dictionary<EResource, int>();
+    public Dictionary<EPlayerStatus, int> playerStatus = new Dictionary<EPlayerStatus, int>();
+
+    public enum EPlayerStatus
+    {
+        maxHp,
+        damage
+    }
 
     public enum EResource
     {
         gold,
         boom
-    };
-
-    public Player player;
-
-    /*public Player Player
-    {
-        get
-        {
-            if (player == null)
-            {
-                var obj = GameObject.Find("Player");
-                //GameObject
-
-                if (obj != null)
-                {
-                    player = obj.GetComponent<Player>();
-                }
-
-                //player = GameObject.Find("Player").GetComponent<Player>();
-            }
-            return player;
-        }
-
     }
-
-    private Player player;*/
-
 
     protected override void Awake()
     {
         base.Awake();
-
-        //GameObject.Find("awef");
-
-        //int.TryParse(SaveLoadManager.Load(), out highScore);
-        //MobManager.Create();
-        //Debug.Log(highScore);
         SaveLoadManager.Load();
 
     }
 
     void Start()
     {
-        //player.gameObject.SetActive(false);
         stage = 1;
     }
 
+    // 스탯 증가
+    public void AddStatus(EPlayerStatus ePlayerStatus, int value)
+    {
+        if (!playerStatus.ContainsKey(ePlayerStatus))
+        {
+            playerStatus.Add(ePlayerStatus, 0);
+        }
+        playerStatus[ePlayerStatus] += value;
+    }
+
+    // 스탯 불러오기
+    public int GetStatus(EPlayerStatus ePlayerStatus)
+    {
+        if (!playerStatus.ContainsKey(ePlayerStatus))
+        {
+            playerStatus.Add(ePlayerStatus, 0);
+        }
+
+        return playerStatus[ePlayerStatus];
+    }
+
+    // 재화 증가
     public void AddResource(EResource eResource, int amount)
     {
         if (!inventory.ContainsKey(eResource))
@@ -70,6 +67,7 @@ public class GameManager : SSSingleton<GameManager>
         inventory[eResource] += amount;
     }
 
+    // 재화 감소
     public void RemoveResource(EResource eResource, int amount)
     {
         if (!inventory.ContainsKey(eResource))
@@ -84,6 +82,7 @@ public class GameManager : SSSingleton<GameManager>
 
     }
 
+    // 재화 불러오기
     public int GetResourceAmount(EResource eResource)
     {
         if (!inventory.ContainsKey(eResource))
@@ -98,7 +97,6 @@ public class GameManager : SSSingleton<GameManager>
     public void GameStart()
     {
         inGameGold = 0;
-        //player.gameObject.SetActive(true);
     }
 
     // 점수 추가 및 UI 갱신
@@ -119,7 +117,6 @@ public class GameManager : SSSingleton<GameManager>
         if (highScore < curScore)
             highScore = curScore;
 
-        //SaveLoadManager.Save(highScore);
         curScore = 0;
         SaveLoadManager.Save();
         UIManagerGameScene.instance.EndGame(game);

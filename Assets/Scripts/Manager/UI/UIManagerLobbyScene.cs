@@ -8,7 +8,8 @@ public class UIManagerLobbyScene : UIManager
 {
     public static UIManagerLobbyScene instance;
     public Text stageText;
-    public Text goldText;
+    public Text goldText1;
+    public Text goldText2;
     public Text boomText;
     public Text highScoreText;
 
@@ -43,7 +44,8 @@ public class UIManagerLobbyScene : UIManager
     // 골드 갱신
     public void UpdateGoods()
     {
-        goldText.text = string.Format("{0:N0}", GameManager.Instance.GetResourceAmount(GameManager.EResource.gold));
+        goldText1.text = string.Format("{0:N0}", GameManager.Instance.GetResourceAmount(GameManager.EResource.gold));
+        goldText2.text = string.Format("{0:N0}", GameManager.Instance.GetResourceAmount(GameManager.EResource.gold));
         boomText.text = string.Format("{0:N0}", GameManager.Instance.GetResourceAmount(GameManager.EResource.boom));
     }
 
