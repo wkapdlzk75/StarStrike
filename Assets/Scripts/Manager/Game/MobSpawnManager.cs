@@ -45,7 +45,7 @@ public class MobSpawnManager : MonoBehaviour
             }
             spawnMob.Add(list);
         }
-        
+
     }
 
     // 게임 시작
@@ -62,7 +62,8 @@ public class MobSpawnManager : MonoBehaviour
             for (int j = 0; j < spawnMob[i].Count; j++)
             {
                 if (spawnMob[i][j] == "") continue;
-                SpawnMob("Mob" + spawnMob[i][j], j);
+                if (GameManager.Instance.isPlaying)
+                    SpawnMob("Mob" + spawnMob[i][j], j);
             }
             yield return new WaitForSeconds(5);
         }

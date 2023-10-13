@@ -187,7 +187,7 @@ MonoBehaviour:
   curPower: 1
   maxBoom: 3
   maxFollower: 4
-  curFollower: 0
+  curFollower: 4
   isRespawnTime: 0
   boomEffect: {fileID: 0}
   m_Follow: {fileID: 8596390432349849313, guid: f93f6ed1d6f5d9948bac94b7e920ebd6, type: 3}

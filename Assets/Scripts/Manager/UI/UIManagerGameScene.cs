@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,10 +8,15 @@ public class UIManagerGameScene : UIManager
 {
     public static UIManagerGameScene instance;
 
-    public Text scoreText;      // 점수 UI
+    public Text scoreText1;      // 점수 UI
     public Text stageText;      // 스테이지 UI
     public Text popupText;      // 팝업 UI
     public Text goldText;       // 골드 텍스트 UI
+    public Text scoreText2;
+    public Text saveText;
+    //public InputField inputName;
+    public TMP_InputField inputName;
+
 
     public Image[] lifeImage;   // 목숨 UI
     public Image[] boomImage;   // 폭탄 UI
@@ -23,7 +29,7 @@ public class UIManagerGameScene : UIManager
         get { return GameManager.Instance.curScore; }
         //set { GameManager.Instance.score = value; }
     }
-    
+
 
     private void Awake()
     {
@@ -45,7 +51,7 @@ public class UIManagerGameScene : UIManager
     // 점수 갱신
     public void UpdateScore()
     {
-        scoreText.text = string.Format("{0:N0}", CurrentScore);
+        scoreText1.text = string.Format("{0:N0}", CurrentScore);
     }
 
     // 골드 갱신
@@ -80,6 +86,21 @@ public class UIManagerGameScene : UIManager
         }
     }
 
+    public void SaveAndGoLobby()
+    {
+        if (inputName.text == "")
+        {
+            Ranking.SaveScore("Unknown", CurrentScore);
+        }
+        else
+        {
+            Ranking.SaveScore(inputName.text, CurrentScore);
+            //Ranking.SaveScore(inputName.text, int.Parse(scoreText1.text.Replace(",","")));
+        }
+
+        SceneChange("LobbyScene");
+    }
+
 
     // 게임 종료
     public void EndGame(bool game)
@@ -92,6 +113,8 @@ public class UIManagerGameScene : UIManager
         {
             popupText.text = "Defeat";
         }
+
+        scoreText2.text = "현재 점수 : " + scoreText1.text;
 
         popupUI.SetActive(true);
     }

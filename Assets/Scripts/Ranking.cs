@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ranking : MonoBehaviour
+public static class Ranking
 {
     private const int MAX_RANK = 10;
 
-    public void SaveScore(string playerName, int score)
+    public static void SaveScore(string playerName, int score)
     {
         List<KeyValuePair<string, int>> allScores = GetScores();
 
@@ -27,7 +27,7 @@ public class Ranking : MonoBehaviour
     }
 
     // 점수 불러오기
-    public List<KeyValuePair<string, int>> GetScores()
+    public static List<KeyValuePair<string, int>> GetScores()
     {
         List<KeyValuePair<string, int>> allScores = new List<KeyValuePair<string, int>>();
         for (int i = 1; i <= MAX_RANK; i++)

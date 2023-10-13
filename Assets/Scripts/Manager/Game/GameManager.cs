@@ -7,6 +7,9 @@ public class GameManager : SSSingleton<GameManager>
     public int curScore;    // 점수
     public int highScore;   // 최대 점수
     public int inGameGold;
+
+    public bool isPlaying;
+
     public Player player;
 
     public const int initDamage = 10;
@@ -112,6 +115,7 @@ public class GameManager : SSSingleton<GameManager>
     // 게임시작
     public void GameStart()
     {
+        isPlaying = true;
         inGameGold = 0;
     }
 
@@ -125,6 +129,7 @@ public class GameManager : SSSingleton<GameManager>
     // 게임 종료
     public void EndGame(bool game)
     {
+        isPlaying = false;
         player.fireAble = false;
         ObjectManager.Instance.AllPush();
         AddResource(EResource.gold, inGameGold);
