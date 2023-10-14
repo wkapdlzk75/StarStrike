@@ -172,8 +172,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183ac76c9d149aa4a81c3ba241ae2409, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 30
-  curHp: 30
+  maxHp: 100
+  curHp: 100
   damage: 10
   speed: 3
   bulletFiringInterval: 0.2

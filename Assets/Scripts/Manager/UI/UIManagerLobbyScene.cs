@@ -12,7 +12,6 @@ public class UIManagerLobbyScene : UIManager
     public Text goldText1;
     public Text goldText2;
     public Text boomText;
-    public Text highScoreText;
 
     const int MAX_STAGE = 5;    // 마지막 스테이지
 
@@ -40,7 +39,6 @@ public class UIManagerLobbyScene : UIManager
         yield return new WaitUntil(() => SaveLoadManager.loadEnd);
         UIUpdateStage();
         UpdateGoods();
-        UpdateHighScore();
     }
 
     // 골드 갱신
@@ -49,11 +47,6 @@ public class UIManagerLobbyScene : UIManager
         goldText1.text = string.Format("{0:N0}", GameManager.Instance.GetResourceAmount(GameManager.EResource.gold));
         goldText2.text = string.Format("{0:N0}", GameManager.Instance.GetResourceAmount(GameManager.EResource.gold));
         boomText.text = string.Format("{0:N0}", GameManager.Instance.GetResourceAmount(GameManager.EResource.boom));
-    }
-
-    public void UpdateHighScore()
-    {
-        highScoreText.text = string.Format("{0:N0}", GameManager.Instance.highScore);
     }
 
     // 스테이지 변경

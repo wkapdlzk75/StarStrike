@@ -189,7 +189,7 @@ public class Player : Unit
     IEnumerator PlayerSprite()
     {
         spriteRenderer.color = new Color(1, 1, 1, 0.4f); // 반투명 상태로 설정
-        yield return new WaitForSeconds(1.5f); // 3초 대기
+        yield return new WaitForSeconds(1.5f); // 1.5초 대기
         spriteRenderer.color = new Color(1, 1, 1, 1); // 투명도를 원래대로 돌림
         isRespawnTime = false;
     }
@@ -287,10 +287,9 @@ public class Player : Unit
             switch (item.type)
             {
                 case "Coin":
-                    //GameManager.Instance.AddResource(GameManager.EResource.gold, 100);
-                    GameManager.Instance.inGameGold += 100;
+                    GameManager.Instance.inGameGold += 20;
                     UIManagerGameScene.instance.UpdateGold();
-                    GameManager.Instance.AddScore(100);
+                    GameManager.Instance.AddScore(20);
                     break;
                 case "Power":
                     if (curPower < maxPower)
@@ -298,12 +297,12 @@ public class Player : Unit
                     else if (curFollower < maxFollower)
                         OnItemUse(curFollower);
                     else
-                        GameManager.Instance.AddScore(50);
+                        GameManager.Instance.AddScore(20);
                     break;
                 case "Boom":
                     if (GameManager.Instance.GetResourceAmount(GameManager.EResource.boom) == maxBoom)
                     {
-                        GameManager.Instance.AddScore(50);
+                        GameManager.Instance.AddScore(20);
                     }
                     else
                     {

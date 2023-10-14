@@ -161,13 +161,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04fd5c01caa8e9b44acd8154109d7f43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 30
-  curHp: 30
-  damage: 5
+  maxHp: 50
+  curHp: 50
+  damage: 10
   speed: 1.5
   bulletFiringInterval: 5
   mobName: S
-  score: 1
+  score: 25
   sprite:
   - {fileID: 8414478535512612329, guid: 93226235712397949939ad597de82f85, type: 3}
   - {fileID: 4326287474489854147, guid: 93226235712397949939ad597de82f85, type: 3}
