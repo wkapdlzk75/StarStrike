@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +8,7 @@ using UnityEngine.UI;
 public class UIManagerLobbyScene : UIManager
 {
     public static UIManagerLobbyScene Instance;
-    public Text stageText;
+    public TextMeshProUGUI stageText;
     public Text goldText1;
     public Text goldText2;
     public Text boomText;
@@ -31,7 +32,7 @@ public class UIManagerLobbyScene : UIManager
     void Start()
     {
         StartCoroutine(LoadData());
-        SetResolution();
+        //SetResolution();
     }
 
     IEnumerator LoadData()

@@ -10,10 +10,10 @@ public class UIManagerGameScene : UIManager
 
     public Text scoreText1;      // 점수 UI
     public Text stageText;      // 스테이지 UI
-    public Text popupText;      // 팝업 UI
+    public TextMeshProUGUI popupText;      // 팝업 UI
     public Text goldText;       // 골드 텍스트 UI
-    public Text scoreText2;
-    public Text saveText;
+    public TextMeshProUGUI scoreText2;
+    //public TextMeshProUGUI saveText;
     //public InputField inputName;
     public TMP_InputField inputName;
 
@@ -88,14 +88,14 @@ public class UIManagerGameScene : UIManager
 
     public void SaveAndGoLobby()
     {
+
         if (inputName.text == "")
         {
-            Ranking.SaveScore("Unknown", CurrentScore);
+            Ranking.SaveScore("Unknown", int.Parse(scoreText1.text.Replace(",", "")));
         }
         else
         {
-            Ranking.SaveScore(inputName.text, CurrentScore);
-            //Ranking.SaveScore(inputName.text, int.Parse(scoreText1.text.Replace(",","")));
+            Ranking.SaveScore(inputName.text, int.Parse(scoreText1.text.Replace(",", "")));
         }
 
         SceneChange("LobbyScene");
@@ -113,7 +113,6 @@ public class UIManagerGameScene : UIManager
         {
             popupText.text = "Defeat";
         }
-
         scoreText2.text = "현재 점수 : " + scoreText1.text;
 
         popupUI.SetActive(true);

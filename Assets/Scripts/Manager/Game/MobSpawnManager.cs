@@ -16,10 +16,10 @@ public class MobSpawnManager : MonoBehaviour
     protected void Awake()
     {
         MobDataManager.Instance.CreateMobData();
-        foreach (var key in MobDataManager.Instance.mobDataDic.Keys)
+        /*foreach (var key in MobDataManager.Instance.mobDataDic.Keys)
         {
             Debug.Log("Key: " + key + ", Value: " + MobDataManager.Instance.mobDataDic[key].name);
-        }
+        }*/
     }
 
     private void OnEnable()

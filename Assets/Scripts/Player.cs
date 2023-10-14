@@ -189,7 +189,7 @@ public class Player : Unit
     IEnumerator PlayerSprite()
     {
         spriteRenderer.color = new Color(1, 1, 1, 0.4f); // 반투명 상태로 설정
-        yield return new WaitForSeconds(3); // 3초 대기
+        yield return new WaitForSeconds(1.5f); // 3초 대기
         spriteRenderer.color = new Color(1, 1, 1, 1); // 투명도를 원래대로 돌림
         isRespawnTime = false;
     }
@@ -223,7 +223,7 @@ public class Player : Unit
         else
         {
             gameObject.SetActive(false);
-            Invoke("RespawnPlayer", 3); // 3초 뒤 부활
+            Invoke("RespawnPlayer", 1.5f); // 1.5초 뒤 부활
         }
 
     }
