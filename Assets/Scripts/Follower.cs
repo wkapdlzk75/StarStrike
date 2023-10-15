@@ -15,7 +15,7 @@ public class Follower : Unit
     Queue<Vector3> parentPos = new Queue<Vector3>();
     float lastFireTime;     // 마지막 총알 발사 시각
 
-    public AudioClip shootingSound;
+    public AudioClip dieSound;
     private AudioSource audioSource;
 
     void Start()
@@ -89,7 +89,7 @@ public class Follower : Unit
         if (Time.time - lastFireTime > bulletFiringInterval)
         {
             poolingBullet("FollowerBullet", new Vector3(0, 0.5f, 0));
-            audioSource.PlayOneShot(shootingSound);
+            audioSource.PlayOneShot(dieSound);
             lastFireTime = Time.time;
         }
         //Instantiate(bulletPrefabA, transform.position + new Vector3(0, 0.5f, 0), transform.rotation);
