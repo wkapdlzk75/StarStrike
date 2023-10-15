@@ -6,18 +6,24 @@ public class Bullet : MonoBehaviour
     public float speed; // 총알 스피드
     public int damage;  // 공격력
     public float scale = 1f;
-
+    
 
     public string nameBullet;
     Rigidbody2D rb;
     GameObject playerObject;
 
+    private void Start()
+    {
+        
+    }
+
     void OnEnable()
     {
         transform.localScale = Vector3.one * scale;
         Invoke("AutoPush", 10);
+        
 
-        // 플레이어의 총알의 경우
+        // 플레이어 총알의 경우
         if (transform.CompareTag("PlayerBullet"))
         {
             rb = GetComponent<Rigidbody2D>();
@@ -26,10 +32,11 @@ public class Bullet : MonoBehaviour
             rb.velocity = Vector2.up * speed;
         }
 
-        // 팔로워의 총알의 경우
+        // 팔로워 총알의 경우
         if (transform.CompareTag("FollowerBullet"))
         {
-            damage = 1;
+            rb = GetComponent<Rigidbody2D>();
+            damage = 5;
             speed = 5;
             rb.velocity = Vector2.up * speed;
         }
@@ -64,11 +71,9 @@ public class Bullet : MonoBehaviour
 
     void AutoPush()
     {
-
         if (gameObject.activeSelf)
         {
             PushBullet();
-
         }
     }
 

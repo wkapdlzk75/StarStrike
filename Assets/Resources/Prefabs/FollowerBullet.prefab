@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 609493314465070237}
   - component: {fileID: 8168913708945795877}
   m_Layer: 0
-  m_Name: Follower Bullet
+  m_Name: FollowerBullet
   m_TagString: FollowerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

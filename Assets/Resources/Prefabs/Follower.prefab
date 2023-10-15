@@ -168,3 +168,4 @@ MonoBehaviour:
   bulletFiringInterval: 2
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 15
+  shootingSound: {fileID: 0}

@@ -10,7 +10,6 @@ public class Unit : MonoBehaviour
     public int damage;                  // 공격력
     public float speed;                 // 이동 속도
     public float bulletFiringInterval;  // 총알 발사 간격
-
     void Start()
     {
         //string str = CSVManager.Instance.GetItemString(1, "Name");

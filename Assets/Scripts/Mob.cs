@@ -10,6 +10,12 @@ public class Mob : Unit
     public int score;
     public Sprite[] sprite;
 
+    public AudioClip dieSound;
+    public AudioClip shootingSound1;
+    public AudioClip shootingSound2;
+    private AudioSource audioSource;
+
+
     SpriteRenderer spriteRenderer;
     Animator animator;
     Rigidbody2D rb;
@@ -17,6 +23,11 @@ public class Mob : Unit
     public Player player;
 
     private bool initEnd = false;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     private void OnEnable()
     {
@@ -234,7 +245,7 @@ public class Mob : Unit
                     poolingBullet.GetComponent<Rigidbody2D>().velocity = playerPos * bullet.speed;
                 });
             }
-
+            
             yield return new WaitForSeconds(bulletFiringInterval);
         }
     }
@@ -263,6 +274,7 @@ public class Mob : Unit
         {
             GameManager.Instance.AddScore(score);
             ActiveExplosion(mobName);
+            audioSource.PlayOneShot(dieSound);
             if (mobName == "B")
             {
                 CancelInvoke("BossRandomFire");

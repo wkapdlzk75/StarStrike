@@ -67,19 +67,19 @@ public class MobSpawnManager : MonoBehaviour
             }
             yield return new WaitForSeconds(5);
         }
+        // 스테이지 5인 경우에만 보스를 소환
+        if (stage == 5)
+        {
+            yield return new WaitForSeconds(3);  // 3초 대기
+            SpawnBoss();  // 보스 소환
+        }
+
         GameManager.Instance.EndGame(true);
-    }
-
-    IEnumerator RepeatSpawnMob12341234()
-    {
-        SpawnBoss();
-        yield return new WaitForSeconds(5);
-
     }
 
     void SpawnBoss()
     {
-        ObjectManager.Instance.GetRangedObject("MobBoss", (poolingMob) =>
+        ObjectManager.Instance.GetRangedObject("MobB", (poolingMob) =>
         {
             poolingMob.transform.position = spawnPoints[2].position;
             poolingMob.transform.rotation = spawnPoints[2].rotation;

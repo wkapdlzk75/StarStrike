@@ -28,6 +28,10 @@ public class Player : Unit
 
     public GameObject boomEffect; // 폭탄
 
+
+    public AudioClip dieSound;
+    private AudioSource audioSource = null;
+
     Animator animator;
     SpriteRenderer spriteRenderer;
     public Follower m_Follow;
@@ -41,6 +45,7 @@ public class Player : Unit
         GameManager.Instance.player = this;
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
         //gameObject.SetActive(false);
     }
 
@@ -100,6 +105,7 @@ public class Player : Unit
     // 총알 발사 *****
     public void Fire()
     {
+
         if (!fireAble) return;
 
         if (Time.time - lastFireTime > bulletFiringInterval)
@@ -119,6 +125,7 @@ public class Player : Unit
                     poolingBullet("PlayerBulletA", new Vector3(-0.3f, 0.7f, 0));
                     break;
             }
+            
 
             cnt++;
 
@@ -213,7 +220,7 @@ public class Player : Unit
         curLife--;
         UIManagerGameScene.instance.UpdateLife(curLife, false);
         ActiveExplosion("P");
-
+        audioSource.PlayOneShot(dieSound);
         if (curLife <= 0)
         {
             //Destroy(gameObject);

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,12 +13,24 @@ public class Follower : Unit
     Transform parent;
     Vector3[] vector3Pos;
     Queue<Vector3> parentPos = new Queue<Vector3>();
+    float lastFireTime;     // 마지막 총알 발사 시각
+
+    public AudioClip shootingSound;
+    private AudioSource audioSource;
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         vector3Pos = new Vector3[4];
+        lastFireTime = Time.time;  // 시간 초기화
         CreateArray();
     }
+
+    private void OnEnable()
+    {
+
+    }
+
     public void Create(Player player, int num)
     {
         playerObject = player.gameObject;
@@ -73,7 +86,21 @@ public class Follower : Unit
     // 총알 발사 *****
     public void Fire()
     {
-
+        if (Time.time - lastFireTime > bulletFiringInterval)
+        {
+            poolingBullet("FollowerBullet", new Vector3(0, 0.5f, 0));
+            audioSource.PlayOneShot(shootingSound);
+            lastFireTime = Time.time;
+        }
         //Instantiate(bulletPrefabA, transform.position + new Vector3(0, 0.5f, 0), transform.rotation);
+    }
+
+    private void poolingBullet(string bulletPrefab, Vector3 vector)
+    {
+        ObjectManager.Instance.GetRangedObject(bulletPrefab, (poolingBullet) =>
+        {
+            poolingBullet.transform.position = transform.position + vector;
+            poolingBullet.transform.rotation = Quaternion.Euler(0, 0, 0);
+        });
     }
 }
