@@ -8,6 +8,13 @@ public class GameManager : SSSingleton<GameManager>
     public int highScore;   // 최대 점수
     public int inGameGold;
 
+    public AudioSource audioSource;
+
+
+
+
+
+
     public bool isPlaying;
 
     public Player player;
@@ -34,13 +41,19 @@ public class GameManager : SSSingleton<GameManager>
     {
         base.Awake();
         SaveLoadManager.Load();
-
+        audioSource = gameObject.AddComponent<AudioSource>();
     }
 
     void Start()
     {
         stage = 1;
     }
+
+    public void PlaySound(AudioClip audioClip, float volume = 1f)
+    {
+        audioSource.PlayOneShot(audioClip, volume);
+    }
+
 
     public int GetEnhanceCount(EPlayerStatus ePlayerStatus)
     {

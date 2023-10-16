@@ -30,7 +30,6 @@ public class Player : Unit
 
 
     public AudioClip dieSound;
-    private AudioSource audioSource = null;
 
     Animator animator;
     SpriteRenderer spriteRenderer;
@@ -46,9 +45,6 @@ public class Player : Unit
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        audioSource = GetComponent<AudioSource>();
-
-        //gameObject.SetActive(false);
     }
 
     void Start()
@@ -231,11 +227,8 @@ public class Player : Unit
         UIManagerGameScene.instance.UpdateLife(curLife, false);
         ActiveExplosion("P");
 
+        GameManager.Instance.PlaySound(dieSound);
 
-        audioSource.PlayOneShot(dieSound);     // ㅁㅈㄷㄹ;ㅣㅑㅓㅁㅈㄷ랴     
-        //audioSource.clip = dieSound;
-        //audioSource.Play();
-          
         if (curLife <= 0)
         {
             //Destroy(gameObject);

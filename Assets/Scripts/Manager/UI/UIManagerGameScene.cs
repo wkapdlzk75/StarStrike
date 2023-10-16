@@ -21,7 +21,10 @@ public class UIManagerGameScene : UIManager
     public Image[] lifeImage;   // 목숨 UI
     public Image[] boomImage;   // 폭탄 UI
 
-    public GameObject popupUI;  // 팝업 UI
+    public GameObject gameEndUI;
+    public GameObject gamePauseUI;
+
+    public GameObject gamePauseButton;
 
     // 점수 프로퍼티
     public int CurrentScore
@@ -45,7 +48,7 @@ public class UIManagerGameScene : UIManager
         UpdateScore();
         UpdateGold();
         UpdateBoom(GameManager.Instance.GetResourceAmount(GameManager.EResource.boom));
-        popupUI.SetActive(false);
+        gameEndUI.SetActive(false);
     }
 
     // 점수 갱신
@@ -101,6 +104,27 @@ public class UIManagerGameScene : UIManager
         SceneChange("LobbyScene");
     }
 
+    public void Pause()
+    {
+        Time.timeScale = 0f; // 게임 일시정지
+        gamePauseUI.gameObject.SetActive(true);
+        gamePauseButton.gameObject.SetActive(false);
+    }
+
+    public void Resume()
+    {
+        Time.timeScale = 1f;
+        gamePauseUI.gameObject.SetActive(false);
+        gamePauseButton.gameObject.SetActive(true);
+    }
+
+    public void GiveUpGame()
+    {
+        Time.timeScale = 1f;
+        gamePauseUI.gameObject.SetActive(false);
+        GameManager.Instance.EndGame(false);
+    }
+
 
     // 게임 종료
     public void EndGame(bool game)
@@ -115,7 +139,7 @@ public class UIManagerGameScene : UIManager
         }
         scoreText2.text = "현재 점수 : " + scoreText1.text;
 
-        popupUI.SetActive(true);
+        gameEndUI.SetActive(true);
     }
 
 }
