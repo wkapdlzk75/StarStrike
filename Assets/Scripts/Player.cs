@@ -45,7 +45,9 @@ public class Player : Unit
         GameManager.Instance.player = this;
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
         audioSource = GetComponent<AudioSource>();
+
         //gameObject.SetActive(false);
     }
 
@@ -125,7 +127,7 @@ public class Player : Unit
                     poolingBullet("PlayerBulletA", new Vector3(-0.3f, 0.7f, 0));
                     break;
             }
-            
+
 
             cnt++;
 
@@ -218,9 +220,22 @@ public class Player : Unit
     {
         curFollower = 0;
         curLife--;
+
+        for (int i = 0; i < followers.Count; i++)
+        {
+            Destroy(followers[i].gameObject);
+        }
+
+        followers.Clear();
+           
         UIManagerGameScene.instance.UpdateLife(curLife, false);
         ActiveExplosion("P");
-        audioSource.PlayOneShot(dieSound);
+
+
+        audioSource.PlayOneShot(dieSound);     // ㅁㅈㄷㄹ;ㅣㅑㅓㅁㅈㄷ랴     
+        //audioSource.clip = dieSound;
+        //audioSource.Play();
+          
         if (curLife <= 0)
         {
             //Destroy(gameObject);
@@ -315,7 +330,7 @@ public class Player : Unit
                     {
                         GameManager.Instance.AddResource(GameManager.EResource.boom, 1);
                     }
-                        
+
                     UIManagerGameScene.instance.UpdateBoom(GameManager.Instance.GetResourceAmount(GameManager.EResource.boom));
                     break;
             }

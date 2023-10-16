@@ -173,7 +173,8 @@ MonoBehaviour:
   - {fileID: 8414478535512612329, guid: 93226235712397949939ad597de82f85, type: 3}
   - {fileID: 4326287474489854147, guid: 93226235712397949939ad597de82f85, type: 3}
   dieSound: {fileID: 8300000, guid: 3e5d6d1b7e397664c9e507df886f5eff, type: 3}
-  shootingSound: {fileID: 0}
+  shootingSound1: {fileID: 0}
+  shootingSound2: {fileID: 0}
   player: {fileID: 3417139447586565172, guid: 8204d864fae86a14bbc3128efb55a58f, type: 3}
 --- !u!82 &3090107511412185157
 AudioSource:

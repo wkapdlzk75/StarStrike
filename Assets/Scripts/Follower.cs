@@ -18,6 +18,7 @@ public class Follower : Unit
     public AudioClip dieSound;
     private AudioSource audioSource;
 
+
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -55,17 +56,6 @@ public class Follower : Unit
     // 플레이어 위치 추적
     void Watch()
     {
-        try
-        {
-            if (!playerObject.activeSelf)
-                Destroy(gameObject);
-        }
-        catch (Exception)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
         if (!parentPos.Contains(parent.position))
             parentPos.Enqueue(parent.position + vector3Pos[index]);
 
@@ -74,7 +64,6 @@ public class Follower : Unit
             followPos = parentPos.Dequeue();
         else if (parentPos.Count < followDelay)
             followPos = parent.position;
-
     }
 
     // 플레이어 따라가기
@@ -89,14 +78,18 @@ public class Follower : Unit
         if (Time.time - lastFireTime > bulletFiringInterval)
         {
             poolingBullet("FollowerBullet", new Vector3(0, 0.5f, 0));
-            audioSource.PlayOneShot(dieSound);
             lastFireTime = Time.time;
         }
         //Instantiate(bulletPrefabA, transform.position + new Vector3(0, 0.5f, 0), transform.rotation);
     }
-
+    
     private void poolingBullet(string bulletPrefab, Vector3 vector)
     {
+        if (gameObject == null)
+        {
+            return;
+        }
+
         ObjectManager.Instance.GetRangedObject(bulletPrefab, (poolingBullet) =>
         {
             poolingBullet.transform.position = transform.position + vector;

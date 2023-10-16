@@ -44,9 +44,6 @@ public class Mob : Unit
             return;
         }
 
-        // 최초 몹 소환 2초 후 총알 발사, bulletFiringInterval초 마다 총알 발사
-        //InvokeRepeating("Fire", 2, bulletFiringInterval);
-
         StartCoroutine(Fire());
     }
 
