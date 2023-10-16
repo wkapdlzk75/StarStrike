@@ -11,6 +11,8 @@ public class MobSpawnManager : MonoBehaviour
     public int spawnIndex;
     public bool spawnEnd;
 
+    public int spawnCount;
+
     List<List<string>> spawnMob = new List<List<string>>();
 
     protected void Awake()
@@ -67,6 +69,7 @@ public class MobSpawnManager : MonoBehaviour
             }
             yield return new WaitForSeconds(5);
         }
+
         // 스테이지 5인 경우에만 보스를 소환
         if (stage == 5)
         {
@@ -74,11 +77,14 @@ public class MobSpawnManager : MonoBehaviour
             SpawnBoss();  // 보스 소환
         }
 
+        yield return new WaitUntil(() => spawnCount == 0);
+
         GameManager.Instance.EndGame(true);
     }
 
     void SpawnBoss()
     {
+        spawnCount++;
         ObjectManager.Instance.GetRangedObject("MobB", (poolingMob) =>
         {
             poolingMob.transform.position = spawnPoints[2].position;
@@ -86,12 +92,22 @@ public class MobSpawnManager : MonoBehaviour
             Mob mob = poolingMob.GetComponent<Mob>();
             mob.player = GameManager.Instance.player;
             mob.mobInit();
+
+            mob.deathAction = null;
+
+            mob.deathAction += () =>
+            {
+                spawnCount--;
+            };
+
         });
     }
 
 
     void SpawnMob(string mobName, int spawnPos)
     {
+        spawnCount++;
+
         ObjectManager.Instance.GetRangedObject(MobDataManager.Instance.mobDataDic[mobName].name, (poolingMob) =>
         {
             poolingMob.transform.position = spawnPoints[spawnPos].position;
@@ -100,6 +116,13 @@ public class MobSpawnManager : MonoBehaviour
             Mob mob = poolingMob.GetComponent<Mob>();
             mob.player = GameManager.Instance.player;
             mob.mobInit();
+
+            mob.deathAction = null;
+
+            mob.deathAction += () =>
+            {
+                spawnCount--;
+            };
 
             if (spawnPos == 5 || spawnPos == 6)         // 오른쪽 사이드 스폰
                 mob.MoveSide(Vector2.left);             // 왼쪽으로 이동

@@ -15,6 +15,11 @@ public class BackgroundMusicManager : SSSingleton<BackgroundMusicManager>
         audioSource = GetComponent<AudioSource>();
     }
 
+    private void Update()
+    {
+        audioSource.volume = GameManager.Instance.volume * 0.2f;
+    }
+
     public void StopMusic()
     {
         audioSource.Stop();
@@ -22,14 +27,17 @@ public class BackgroundMusicManager : SSSingleton<BackgroundMusicManager>
 
     public void PlayLobbyMusic()
     {
-        audioSource.PlayOneShot(lobbyMusic);
+        audioSource.PlayOneShot(lobbyMusic, GameManager.Instance.volume*0.2f);
+        //audioSource.volume = 0;
     }
+
     public void PlayGameMusic()
     {
-        audioSource.PlayOneShot(gameMusic);
+        audioSource.PlayOneShot(gameMusic, GameManager.Instance.volume * 0.2f);
     }
+
     public void PlayBossMusic()
     {
-        audioSource.PlayOneShot(bossMusic);
+        audioSource.PlayOneShot(bossMusic, GameManager.Instance.volume * 0.2f);
     }
 }

@@ -15,6 +15,8 @@ public class Mob : Unit
     public AudioClip shootingSound2;
     private AudioSource audioSource;
 
+    public Action deathAction;
+
 
     SpriteRenderer spriteRenderer;
     Animator animator;
@@ -31,6 +33,7 @@ public class Mob : Unit
 
     private void OnEnable()
     {
+
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = Vector2.down * speed;
@@ -47,6 +50,11 @@ public class Mob : Unit
         StartCoroutine(Fire());
     }
 
+    private void OnDisable()
+    {
+        if(deathAction != null)
+            deathAction();
+    }
     public void mobInit()
     {
         curHp = maxHp;
@@ -63,22 +71,25 @@ public class Mob : Unit
 
     void BossRandomFire()
     {
-        int ran = Random.Range(0, 4);
+        /*int ran = Random.Range(0, 4);
         switch (ran)
         {
             case 0:
-                StartCoroutine(ShotCoroutine(10, 0.1f, FireFowardToPlayer));
+                StartCoroutine(ShotCoroutine(10, 0.15f, FireFowardToPlayer));
                 break;
             case 1:
                 StartCoroutine(ShotCoroutine(1, 0, FireShotToPlayer));
                 break;
             case 2:
-                StartCoroutine(ShotCoroutine(10, 0.1f, FireArc, 1));
+                StartCoroutine(ShotCoroutine(10, 0.1f, FireArc));
                 break;
             case 3:
-                StartCoroutine(ShotCoroutine(10, 0.1f, FireHalfAround, 1));
+                StartCoroutine(ShotCoroutine(10, 0.1f, FireHalfAround));
                 break;
-        }
+        }*/
+        //FireShotToPlayer();
+        //StartCoroutine(ShotCoroutine(50, 0.1f, FireArc));
+        StartCoroutine(ShotCoroutine(5, 0.75f, FireHalfAround));
     }
 
     void FireFowardToPlayer()
@@ -94,6 +105,8 @@ public class Mob : Unit
         vectors.Add(new Vector3(-0.58f, -1.4f, 0));
         vectors.Add(new Vector3(-0.87f, -1.4f, 0));
 
+
+        // 4발씩 10번
         for (int i = 0; i < vectors.Count; i++)
         {
             var tempIndex = i;
@@ -115,10 +128,13 @@ public class Mob : Unit
 
     void FireShotToPlayer2(GameObject poolingBullet)
     {
+        // 리스트나 배열로 해서 중복 제거
+        if (player == null) return;
         Vector2 playerPos = (player.transform.position - transform.position).normalized;
+        float angle = Mathf.Atan2(playerPos.y, playerPos.x) * Mathf.Rad2Deg;
 
         poolingBullet.transform.position = transform.position + new Vector3(0, -1.4f, 0);
-        poolingBullet.transform.rotation = Quaternion.Euler(0, 0, 0);
+        poolingBullet.transform.rotation = Quaternion.Euler(0, 0, angle - 270);
 
         var bullet = poolingBullet.GetComponent<Bullet>();
         bullet.nameBullet = "MobBulletD";
@@ -150,11 +166,11 @@ public class Mob : Unit
         }
     }
 
-    IEnumerator ShotCoroutine(int count, float delay, Action<int> action, int pram)
+    IEnumerator ShotCoroutine(int count, float delay, Action<int> action)
     {
         for (int i = 0; i < count; i++)
         {
-            action(pram);
+            action(i);
             yield return new WaitForSeconds(delay);
         }
     }
