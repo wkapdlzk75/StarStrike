@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BackgroundMusicManager : SSSingleton<BackgroundMusicManager>
+public class SoundManager : SSSingleton<SoundManager>
 {
     public AudioClip lobbyMusic;
     public AudioClip gameMusic;
     public AudioClip bossMusic;
     private AudioSource audioSource;
+
+    public float bgVolume = 1f;
 
     protected override void Awake()
     {
@@ -17,7 +19,8 @@ public class BackgroundMusicManager : SSSingleton<BackgroundMusicManager>
 
     private void Update()
     {
-        audioSource.volume = GameManager.Instance.volume * 0.2f;
+        bgVolume = 0.25f;
+        audioSource.volume = GameManager.Instance.wholeVolume * bgVolume;
     }
 
     public void StopMusic()
@@ -27,17 +30,20 @@ public class BackgroundMusicManager : SSSingleton<BackgroundMusicManager>
 
     public void PlayLobbyMusic()
     {
-        audioSource.PlayOneShot(lobbyMusic, GameManager.Instance.volume*0.2f);
+        StopMusic();
+        audioSource.PlayOneShot(lobbyMusic, GameManager.Instance.wholeVolume * bgVolume);
         //audioSource.volume = 0;
     }
 
     public void PlayGameMusic()
     {
-        audioSource.PlayOneShot(gameMusic, GameManager.Instance.volume * 0.2f);
+        StopMusic();
+        audioSource.PlayOneShot(gameMusic, GameManager.Instance.wholeVolume * bgVolume);
     }
 
     public void PlayBossMusic()
     {
-        audioSource.PlayOneShot(bossMusic, GameManager.Instance.volume * 0.2f);
+        StopMusic();
+        audioSource.PlayOneShot(bossMusic, GameManager.Instance.wholeVolume * bgVolume);
     }
 }

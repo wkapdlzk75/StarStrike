@@ -227,7 +227,7 @@ public class Player : Unit
         UIManagerGameScene.instance.UpdateLife(curLife, false);
         ActiveExplosion("P");
 
-        GameManager.Instance.PlaySound(dieSound);
+        GameManager.Instance.PlaySound(dieSound, GameManager.Instance.wholeVolume);
 
         if (curLife <= 0)
         {

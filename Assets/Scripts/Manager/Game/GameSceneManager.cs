@@ -8,5 +8,6 @@ public class GameSceneManager : MonoBehaviour
     {
         GameManager.Instance.player.transform.position = startPos.position;
         GameManager.Instance.GameStart();
+        SoundManager.Instance.PlayGameMusic();
     }
 }

@@ -7,20 +7,10 @@ public class GameManager : SSSingleton<GameManager>
     public int curScore;    // 점수
     public int highScore;   // 최대 점수
     public int inGameGold;
-
-    public float volume;
-
+    public float wholeVolume;
     public AudioSource audioSource;
-
-
-
-
-
-
     public bool isPlaying;
-
     public Player player;
-
     public const int initDamage = 10;
     public const int initMaxHp = 30;
 
@@ -42,7 +32,7 @@ public class GameManager : SSSingleton<GameManager>
     protected override void Awake()
     {
         base.Awake();
-        volume = 1;
+        wholeVolume = 1;
         SaveLoadManager.Load();
         audioSource = gameObject.AddComponent<AudioSource>();
     }
@@ -54,7 +44,7 @@ public class GameManager : SSSingleton<GameManager>
 
     public void PlaySound(AudioClip audioClip, float _volume = 1f)
     {
-        audioSource.PlayOneShot(audioClip, _volume*volume);
+        audioSource.PlayOneShot(audioClip, _volume*wholeVolume);
     }
 
 

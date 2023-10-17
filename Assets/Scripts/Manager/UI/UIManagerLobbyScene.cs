@@ -21,7 +21,7 @@ public class UIManagerLobbyScene : UIManager
         ObjectManager.Create();
         BackGroundManager.Create();
         CSVManager.Create();
-        BackgroundMusicManager.Create();
+        SoundManager.Create();
 
         if (Instance == null)
             Instance = this;
@@ -32,7 +32,7 @@ public class UIManagerLobbyScene : UIManager
     void Start()
     {
         StartCoroutine(LoadData());
-        BackgroundMusicManager.Instance.PlayLobbyMusic();
+        SoundManager.Instance.PlayLobbyMusic();
         SetResolution();
     }
 
