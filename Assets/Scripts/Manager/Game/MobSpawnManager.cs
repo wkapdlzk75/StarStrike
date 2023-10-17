@@ -73,7 +73,8 @@ public class MobSpawnManager : MonoBehaviour
         // 스테이지 5인 경우에만 보스를 소환
         if (stage == 5)
         {
-            yield return new WaitForSeconds(3);  // 3초 대기
+            SoundManager.Instance.PlayBossMusic();
+            yield return new WaitForSeconds(4);  // 4초 대기
             SpawnBoss();  // 보스 소환
         }
 
@@ -84,6 +85,7 @@ public class MobSpawnManager : MonoBehaviour
 
     void SpawnBoss()
     {
+        
         spawnCount++;
         ObjectManager.Instance.GetRangedObject("MobB", (poolingMob) =>
         {

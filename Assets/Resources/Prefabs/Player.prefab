@@ -192,6 +192,9 @@ MonoBehaviour:
   isRespawnTime: 0
   boomEffect: {fileID: 0}
   dieSound: {fileID: 8300000, guid: 3e5d6d1b7e397664c9e507df886f5eff, type: 3}
+  itemSound: {fileID: 8300000, guid: 0f83dc5aef0b6954b840450b1ee10327, type: 3}
+  coinSound: {fileID: 8300000, guid: c9d9705f86694b64ca986856e03f3136, type: 3}
+  boomSound: {fileID: 8300000, guid: 9fa1e7fe5e365d34ba8dd3fa87f3c013, type: 3}
   m_Follow: {fileID: 8596390432349849313, guid: f93f6ed1d6f5d9948bac94b7e920ebd6, type: 3}
   fireAble: 0
 --- !u!95 &3443354779711738876

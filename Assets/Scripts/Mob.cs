@@ -11,9 +11,7 @@ public class Mob : Unit
     public Sprite[] sprite;
 
     public AudioClip dieSound;
-    public AudioClip shootingSound1;
-    public AudioClip shootingSound2;
-    private AudioSource audioSource;
+    public AudioClip shootingSound;
 
     public Action deathAction;
 
@@ -28,7 +26,6 @@ public class Mob : Unit
 
     private void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnEnable()
@@ -52,7 +49,7 @@ public class Mob : Unit
 
     private void OnDisable()
     {
-        if(deathAction != null)
+        if (deathAction != null)
             deathAction();
     }
     public void mobInit()
@@ -66,12 +63,12 @@ public class Mob : Unit
         //if (!gameObject.activeSelf)
         //    return;
         rb.velocity = Vector2.zero;
-        InvokeRepeating("BossRandomFire", 4, 6);
+        InvokeRepeating("BossRandomFire", 4, 7);
     }
 
     void BossRandomFire()
     {
-        /*int ran = Random.Range(0, 4);
+        int ran = Random.Range(0, 4);
         switch (ran)
         {
             case 0:
@@ -81,19 +78,18 @@ public class Mob : Unit
                 StartCoroutine(ShotCoroutine(1, 0, FireShotToPlayer));
                 break;
             case 2:
-                StartCoroutine(ShotCoroutine(10, 0.1f, FireArc));
+                StartCoroutine(ShotCoroutine(45, 0.1f, FireArc));
                 break;
             case 3:
-                StartCoroutine(ShotCoroutine(10, 0.1f, FireHalfAround));
+                StartCoroutine(ShotCoroutine(5, 0.75f, FireHalfAround));
                 break;
-        }*/
-        //FireShotToPlayer();
-        //StartCoroutine(ShotCoroutine(50, 0.1f, FireArc));
-        StartCoroutine(ShotCoroutine(5, 0.75f, FireHalfAround));
+        }
     }
 
     void FireFowardToPlayer()
     {
+        GameManager.Instance.PlaySound(shootingSound, GameManager.Instance.wholeVolume * 0.25f);
+
         // 리스트나 배열로 해서 중복 제거
         if (player == null) return;
         Vector2 playerPos = (player.transform.position - transform.position).normalized;
@@ -148,6 +144,7 @@ public class Mob : Unit
     void FireShotToPlayer()
     {
         if (player == null) return;
+        GameManager.Instance.PlaySound(shootingSound, GameManager.Instance.wholeVolume * 0.25f);
 
         for (int i = 0; i < 10; i++)
         {
@@ -177,6 +174,7 @@ public class Mob : Unit
 
     void FireArc(int i)
     {
+        GameManager.Instance.PlaySound(shootingSound, GameManager.Instance.wholeVolume * 0.25f);
         ObjectManager.Instance.GetRangedObject("MobBulletD", (poolingBullet) =>
         {
             poolingBullet.transform.position = transform.position + new Vector3(0, -1.4f, 0);
@@ -193,11 +191,13 @@ public class Mob : Unit
 
     void FireHalfAround(int a)
     {
+        GameManager.Instance.PlaySound(shootingSound, GameManager.Instance.wholeVolume * 0.25f);
         int count = 15;
         int MAX = a % 2 == 0 ? count : count + 1;
 
         for (int i = 0; i <= MAX; i++)
         {
+            
             ObjectManager.Instance.GetRangedObject("MobBulletD", (poolingBullet) =>
             {
                 poolingBullet.transform.position = transform.position + new Vector3(0, -1.4f, 0);
@@ -258,7 +258,7 @@ public class Mob : Unit
                     poolingBullet.GetComponent<Rigidbody2D>().velocity = playerPos * bullet.speed;
                 });
             }
-            
+
             yield return new WaitForSeconds(bulletFiringInterval);
         }
     }
@@ -287,7 +287,8 @@ public class Mob : Unit
         {
             GameManager.Instance.AddScore(score);
             ActiveExplosion(mobName);
-            audioSource.PlayOneShot(dieSound);
+
+            GameManager.Instance.PlaySound(dieSound, GameManager.Instance.wholeVolume*0.35f);
             if (mobName == "B")
             {
                 CancelInvoke("BossRandomFire");
