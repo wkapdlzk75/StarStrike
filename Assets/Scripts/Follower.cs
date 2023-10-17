@@ -42,7 +42,7 @@ public class Follower : Unit
     {
         Watch();
         Follow();
-        Fire();
+        //Fire();
     }
 
     void CreateArray()
@@ -75,11 +75,7 @@ public class Follower : Unit
     // 총알 발사 *****
     public void Fire()
     {
-        if (Time.time - lastFireTime > bulletFiringInterval)
-        {
-            poolingBullet("FollowerBullet", new Vector3(0, 0.5f, 0));
-            lastFireTime = Time.time;
-        }
+        poolingBullet("FollowerBullet", new Vector3(0, 0.5f, 0));
         //Instantiate(bulletPrefabA, transform.position + new Vector3(0, 0.5f, 0), transform.rotation);
     }
     

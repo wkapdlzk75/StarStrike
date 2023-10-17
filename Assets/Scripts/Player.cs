@@ -23,7 +23,7 @@ public class Player : Unit
 
     float lastFireTime;     // 마지막 총알 발사 시각
     bool isDie;             // 플레이어 죽음 여부
-    bool isBoomActive;      // 폭탄 터짐 여부
+    public bool isBoomActive;      // 폭탄 터짐 여부
     public bool isRespawnTime;     // 플레이어 부활
 
     public GameObject boomEffect; // 폭탄
@@ -155,7 +155,7 @@ public class Player : Unit
 
         boomEffect.SetActive(true);
         isBoomActive = true;
-        Invoke("OffBoomEffect", 3);
+        Invoke("OffBoomEffect", 2);
 
         // 몹 제거
         GameObject[] mobs = GameObject.FindGameObjectsWithTag("Mob");
@@ -169,6 +169,13 @@ public class Player : Unit
         GameObject[] mobBullets = GameObject.FindGameObjectsWithTag("MobBullet");
         for (int i = 0; i < mobBullets.Length; i++)
             PushObject(mobBullets[i]);
+    }
+
+    // 폭탄 효과 끄기
+    void OffBoomEffect()
+    {
+        boomEffect.SetActive(false);
+        isBoomActive = false;
     }
 
     // *****
@@ -342,13 +349,6 @@ public class Player : Unit
             ObjectManager.Instance.PushRangedObject(myName, _collision.gameObject);
         }
 
-    }
-
-    // 폭탄 효과 끄기
-    void OffBoomEffect()
-    {
-        boomEffect.SetActive(false);
-        isBoomActive = false;
     }
 
     private void OnTriggerExit2D(Collider2D _collision)

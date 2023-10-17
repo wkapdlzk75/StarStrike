@@ -150,8 +150,6 @@ public class Mob : Unit
         {
             FireShotToPlayer2(ObjectManager.Instance.GetRangedObject("MobBulletD"));
         }
-
-        Debug.Log("무차별 발사");
     }
 
     IEnumerator ShotCoroutine(int count, float delay, Action action)
@@ -232,7 +230,7 @@ public class Mob : Unit
             {
                 ObjectManager.Instance.GetRangedObject("MobBulletA", (poolingBullet) =>
                 {
-                    poolingBullet.transform.position = transform.position + new Vector3(0, -1.4f, 0);
+                    poolingBullet.transform.position = transform.position + new Vector3(0, -0.4f, 0);
                     poolingBullet.transform.rotation = Quaternion.Euler(0, 0, 0);
 
                     var bullet = poolingBullet.GetComponent<Bullet>();
@@ -248,7 +246,7 @@ public class Mob : Unit
 
                 ObjectManager.Instance.GetRangedObject(bb, (poolingBullet) =>
                 {
-                    poolingBullet.transform.position = transform.position + new Vector3(0, -1.4f, 0);
+                    poolingBullet.transform.position = transform.position + new Vector3(0, -0.7f, 0);
                     poolingBullet.transform.rotation = Quaternion.Euler(0, 0, 0);
 
                     var bullet = poolingBullet.GetComponent<Bullet>();
@@ -288,7 +286,9 @@ public class Mob : Unit
             GameManager.Instance.AddScore(score);
             ActiveExplosion(mobName);
 
-            GameManager.Instance.PlaySound(dieSound, GameManager.Instance.wholeVolume*0.35f);
+            if(!player.isBoomActive)
+                GameManager.Instance.PlaySound(dieSound, GameManager.Instance.wholeVolume*0.35f);
+
             if (mobName == "B")
             {
                 CancelInvoke("BossRandomFire");
