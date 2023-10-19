@@ -93,7 +93,7 @@ public class MobSpawnManager : MonoBehaviour
             poolingMob.transform.rotation = spawnPoints[2].rotation;
             Mob mob = poolingMob.GetComponent<Mob>();
             mob.player = GameManager.Instance.player;
-            mob.mobInit();
+            mob.InitializeMob();
 
             mob.deathAction = null;
 
@@ -117,7 +117,7 @@ public class MobSpawnManager : MonoBehaviour
 
             Mob mob = poolingMob.GetComponent<Mob>();
             mob.player = GameManager.Instance.player;
-            mob.mobInit();
+            mob.InitializeMob();
 
             mob.deathAction = null;
 

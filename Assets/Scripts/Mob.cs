@@ -6,41 +6,35 @@ using Random = UnityEngine.Random;
 
 public class Mob : Unit
 {
+    private const float SpriteReturnDelay = 0.1f;
+    private const int RandomItemThreshold = 100;
+
+    private const float BossMoveDuration = 3;
+    private const float BossFireStartDelay = 4;
+    private const float BossFireInterval = 7;
+
     public string mobName;
     public int score;
-    public Sprite[] sprite;
+    private bool initEnd = false;
 
+    public Sprite[] sprite;
     public AudioClip dieSound;
     public AudioClip shootingSound;
-
     public Action deathAction;
-
+    public Player player;
 
     SpriteRenderer spriteRenderer;
     Animator animator;
     Rigidbody2D rb;
 
-    public Player player;
-
-    private bool initEnd = false;
-
-    private void Awake()
-    {
-    }
-
     private void OnEnable()
     {
-
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        rb = GetComponent<Rigidbody2D>();
-        rb.velocity = Vector2.down * speed;
-
-        // 여기에 체력 설정해도 좋음 아니면 초기화 함수
+        InitializeComponents();
+        InitializeMob();
 
         if (mobName == "B")
         {
-            animator = GetComponent<Animator>();
-            Invoke("MoveStop", 3);
+            InitializeBoss();
             return;
         }
 
@@ -52,41 +46,83 @@ public class Mob : Unit
         if (deathAction != null)
             deathAction();
     }
-    public void mobInit()
+
+    void InitializeComponents()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
+        rb.velocity = Vector2.down * speed;
+    }
+
+    void InitializeBoss()
+    {
+        animator = GetComponent<Animator>();
+        StartCoroutine(MoveStop());
+    }
+
+    public void InitializeMob()
     {
         curHp = maxHp;
         initEnd = true;
     }
 
-    void MoveStop()
+    IEnumerator MoveStop()
     {
-        //if (!gameObject.activeSelf)
-        //    return;
         rb.velocity = Vector2.zero;
-        InvokeRepeating("BossRandomFire", 4, 7);
+        yield return new WaitForSeconds(BossMoveDuration);
+        StartCoroutine(BossFire());
     }
 
-    void BossRandomFire()
+    IEnumerator BossFire()
+    {
+        yield return new WaitForSeconds(BossMoveDuration);
+
+        while (true)
+        {
+            ChooseRandomBossAttack();
+            yield return new WaitForSeconds(BossFireInterval);
+        }
+    }
+
+    void ChooseRandomBossAttack()
     {
         int ran = Random.Range(0, 4);
         switch (ran)
         {
             case 0:
-                StartCoroutine(ShotCoroutine(10, 0.15f, FireFowardToPlayer));
+                StartCoroutine(ExecuteRepeatedAttack(10, 0.15f, FireBulletsTowardsPlayer));
                 break;
             case 1:
-                StartCoroutine(ShotCoroutine(1, 0, FireShotToPlayer));
+                StartCoroutine(ExecuteRepeatedAttack(1, 0, FireRandomShotsAtPlayer));
                 break;
             case 2:
-                StartCoroutine(ShotCoroutine(45, 0.1f, FireArc));
+                StartCoroutine(ExecuteRepeatedAttack(45, 0.1f, FireBulletsInArc));
                 break;
             case 3:
-                StartCoroutine(ShotCoroutine(5, 0.75f, FireHalfAround));
+                StartCoroutine(ExecuteRepeatedAttack(5, 0.75f, FireBulletsInHalfCircle));
                 break;
         }
     }
 
-    void FireFowardToPlayer()
+    IEnumerator ExecuteRepeatedAttack(int count, float delay, Action action)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            action();
+            yield return new WaitForSeconds(delay);
+        }
+    }
+
+    IEnumerator ExecuteRepeatedAttack(int count, float delay, Action<int> action)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            action(i);
+            yield return new WaitForSeconds(delay);
+        }
+    }
+
+    void FireBulletsTowardsPlayer()
     {
         GameManager.Instance.PlaySound(shootingSound, GameManager.Instance.wholeVolume * 0.25f);
 
@@ -122,7 +158,7 @@ public class Mob : Unit
         }
     }
 
-    void FireShotToPlayer2(GameObject poolingBullet)
+    void FireRandomShotsAtPlayer2(GameObject poolingBullet)
     {
         // 리스트나 배열로 해서 중복 제거
         if (player == null) return;
@@ -141,36 +177,18 @@ public class Mob : Unit
         poolingBullet.GetComponent<Rigidbody2D>().velocity = playerPos * bullet.speed;
     }
 
-    void FireShotToPlayer()
+    void FireRandomShotsAtPlayer()
     {
         if (player == null) return;
         GameManager.Instance.PlaySound(shootingSound, GameManager.Instance.wholeVolume * 0.25f);
 
         for (int i = 0; i < 10; i++)
         {
-            FireShotToPlayer2(ObjectManager.Instance.GetRangedObject("MobBulletD"));
+            FireRandomShotsAtPlayer2(ObjectManager.Instance.GetRangedObject("MobBulletD"));
         }
     }
 
-    IEnumerator ShotCoroutine(int count, float delay, Action action)
-    {
-        for (int i = 0; i < count; i++)
-        {
-            action();
-            yield return new WaitForSeconds(delay);
-        }
-    }
-
-    IEnumerator ShotCoroutine(int count, float delay, Action<int> action)
-    {
-        for (int i = 0; i < count; i++)
-        {
-            action(i);
-            yield return new WaitForSeconds(delay);
-        }
-    }
-
-    void FireArc(int i)
+    void FireBulletsInArc(int i)
     {
         GameManager.Instance.PlaySound(shootingSound, GameManager.Instance.wholeVolume * 0.25f);
         ObjectManager.Instance.GetRangedObject("MobBulletD", (poolingBullet) =>
@@ -187,7 +205,7 @@ public class Mob : Unit
 
     }
 
-    void FireHalfAround(int a)
+    void FireBulletsInHalfCircle(int a)
     {
         GameManager.Instance.PlaySound(shootingSound, GameManager.Instance.wholeVolume * 0.25f);
         int count = 15;
