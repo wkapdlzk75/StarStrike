@@ -13,6 +13,7 @@ public class GameManager : SSSingleton<GameManager>
     public Player player;
     public const int initDamage = 10;
     public const int initMaxHp = 30;
+    public int spawnCount = 0;
 
     public Dictionary<EResource, int> inventory = new Dictionary<EResource, int>();
     public Dictionary<EPlayerStatus, int> playerStatus = new Dictionary<EPlayerStatus, int>();

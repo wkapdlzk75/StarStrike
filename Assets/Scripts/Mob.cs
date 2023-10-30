@@ -301,23 +301,28 @@ public class Mob : Unit
 
         if (curHp <= 0)
         {
-            GameManager.Instance.AddScore(score);
-            ActiveExplosion(mobName);
-
-            if(!player.isBoomActive)
-                GameManager.Instance.PlaySound(dieSound, GameManager.Instance.wholeVolume*0.35f);
-
-            if (mobName == "B")
-            {
-                CancelInvoke("BossRandomFire");
-                GameManager.Instance.EndGame(true);
-            }
-
-            CancelInvoke("Fire");
-            PushObject(gameObject);
-
-            DropRandomItem();
+            Die();
         }
+    }
+
+    public void Die()
+    {
+        GameManager.Instance.AddScore(score);
+        ActiveExplosion(mobName);
+
+        if (!player.isBoomActive)
+            GameManager.Instance.PlaySound(dieSound, GameManager.Instance.wholeVolume * 0.35f);
+
+        if (mobName == "B")
+        {
+            CancelInvoke("BossRandomFire");
+            GameManager.Instance.EndGame(true);
+        }
+
+        CancelInvoke("Fire");
+        PushObject(gameObject);
+
+        DropRandomItem();
     }
 
     // 랜덤 아이템 드랍
@@ -355,6 +360,7 @@ public class Mob : Unit
     void ReturnSprite()
     {
         spriteRenderer.sprite = sprite[0];
+        CancelInvoke("ReturnSprite");
     }
 
     private void OnTriggerEnter2D(Collider2D _collision)
@@ -379,6 +385,7 @@ public class Mob : Unit
 
     void PushObject(GameObject _gameObject)
     {
+        GameManager.Instance.spawnCount--;
         // gameObject.name.Substring();
         string myName = _gameObject.name.Replace("(Clone)", "");
         // gameObject.name.Split('(')[0];

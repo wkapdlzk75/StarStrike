@@ -11,8 +11,6 @@ public class MobSpawnManager : MonoBehaviour
     public int spawnIndex;
     public bool spawnEnd;
 
-    public int spawnCount;
-
     List<List<string>> spawnMob = new List<List<string>>();
 
     protected void Awake()
@@ -78,15 +76,15 @@ public class MobSpawnManager : MonoBehaviour
             SpawnBoss();  // 보스 소환
         }
 
-        yield return new WaitUntil(() => spawnCount == 0);
+        yield return new WaitUntil(() => GameManager.Instance.spawnCount == 0);
 
         GameManager.Instance.EndGame(true);
     }
 
     void SpawnBoss()
     {
-        
-        spawnCount++;
+
+        GameManager.Instance.spawnCount++;
         ObjectManager.Instance.GetRangedObject("MobB", (poolingMob) =>
         {
             poolingMob.transform.position = spawnPoints[2].position;
@@ -99,7 +97,7 @@ public class MobSpawnManager : MonoBehaviour
 
             mob.deathAction += () =>
             {
-                spawnCount--;
+                //spawnCount--;
             };
 
         });
@@ -108,7 +106,7 @@ public class MobSpawnManager : MonoBehaviour
 
     void SpawnMob(string mobName, int spawnPos)
     {
-        spawnCount++;
+        GameManager.Instance.spawnCount++;
 
         ObjectManager.Instance.GetRangedObject(MobDataManager.Instance.mobDataDic[mobName].name, (poolingMob) =>
         {
@@ -123,7 +121,7 @@ public class MobSpawnManager : MonoBehaviour
 
             mob.deathAction += () =>
             {
-                spawnCount--;
+                //spawnCount--;
             };
 
             if (spawnPos == 5 || spawnPos == 6)         // 오른쪽 사이드 스폰
