@@ -5825,6 +5825,7 @@ MonoBehaviour:
   - {fileID: 1269554962}
   spawnIndex: 0
   spawnEnd: 0
+  spawnCount: 0
 --- !u!1 &1942045690
 GameObject:
   m_ObjectHideFlags: 0
@@ -6158,7 +6159,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2101608504
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6289,7 +6290,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2126555368
 RectTransform:
   m_ObjectHideFlags: 0
