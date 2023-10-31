@@ -7,7 +7,7 @@ public class SoundManager : SSSingleton<SoundManager>
     public AudioClip lobbyMusic;
     public AudioClip gameMusic;
     public AudioClip bossMusic;
-    private AudioSource audioSource;
+    public AudioSource audioSource;
 
     public float bgVolume = 1f;
 
@@ -15,12 +15,13 @@ public class SoundManager : SSSingleton<SoundManager>
     {
         base.Awake();
         audioSource = GetComponent<AudioSource>();
+        bgVolume = 0.25f;
+        audioSource.volume = GameManager.Instance.wholeVolume * bgVolume;
     }
 
     private void Update()
     {
-        bgVolume = 0.25f;
-        audioSource.volume = GameManager.Instance.wholeVolume * bgVolume;
+        
     }
 
     public void StopMusic()

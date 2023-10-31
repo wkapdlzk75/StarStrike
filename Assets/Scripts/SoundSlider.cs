@@ -42,6 +42,7 @@ public class SoundSlider : MonoBehaviour
 
         SetRefresh(slider.value);
         GameManager.Instance.wholeVolume = slider.value;
+        SoundManager.Instance.audioSource.volume = GameManager.Instance.wholeVolume * SoundManager.Instance.bgVolume;
     }
 
     
