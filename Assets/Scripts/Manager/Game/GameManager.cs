@@ -40,6 +40,12 @@ public class GameManager : SSSingleton<GameManager>
 
     void Start()
     {
+        /*
+         * -1 은 무제한 10000
+        Application.targetFrameRate = 120;  // 120 이하로 고정
+        Application.targetFrameRate = 60;  // 60 이하로 고정
+        Application.targetFrameRate = 30;  // 30 이하로 고정
+        */
         stage = 1;
     }
 

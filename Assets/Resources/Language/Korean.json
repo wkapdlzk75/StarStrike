@@ -1,0 +1,38 @@
+{
+    "common": {
+        "close": "닫기",
+        "stage": "스테이지"
+    },
+    "lobby": {
+        "ranking": "랭킹",
+        "gamestart": "게임시작"
+    },
+    "ranking": {
+        "ranking": "랭킹",
+        "rank": "위",
+        "score": "점"
+    },
+    "option": {
+        "option": "설정",
+        "wholeVolume": "전체 음량",
+        "language": "언어"
+    },
+    "store": {
+        "store": "상점",
+        "damage": "공격력",
+        "max": "최대",
+        "hp": "체력",
+        "enhance": "강화",
+        "level": "레벨",
+        "upgrade": "업그레이드",
+        "gold": "골드"
+    },
+    "inGame": {
+        "pause": "일시정지",
+        "saveAndExit": "저장 후 나가기",
+        "victory": "승리",
+        "depeat": "패배",
+        "currentScore": "현재 점수",
+        "inputNickName": "닉네임을 입력해주세요."
+    }
+}

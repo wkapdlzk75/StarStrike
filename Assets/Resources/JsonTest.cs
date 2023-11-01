@@ -21,12 +21,7 @@ public class JsonTest : MonoBehaviour
 
     void SaveData(TestJsonClass[] data)
     {
-        /*
-         * -1 은 무제한 10000
-        Application.targetFrameRate = 120;  // 120 이하로 고정
-        Application.targetFrameRate = 60;  // 60 이하로 고정
-        Application.targetFrameRate = 30;  // 30 이하로 고정
-        */
+        
 
         string jsonData = JsonConvert.SerializeObject(data, Formatting.Indented); // Convert data to json string with nice formatting
         string path = Path.Combine(Application.persistentDataPath, "output.json"); // Save to application's persistent data path

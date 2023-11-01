@@ -1,0 +1,38 @@
+{
+    "common": {
+        "close": "Close",
+        "stage": "Stage"
+    },
+    "lobby": {
+        "ranking": "Ranking",
+        "gamestart": "Game Start"
+    },
+    "ranking": {
+        "ranking": "Ranking",
+        "rank": "th",
+        "score": ""
+    },
+    "option": {
+        "option": "Option",
+        "wholeVolume": "Whole Volume",
+        "language": "Language"
+    },
+    "store": {
+        "store": "Store",
+        "damage": "Damage",
+        "max": "Max",
+        "hp": "HP",
+        "enhance": "Enhance",
+        "level": "Level",
+        "upgrade": "Upgrade",
+        "gold": "Gold"
+    },
+    "inGame": {
+        "pause": "Pause",
+        "saveAndExit": "Save And Exit",
+        "victory": "Victory",
+        "depeat": "Depeat",
+        "currentScore": "Current Score",
+        "inputNickname": "Input Nickname"
+    }
+}

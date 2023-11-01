@@ -1,0 +1,38 @@
+{
+    "common": {
+        "close": "Закрыть",
+        "stage": "Этап"
+    },
+    "lobby": {
+        "ranking": "Рейтинг",
+        "gamestart": "Начать игру"
+    },
+    "ranking": {
+        "ranking": "Рейтинг",
+        "rank": "-й",
+        "score": "Очки"
+    },
+    "option": {
+        "option": "Настройки",
+        "wholeVolume": "Общий уровень громкости",
+        "language": "Язык"
+    },
+    "store": {
+        "store": "Магазин",
+        "damage": "Урон",
+        "max": "Макс",
+        "hp": "Здоровье",
+        "enhance": "Улучшение",
+        "level": "Уровень",
+        "upgrade": "Обновить",
+        "gold": "Золото"
+    },
+    "inGame": {
+        "pause": "Пауза",
+        "saveAndExit": "Сохранить и выйти",
+        "victory": "Победа",
+        "depeat": "Поражение",
+        "currentScore": "Текущий счет",
+        "inputNickname": "Введите никнейм"
+    }
+}
