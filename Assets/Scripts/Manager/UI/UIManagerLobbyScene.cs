@@ -8,7 +8,10 @@ using UnityEngine.UI;
 public class UIManagerLobbyScene : UIManager
 {
     public static UIManagerLobbyScene Instance;
-    public TextMeshProUGUI stageText;
+    public TextMeshProUGUI stageIntTMP;
+    public TextMeshProUGUI stageTMP;
+    public TextMeshProUGUI rankingTMP;
+    public TextMeshProUGUI gameStartTMP;
     public Text goldText1;
     public Text goldText2;
     public Text boomText;
@@ -22,6 +25,7 @@ public class UIManagerLobbyScene : UIManager
         BackGroundManager.Create();
         CSVManager.Create();
         SoundManager.Create();
+        LocalizationManager.Create();
 
         if (Instance == null)
             Instance = this;
@@ -43,7 +47,16 @@ public class UIManagerLobbyScene : UIManager
         UpdateGoods();
     }
 
-    // 골드 갱신
+    // 언어 갱신
+    public void UpdateLanguage(string lang)
+    {
+        LocalizationManager.Instance.LoadLocalizedText(lang);
+        stageTMP.text = LocalizationManager.Instance.GetLocalizedValue("common.stage");
+        rankingTMP.text = LocalizationManager.Instance.GetLocalizedValue("lobby.ranking");
+        gameStartTMP.text = LocalizationManager.Instance.GetLocalizedValue("lobby.gamestart");
+    }
+    
+    // 재화 갱신
     public void UpdateGoods()
     {
         goldText1.text = string.Format("{0:N0}", GameManager.Instance.GetResourceAmount(GameManager.EResource.gold));
@@ -63,7 +76,7 @@ public class UIManagerLobbyScene : UIManager
     // 스테이지 텍스트 UI 갱신
     public void UIUpdateStage()
     {
-        stageText.text = CurrentStage.ToString();
+        stageIntTMP.text = CurrentStage.ToString();
     }
 
     /// <summary>
