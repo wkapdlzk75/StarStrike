@@ -16,7 +16,7 @@ public class Store : MonoBehaviour
 
     ProductBox[] productBox;
 
-    private void Start()
+    private void OnEnable()
     {
         Refresh();
         // productBox[0].enhanceButton.onClick.AddListener(() => UpgradeDamage());
@@ -24,7 +24,7 @@ public class Store : MonoBehaviour
     }
 
     // UI 갱신
-    void Refresh()
+    public void Refresh()
     {
         if (productBox == null || productBox.Length == 0)
         {
@@ -41,11 +41,11 @@ public class Store : MonoBehaviour
         gold = LocalizationManager.Instance.GetLocalizedValue("store.gold");
 
         var box = productBox[0];
-        box.mainText.text = damage + " " + enhance + " " + GameManager.Instance.GetEnhanceCount(GameManager.EPlayerStatus.damage) + level;
+        box.mainText.text = damage + " " + enhance + " " + GameManager.Instance.GetEnhanceCount(GameManager.EPlayerStatus.damage) + " " + level;
         box.enhanceText.text = upgrade + "<br>100 "+ gold; //+ 100.ToString();
 
         box = productBox[1];
-        box.mainText.text = max + " " + hp + " " + enhance + " " + GameManager.Instance.GetEnhanceCount(GameManager.EPlayerStatus.maxHp) + level;
+        box.mainText.text = max + " " + hp + " " + enhance + " " + GameManager.Instance.GetEnhanceCount(GameManager.EPlayerStatus.maxHp) + " " + level;
         box.enhanceText.text = upgrade + "<br>100 "+ gold; //+ 100.ToString();
     }
 

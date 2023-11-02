@@ -29,6 +29,8 @@ public class UIManagerLobbyScene : UIManager
     public Text goldText2;
     public Text boomText;
 
+    public GameObject store;
+
     const int MAX_STAGE = 5;    // 마지막 스테이지
 
     private void Awake()
@@ -51,6 +53,7 @@ public class UIManagerLobbyScene : UIManager
         StartCoroutine(LoadData());
         SoundManager.Instance.PlayLobbyMusic();
         SetResolution();
+        UpdateLanguage("English");
     }
 
     IEnumerator LoadData()
@@ -79,6 +82,8 @@ public class UIManagerLobbyScene : UIManager
 
         storeTMP.text = LocalizationManager.Instance.GetLocalizedValue("store.store");
         closeTMP2.text = LocalizationManager.Instance.GetLocalizedValue("common.close");
+
+        store.GetComponent<Store>().Refresh();
     }
 
     // 재화 갱신
