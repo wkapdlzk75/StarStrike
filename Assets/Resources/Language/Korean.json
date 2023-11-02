@@ -9,8 +9,7 @@
     },
     "ranking": {
         "ranking": "랭킹",
-        "rank": "위",
-        "score": "점"
+        "no-value" :"정보 없음"
     },
     "option": {
         "option": "설정",

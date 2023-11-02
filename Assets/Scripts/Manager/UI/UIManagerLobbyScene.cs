@@ -10,8 +10,13 @@ public class UIManagerLobbyScene : UIManager
     public static UIManagerLobbyScene Instance;
     public TextMeshProUGUI stageIntTMP;
     public TextMeshProUGUI stageTMP;
-    public TextMeshProUGUI rankingTMP;
+    public TextMeshProUGUI rankingTMP1;
+    public TextMeshProUGUI rankingTMP2;
+    public TextMeshProUGUI rankingTMP3;
+    public TextMeshProUGUI closeTMP;
     public TextMeshProUGUI gameStartTMP;
+    public TextMeshProUGUI optionTMP;
+    public TextMeshProUGUI wholeVolumeTMP;
     public Text goldText1;
     public Text goldText2;
     public Text boomText;
@@ -52,9 +57,15 @@ public class UIManagerLobbyScene : UIManager
     {
         LocalizationManager.Instance.LoadLocalizedText(lang);
         stageTMP.text = LocalizationManager.Instance.GetLocalizedValue("common.stage");
-        rankingTMP.text = LocalizationManager.Instance.GetLocalizedValue("lobby.ranking");
+        rankingTMP1.text = LocalizationManager.Instance.GetLocalizedValue("lobby.ranking");
         gameStartTMP.text = LocalizationManager.Instance.GetLocalizedValue("lobby.gamestart");
-    }
+        optionTMP.text = LocalizationManager.Instance.GetLocalizedValue("option.option");
+        wholeVolumeTMP.text = LocalizationManager.Instance.GetLocalizedValue("option.wholeVolume");
+        rankingTMP2.text = LocalizationManager.Instance.GetLocalizedValue("ranking.ranking");
+        rankingTMP3.text = LocalizationManager.Instance.GetLocalizedValue("ranking.no-value");
+        closeTMP.text = LocalizationManager.Instance.GetLocalizedValue("common.close");
+
+}
     
     // 재화 갱신
     public void UpdateGoods()

@@ -9,8 +9,7 @@
     },
     "ranking": {
         "ranking": "Ranking",
-        "rank": "th",
-        "score": ""
+        "no-value" :"No ranking information"
     },
     "option": {
         "option": "Option",

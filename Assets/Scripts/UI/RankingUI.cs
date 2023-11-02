@@ -37,9 +37,9 @@ public class RankingUI : MonoBehaviour
             {
                 if (i < rankData.Count)
                 {
-                    m_RankingBox[i].rankText.text = (i + 1).ToString() + "위";
+                    m_RankingBox[i].rankText.text = (i + 1).ToString();// + "위";
                     m_RankingBox[i].nameText.text = rankData[i].Key;
-                    m_RankingBox[i].scoreText.text = rankData[i].Value.ToString("N0") + "점";
+                    m_RankingBox[i].scoreText.text = rankData[i].Value.ToString("N0");// + "점";
                     m_RankingBox[i].gameObject.SetActive(true);
                 }
                 else
