@@ -6,6 +6,14 @@ using UnityEngine.UI;
 
 public class Store : MonoBehaviour
 {
+    string max;
+    string hp;
+    string enhance;
+    string damage;
+    string upgrade;
+    string gold;
+    string level;
+
     ProductBox[] productBox;
 
     private void Start()
@@ -23,13 +31,22 @@ public class Store : MonoBehaviour
             productBox = GetComponentsInChildren<ProductBox>();
         }
 
+
+        damage = LocalizationManager.Instance.GetLocalizedValue("store.damage");
+        max = LocalizationManager.Instance.GetLocalizedValue("store.max");
+        hp = LocalizationManager.Instance.GetLocalizedValue("store.hp");
+        enhance = LocalizationManager.Instance.GetLocalizedValue("store.enhance");
+        level = LocalizationManager.Instance.GetLocalizedValue("store.level");
+        upgrade = LocalizationManager.Instance.GetLocalizedValue("store.upgrade");
+        gold = LocalizationManager.Instance.GetLocalizedValue("store.gold");
+
         var box = productBox[0];
-        box.mainText.text = "공격력 강화 " + GameManager.Instance.GetEnhanceCount(GameManager.EPlayerStatus.damage) + "레벨";
-        box.enhanceText.text = "업그레이드<br>100 골드"; //+ 100.ToString();
+        box.mainText.text = damage + " " + enhance + " " + GameManager.Instance.GetEnhanceCount(GameManager.EPlayerStatus.damage) + level;
+        box.enhanceText.text = upgrade + "<br>100 "+ gold; //+ 100.ToString();
 
         box = productBox[1];
-        box.mainText.text = "최대 체력 강화 " + GameManager.Instance.GetEnhanceCount(GameManager.EPlayerStatus.maxHp) + "레벨";
-        box.enhanceText.text = "업그레이드<br>100 골드"; //+ 100.ToString();
+        box.mainText.text = max + " " + hp + " " + enhance + " " + GameManager.Instance.GetEnhanceCount(GameManager.EPlayerStatus.maxHp) + level;
+        box.enhanceText.text = upgrade + "<br>100 "+ gold; //+ 100.ToString();
     }
 
     public void OpenStore()

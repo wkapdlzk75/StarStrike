@@ -21,12 +21,6 @@ public class RankingUI : MonoBehaviour
         RefreshRank();
     }
 
-    public void RefreshLanguage(string lang)
-    {
-        //LocalizationManager.Instance.LoadLocalizedText(lang);
-        string greeting = LocalizationManager.Instance.GetLocalizedValue("greeting");
-    }
-
     public void RefreshRank()
     {
         var rankData = Ranking.GetScores();

@@ -8,15 +8,23 @@ using UnityEngine.UI;
 public class UIManagerLobbyScene : UIManager
 {
     public static UIManagerLobbyScene Instance;
+    
     public TextMeshProUGUI stageIntTMP;
     public TextMeshProUGUI stageTMP;
+    public TextMeshProUGUI closeTMP1;
+
     public TextMeshProUGUI rankingTMP1;
     public TextMeshProUGUI rankingTMP2;
     public TextMeshProUGUI rankingTMP3;
-    public TextMeshProUGUI closeTMP;
+
     public TextMeshProUGUI gameStartTMP;
+    
     public TextMeshProUGUI optionTMP;
     public TextMeshProUGUI wholeVolumeTMP;
+
+    public TextMeshProUGUI storeTMP;
+    public TextMeshProUGUI closeTMP2;
+    
     public Text goldText1;
     public Text goldText2;
     public Text boomText;
@@ -56,17 +64,23 @@ public class UIManagerLobbyScene : UIManager
     public void UpdateLanguage(string lang)
     {
         LocalizationManager.Instance.LoadLocalizedText(lang);
+
         stageTMP.text = LocalizationManager.Instance.GetLocalizedValue("common.stage");
+        closeTMP1.text = LocalizationManager.Instance.GetLocalizedValue("common.close");
+
         rankingTMP1.text = LocalizationManager.Instance.GetLocalizedValue("lobby.ranking");
         gameStartTMP.text = LocalizationManager.Instance.GetLocalizedValue("lobby.gamestart");
+
         optionTMP.text = LocalizationManager.Instance.GetLocalizedValue("option.option");
         wholeVolumeTMP.text = LocalizationManager.Instance.GetLocalizedValue("option.wholeVolume");
+
         rankingTMP2.text = LocalizationManager.Instance.GetLocalizedValue("ranking.ranking");
         rankingTMP3.text = LocalizationManager.Instance.GetLocalizedValue("ranking.no-value");
-        closeTMP.text = LocalizationManager.Instance.GetLocalizedValue("common.close");
 
-}
-    
+        storeTMP.text = LocalizationManager.Instance.GetLocalizedValue("store.store");
+        closeTMP2.text = LocalizationManager.Instance.GetLocalizedValue("common.close");
+    }
+
     // 재화 갱신
     public void UpdateGoods()
     {
