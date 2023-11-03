@@ -13,10 +13,12 @@ public class UIManagerGameScene : UIManager
     public TextMeshProUGUI popupText;      // 팝업 UI
     public Text goldText;       // 골드 텍스트 UI
     public TextMeshProUGUI scoreText2;
-    //public TextMeshProUGUI saveText;
-    //public InputField inputName;
     public TMP_InputField inputName;
 
+    public TextMeshProUGUI inputNicknameTMP;
+    public TextMeshProUGUI saveExitTMP1;
+    public TextMeshProUGUI saveExitTMP2;
+    public TextMeshProUGUI pauseTMP;
 
     public Image[] lifeImage;   // 목숨 UI
     public Image[] boomImage;   // 폭탄 UI
@@ -44,12 +46,23 @@ public class UIManagerGameScene : UIManager
 
     void Start()
     {
-        stageText.text = string.Format("스테이지 {0}", CurrentStage);
+        stageText.text = string.Format("{0} {1}", LocalizationManager.Instance.GetLocalizedValue("common.stage"), CurrentStage);
         UpdateScore();
         UpdateGold();
         UpdateBoom(GameManager.Instance.GetResourceAmount(GameManager.EResource.boom));
+        RefreshLanguage();
         gameEndUI.SetActive(false);
     }
+
+    // 언어 갱신
+    void RefreshLanguage()
+    {
+        inputNicknameTMP.text = LocalizationManager.Instance.GetLocalizedValue("inGame.inputNickname");
+        saveExitTMP1.text = LocalizationManager.Instance.GetLocalizedValue("inGame.saveAndExit");
+        saveExitTMP2.text = LocalizationManager.Instance.GetLocalizedValue("inGame.saveAndExit");
+        pauseTMP.text = LocalizationManager.Instance.GetLocalizedValue("inGame.pause");
+    }
+
 
     // 점수 갱신
     public void UpdateScore()
@@ -131,13 +144,13 @@ public class UIManagerGameScene : UIManager
     {
         if (game)
         {
-            popupText.text = "Victory";
+            popupText.text = LocalizationManager.Instance.GetLocalizedValue("inGame.victory");
         }
         else
         {
-            popupText.text = "Defeat";
+            popupText.text = LocalizationManager.Instance.GetLocalizedValue("inGame.depeat");
         }
-        scoreText2.text = "현재 점수 : " + scoreText1.text;
+        scoreText2.text = LocalizationManager.Instance.GetLocalizedValue("inGame.currentScore") + " : " + scoreText1.text;
 
         gameEndUI.SetActive(true);
     }

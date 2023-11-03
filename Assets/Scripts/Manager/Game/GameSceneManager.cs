@@ -1,3 +1,5 @@
+using TMPro;
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 
 public class GameSceneManager : MonoBehaviour
@@ -10,4 +12,5 @@ public class GameSceneManager : MonoBehaviour
         GameManager.Instance.GameStart();
         SoundManager.Instance.PlayGameMusic();
     }
+
 }

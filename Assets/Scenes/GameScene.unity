@@ -2774,6 +2774,10 @@ MonoBehaviour:
   goldText: {fileID: 2142966733}
   scoreText2: {fileID: 1246227428}
   inputName: {fileID: 645119585}
+  inputNicknameTMP: {fileID: 1563512829}
+  saveExitTMP1: {fileID: 86513541}
+  saveExitTMP2: {fileID: 329508494}
+  pauseTMP: {fileID: 1190936044}
   lifeImage:
   - {fileID: 1987820005}
   - {fileID: 1181787926}
@@ -5825,7 +5829,6 @@ MonoBehaviour:
   - {fileID: 1269554962}
   spawnIndex: 0
   spawnEnd: 0
-  spawnCount: 0
 --- !u!1 &1942045690
 GameObject:
   m_ObjectHideFlags: 0
