@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Unity.VisualScripting.Icons;
 
 public class LocalizationManager : SSSingleton<LocalizationManager>
 {
