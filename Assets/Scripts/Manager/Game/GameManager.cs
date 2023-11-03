@@ -16,8 +16,8 @@ public class GameManager : SSSingleton<GameManager>
     public AudioSource audioSource;
     public bool isPlaying;
     public Player player;
-    public const int initDamage = 10;
-    public const int initMaxHp = 30;
+    public const int initDamage = 100;
+    public const int initMaxHp = 100;
     public int spawnCount = 0;
 
     public Dictionary<EResource, int> inventory = new Dictionary<EResource, int>();

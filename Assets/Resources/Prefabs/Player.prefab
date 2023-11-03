@@ -175,7 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 100
   curHp: 100
-  damage: 10
+  damage: 100
   speed: 3
   bulletFiringInterval: 0.2
   isTouchTop: 0
@@ -188,7 +188,8 @@ MonoBehaviour:
   curPower: 3
   maxBoom: 3
   maxFollower: 4
-  curFollower: 0
+  curFollower: 4
+  isBoomActive: 0
   isRespawnTime: 0
   boomEffect: {fileID: 0}
   dieSound: {fileID: 8300000, guid: 3e5d6d1b7e397664c9e507df886f5eff, type: 3}
