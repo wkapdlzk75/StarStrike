@@ -53,7 +53,7 @@ public class UIManagerLobbyScene : UIManager
         StartCoroutine(LoadData());
         SoundManager.Instance.PlayLobbyMusic();
         SetResolution();
-        UpdateLanguage("English");
+        
     }
 
     IEnumerator LoadData()
@@ -61,12 +61,14 @@ public class UIManagerLobbyScene : UIManager
         yield return new WaitUntil(() => SaveLoadManager.loadEnd);
         UIUpdateStage();
         UpdateGoods();
+        UpdateLanguage(GameManager.Instance.language);
     }
 
     // 언어 갱신
     public void UpdateLanguage(string lang)
     {
         LocalizationManager.Instance.LoadLocalizedText(lang);
+        GameManager.Instance.language = lang;
 
         stageTMP.text = LocalizationManager.Instance.GetLocalizedValue("common.stage");
         closeTMP1.text = LocalizationManager.Instance.GetLocalizedValue("common.close");

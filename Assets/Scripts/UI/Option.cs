@@ -13,6 +13,7 @@ public class Option : MonoBehaviour
         else
         {
             gameObject.SetActive(false);
+            SaveLoadManager.Save();
         }
     }
 }

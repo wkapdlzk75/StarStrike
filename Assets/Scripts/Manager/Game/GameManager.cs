@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static Unity.VisualScripting.Icons;
 
 public class GameManager : SSSingleton<GameManager>
 {
@@ -7,7 +8,11 @@ public class GameManager : SSSingleton<GameManager>
     public int curScore;    // 점수
     public int highScore;   // 최대 점수
     public int inGameGold;
+
     public float wholeVolume;
+    public string language;
+
+
     public AudioSource audioSource;
     public bool isPlaying;
     public Player player;
@@ -32,8 +37,9 @@ public class GameManager : SSSingleton<GameManager>
 
     protected override void Awake()
     {
+        //PlayerPrefs.DeleteAll();
         base.Awake();
-        wholeVolume = 1;
+        language = "English";
         SaveLoadManager.Load();
         audioSource = gameObject.AddComponent<AudioSource>();
     }
