@@ -13,7 +13,7 @@
     },
     "option": {
         "option": "Option",
-        "wholeVolume": "Whole Volume",
+        "masterVolume": "Master Volume",
         "language": "Language"
     },
     "store": {
@@ -30,7 +30,7 @@
         "pause": "Pause",
         "saveAndExit": "Save And Exit",
         "victory": "Victory",
-        "depeat": "Depeat",
+        "defeat": "Defeat",
         "currentScore": "Current Score",
         "inputNickname": "Input Nickname"
     }

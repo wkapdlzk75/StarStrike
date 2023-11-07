@@ -8,7 +8,7 @@ public class GameManager : SSSingleton<GameManager>
     public int highScore;   // 최대 점수
     public int inGameGold;
 
-    public float wholeVolume;
+    public float masterVolume;
     public string language;
 
 
@@ -36,27 +36,19 @@ public class GameManager : SSSingleton<GameManager>
 
     protected override void Awake()
     {
-        //PlayerPrefs.DeleteAll();
         base.Awake();
-        language = "English";
         SaveLoadManager.Load();
         audioSource = gameObject.AddComponent<AudioSource>();
     }
 
     void Start()
     {
-        /*
-         * -1 은 무제한 10000
-        Application.targetFrameRate = 120;  // 120 이하로 고정
-        Application.targetFrameRate = 60;  // 60 이하로 고정
-        Application.targetFrameRate = 30;  // 30 이하로 고정
-        */
         stage = 1;
     }
 
     public void PlaySound(AudioClip audioClip, float _volume = 1f)
     {
-        audioSource.PlayOneShot(audioClip, _volume*wholeVolume);
+        audioSource.PlayOneShot(audioClip, _volume*masterVolume);
     }
 
 

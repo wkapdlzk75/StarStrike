@@ -16,7 +16,7 @@ public class SoundManager : SSSingleton<SoundManager>
         base.Awake();
         audioSource = GetComponent<AudioSource>();
         bgVolume = 0.25f;
-        audioSource.volume = GameManager.Instance.wholeVolume * bgVolume;
+        audioSource.volume = GameManager.Instance.masterVolume * bgVolume;
     }
 
     private void Update()
@@ -32,19 +32,19 @@ public class SoundManager : SSSingleton<SoundManager>
     public void PlayLobbyMusic()
     {
         StopMusic();
-        audioSource.PlayOneShot(lobbyMusic, GameManager.Instance.wholeVolume * bgVolume);
+        audioSource.PlayOneShot(lobbyMusic, GameManager.Instance.masterVolume * bgVolume);
         //audioSource.volume = 0;
     }
 
     public void PlayGameMusic()
     {
         StopMusic();
-        audioSource.PlayOneShot(gameMusic, GameManager.Instance.wholeVolume * bgVolume);
+        audioSource.PlayOneShot(gameMusic, GameManager.Instance.masterVolume * bgVolume);
     }
 
     public void PlayBossMusic()
     {
         StopMusic();
-        audioSource.PlayOneShot(bossMusic, GameManager.Instance.wholeVolume * bgVolume);
+        audioSource.PlayOneShot(bossMusic, GameManager.Instance.masterVolume * bgVolume);
     }
 }

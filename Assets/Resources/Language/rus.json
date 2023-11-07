@@ -13,7 +13,7 @@
     },
     "option": {
         "option": "Настройки",
-        "wholeVolume": "Общий уровень громкости",
+        "masterVolume": "Общий уровень громкости",
         "language": "Язык"
     },
     "store": {
@@ -30,7 +30,7 @@
         "pause": "Пауза",
         "saveAndExit": "Сохранить и выйти",
         "victory": "Победа",
-        "depeat": "Поражение",
+        "defeat": "Поражение",
         "currentScore": "Текущий счет",
         "inputNickname": "Введите никнейм"
     }

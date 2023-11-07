@@ -20,7 +20,7 @@ public class UIManagerLobbyScene : UIManager
     public TextMeshProUGUI gameStartTMP;
     
     public TextMeshProUGUI optionTMP;
-    public TextMeshProUGUI wholeVolumeTMP;
+    public TextMeshProUGUI masterVolumeTMP;
 
     public TextMeshProUGUI storeTMP;
     public TextMeshProUGUI closeTMP2;
@@ -77,7 +77,7 @@ public class UIManagerLobbyScene : UIManager
         gameStartTMP.text = LocalizationManager.Instance.GetLocalizedValue("lobby.gamestart");
 
         optionTMP.text = LocalizationManager.Instance.GetLocalizedValue("option.option");
-        wholeVolumeTMP.text = LocalizationManager.Instance.GetLocalizedValue("option.wholeVolume");
+        masterVolumeTMP.text = LocalizationManager.Instance.GetLocalizedValue("option.masterVolume");
 
         rankingTMP2.text = LocalizationManager.Instance.GetLocalizedValue("ranking.ranking");
         rankingTMP3.text = LocalizationManager.Instance.GetLocalizedValue("ranking.no-value");

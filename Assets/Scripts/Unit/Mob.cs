@@ -124,7 +124,7 @@ public class Mob : Unit
 
     void FireBulletsTowardsPlayer()
     {
-        GameManager.Instance.PlaySound(shootingSound, GameManager.Instance.wholeVolume * 0.25f);
+        GameManager.Instance.PlaySound(shootingSound, GameManager.Instance.masterVolume * 0.25f);
 
         // 리스트나 배열로 해서 중복 제거
         if (player == null) return;
@@ -180,7 +180,7 @@ public class Mob : Unit
     void FireRandomShotsAtPlayer()
     {
         if (player == null) return;
-        GameManager.Instance.PlaySound(shootingSound, GameManager.Instance.wholeVolume * 0.25f);
+        GameManager.Instance.PlaySound(shootingSound, GameManager.Instance.masterVolume * 0.25f);
 
         for (int i = 0; i < 10; i++)
         {
@@ -190,7 +190,7 @@ public class Mob : Unit
 
     void FireBulletsInArc(int i)
     {
-        GameManager.Instance.PlaySound(shootingSound, GameManager.Instance.wholeVolume * 0.25f);
+        GameManager.Instance.PlaySound(shootingSound, GameManager.Instance.masterVolume * 0.25f);
         ObjectManager.Instance.GetRangedObject("MobBulletD", (poolingBullet) =>
         {
             poolingBullet.transform.position = transform.position + new Vector3(0, -1.4f, 0);
@@ -207,7 +207,7 @@ public class Mob : Unit
 
     void FireBulletsInHalfCircle(int a)
     {
-        GameManager.Instance.PlaySound(shootingSound, GameManager.Instance.wholeVolume * 0.25f);
+        GameManager.Instance.PlaySound(shootingSound, GameManager.Instance.masterVolume * 0.25f);
         int count = 15;
         int MAX = a % 2 == 0 ? count : count + 1;
 
@@ -311,7 +311,7 @@ public class Mob : Unit
         ActiveExplosion(mobName);
 
         if (!player.isBoomActive)
-            GameManager.Instance.PlaySound(dieSound, GameManager.Instance.wholeVolume * 0.35f);
+            GameManager.Instance.PlaySound(dieSound, GameManager.Instance.masterVolume * 0.35f);
 
         if (mobName == "B")
         {

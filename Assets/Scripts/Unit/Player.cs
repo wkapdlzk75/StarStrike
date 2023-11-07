@@ -65,13 +65,6 @@ public class Player : Unit
         curHp = maxHp;
     }
 
-    private void OnEnable()
-    {
-
-    }
-
-
-
     IEnumerator PlayerInit()
     {
         yield return new WaitUntil(() => BulletManager.Instance.boomEffect != null);
@@ -151,7 +144,7 @@ public class Player : Unit
 
         GameManager.Instance.RemoveResource(GameManager.EResource.boom, 1);
         UIManagerGameScene.instance.UpdateBoom(GameManager.Instance.GetResourceAmount(GameManager.EResource.boom));
-        GameManager.Instance.PlaySound(boomSound, GameManager.Instance.wholeVolume);
+        GameManager.Instance.PlaySound(boomSound, GameManager.Instance.masterVolume);
 
         boomEffect.SetActive(true);
         isBoomActive = true;
@@ -239,7 +232,7 @@ public class Player : Unit
         UIManagerGameScene.instance.UpdateLife(curLife, false);
         ActiveExplosion("P");
 
-        GameManager.Instance.PlaySound(dieSound, GameManager.Instance.wholeVolume * 0.35f);
+        GameManager.Instance.PlaySound(dieSound, GameManager.Instance.masterVolume * 0.35f);
 
         if (curLife <= 0)
         {
@@ -315,12 +308,12 @@ public class Player : Unit
             {
                 case "Coin":
                     GameManager.Instance.inGameGold += 20;
-                    GameManager.Instance.PlaySound(coinSound, GameManager.Instance.wholeVolume * 0.5f);
+                    GameManager.Instance.PlaySound(coinSound, GameManager.Instance.masterVolume * 0.5f);
                     UIManagerGameScene.instance.UpdateGold();
                     GameManager.Instance.AddScore(20);
                     break;
                 case "Power":
-                    GameManager.Instance.PlaySound(itemSound, GameManager.Instance.wholeVolume);
+                    GameManager.Instance.PlaySound(itemSound, GameManager.Instance.masterVolume);
 
                     if (curPower < maxPower)
                         curPower++;
@@ -330,7 +323,7 @@ public class Player : Unit
                         GameManager.Instance.AddScore(20);
                     break;
                 case "Boom":
-                    GameManager.Instance.PlaySound(itemSound, GameManager.Instance.wholeVolume);
+                    GameManager.Instance.PlaySound(itemSound, GameManager.Instance.masterVolume);
 
                     if (GameManager.Instance.GetResourceAmount(GameManager.EResource.boom) == maxBoom)
                     {

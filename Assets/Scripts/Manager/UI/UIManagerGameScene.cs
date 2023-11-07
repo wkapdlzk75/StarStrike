@@ -148,7 +148,7 @@ public class UIManagerGameScene : UIManager
         }
         else
         {
-            popupText.text = LocalizationManager.Instance.GetLocalizedValue("inGame.depeat");
+            popupText.text = LocalizationManager.Instance.GetLocalizedValue("inGame.defeat");
         }
         scoreText2.text = LocalizationManager.Instance.GetLocalizedValue("inGame.currentScore") + " : " + scoreText1.text;
 

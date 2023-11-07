@@ -9,11 +9,11 @@
     },
     "ranking": {
         "ranking": "랭킹",
-        "no-value" :"정보 없음"
+        "no-value" :"랭킹 정보 없음"
     },
     "option": {
         "option": "설정",
-        "wholeVolume": "전체 음량",
+        "masterVolume": "전체 음량",
         "language": "언어"
     },
     "store": {
@@ -30,7 +30,7 @@
         "pause": "일시정지",
         "saveAndExit": "저장 후 나가기",
         "victory": "승리",
-        "depeat": "패배",
+        "defeat": "패배",
         "currentScore": "현재 점수",
         "inputNickname": "닉네임을 입력해주세요."
     }

@@ -22,7 +22,7 @@ public class SoundSlider : MonoBehaviour
     IEnumerator LoadSound()
     {
         yield return new WaitUntil(()=>SaveLoadManager.loadEnd);
-        slider.value = GameManager.Instance.wholeVolume;
+        slider.value = GameManager.Instance.masterVolume;
         SetRefresh(slider.value);
 
     }
@@ -41,8 +41,8 @@ public class SoundSlider : MonoBehaviour
         }
 
         SetRefresh(slider.value);
-        GameManager.Instance.wholeVolume = slider.value;
-        SoundManager.Instance.audioSource.volume = GameManager.Instance.wholeVolume * SoundManager.Instance.bgVolume;
+        GameManager.Instance.masterVolume = slider.value;
+        SoundManager.Instance.audioSource.volume = GameManager.Instance.masterVolume * SoundManager.Instance.bgVolume;
     }
 
     

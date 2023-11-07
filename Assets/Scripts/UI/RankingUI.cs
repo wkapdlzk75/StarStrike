@@ -12,7 +12,6 @@ public class RankingUI : MonoBehaviour
 
     private void Awake()
     {
-        //PlayerPrefs.DeleteAll();
         m_RankingBox = GetComponentsInChildren<RankingBox>(true);   // true 로 하면 꺼진 오브젝트도 가져옴
     }
 
