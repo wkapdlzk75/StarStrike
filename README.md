@@ -7,13 +7,17 @@
 도전적인 레벨과 다채로운 무기 시스템으로 무장한 이 게임은 슈팅 게임 팬들에게 새로운 도전을 제공합니다.<br>
 <br>
 이동 조작키 : →, ←, ↑, ↓ 또는 w, a, s, d<br>
-폭탄 사용   : Space Bar 
+폭탄 사용   : Space Bar<br><br>
+
+\* 폭탄 사용시 보스를 제외한 적과 모든 적의 총알들이 사라집니다.<br><br>
 
 ## 설치 방법
-압축 파일 다운로드 후 압축 해제한 뒤 StarStrike.exe 실행
+압축 파일 다운로드 후 압축 해제한 뒤 StarStrike.exe 실행<br><br>
 
 ## 최신 버전 다운로드 & 업데이트 내역
-* [StarStrike_231107_01](https://drive.google.com/file/d/1-PVbRbaZ6czSLMCx_9Esd-a3Z-aU8pk1/view?usp=sharing)
-    - 최초 출시
+* [StarStrike_231108_01](https://drive.google.com/file/d/1lbUSmWbuRYpy1NQLKz4Vu_gxt68z33So/view?usp=sharing)
+    - UI 개선<br><br>
 
 ## 구버전 다운로드 & 업데이트 내역
+* [StarStrike_231107_01](https://drive.google.com/file/d/1-PVbRbaZ6czSLMCx_9Esd-a3Z-aU8pk1/view?usp=sharing)
+    - 최초 출시<br><br>
