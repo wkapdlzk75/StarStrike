@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.U2D;
 using UnityEngine.UI;
 
 public class Store : MonoBehaviour
@@ -41,12 +42,12 @@ public class Store : MonoBehaviour
         gold = LocalizationManager.Instance.GetLocalizedValue("store.gold");
 
         var box = productBox[0];
-        box.mainText.text = damage + " " + enhance + " " + GameManager.Instance.GetEnhanceCount(GameManager.EPlayerStatus.damage) + " " + level;
-        box.enhanceText.text = upgrade + "<br>100 "+ gold; //+ 100.ToString();
+        box.mainText.text = "<sprite name=\"Icon_Knife16\">" + damage + " " + enhance + " " + GameManager.Instance.GetEnhanceCount(GameManager.EPlayerStatus.damage) + " " + level;
+        box.enhanceText.text = upgrade + "<br><sprite name=\"Icon_Coin\"> 100"; //+ 100.ToString();
 
         box = productBox[1];
-        box.mainText.text = max + " " + hp + " " + enhance + " " + GameManager.Instance.GetEnhanceCount(GameManager.EPlayerStatus.maxHp) + " " + level;
-        box.enhanceText.text = upgrade + "<br>100 "+ gold; //+ 100.ToString();
+        box.mainText.text = "<sprite name=\"Icon_Heart9\">" + max + " " + hp + " " + enhance + " " + GameManager.Instance.GetEnhanceCount(GameManager.EPlayerStatus.maxHp) + " " + level;
+        box.enhanceText.text = upgrade + "<br><sprite name=\"Icon_Coin\"> 100 "; //+ 100.ToString();
     }
 
     public void OpenStore()
