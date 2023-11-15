@@ -15,10 +15,12 @@
 압축 파일 다운로드 후 압축 해제한 뒤 StarStrike.exe 실행<br><br>
 
 ## 최신 버전 다운로드 & 업데이트 내역
-* [StarStrike_231110_01](https://drive.google.com/file/d/1rc9Cxwc-G39NQk_qKgEmf44XS2O1O4oC/view?usp=sharing)
-    - 상점 UI 개선<br><br>
+* [StarStrike_231115_01](https://drive.google.com/file/d/1QaVBPJvJT5AoNt_2AEM2EkxWwN7MvvQ1/view?usp=sharing)
+    - 로딩 화면 추가<br><br>
 
 ## 구버전 다운로드 & 업데이트 내역
+* [StarStrike_231110_01](https://drive.google.com/file/d/1rc9Cxwc-G39NQk_qKgEmf44XS2O1O4oC/view?usp=sharing)
+    - 상점 UI 개선<br>
 * [StarStrike_231108_01](https://drive.google.com/file/d/1lbUSmWbuRYpy1NQLKz4Vu_gxt68z33So/view?usp=sharing)
     - UI 개선<br>
 * [StarStrike_231107_01](https://drive.google.com/file/d/1-PVbRbaZ6czSLMCx_9Esd-a3Z-aU8pk1/view?usp=sharing)

@@ -15,6 +15,6 @@ public class UIManager : MonoBehaviour
     // 씬 변경 메소드
     public void SceneChange(string _SCENE_NAME)
     {
-        SceneManager.LoadScene(_SCENE_NAME);
+        SceneLoader.LoadScene(_SCENE_NAME);
     }
 }
