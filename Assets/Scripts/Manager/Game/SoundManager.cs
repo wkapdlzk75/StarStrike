@@ -9,7 +9,7 @@ public class SoundManager : SSSingleton<SoundManager>
     public AudioClip bossMusic;
     public AudioSource audioSource;
 
-    public float bgVolume = 1f;
+    public float bgVolume;
 
     protected override void Awake()
     {
