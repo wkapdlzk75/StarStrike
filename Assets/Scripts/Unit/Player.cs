@@ -53,6 +53,10 @@ public class Player : Unit
     void Start()
     {
         StartCoroutine(PlayerInit());
+    }
+
+    IEnumerator PlayerInit()
+    {
         lastFireTime = Time.time;  // 시간 초기화
         curFollower = 0;
         curPower = 1;
@@ -61,12 +65,7 @@ public class Player : Unit
         isRespawnTime = false;
         maxHp = GameManager.Instance.GetStatus(GameManager.EPlayerStatus.maxHp);
         damage = GameManager.Instance.GetStatus(GameManager.EPlayerStatus.damage);
-
         curHp = maxHp;
-    }
-
-    IEnumerator PlayerInit()
-    {
         yield return new WaitUntil(() => BulletManager.Instance.boomEffect != null);
         boomEffect = BulletManager.Instance.boomEffect;
     }
@@ -171,8 +170,26 @@ public class Player : Unit
         isBoomActive = false;
     }
 
-    // *****
+    //
     public void Move()
+    {
+        float moveHori = Input.GetAxisRaw("Horizontal");    // 좌우
+        float moveVert = Input.GetAxisRaw("Vertical");      // 상하
+
+        moveHori = BorderHorizontal(moveHori);  // 좌우 경계선 처리
+        moveVert = BorderVertical(moveVert);    // 상하 경계선 처리
+
+        Vector3 curPos = transform.position;                // 현재위치 가져옴
+        Vector3 nextPos = new Vector3(moveHori, moveVert, 0) * speed * Time.deltaTime;  // 이동한 위치값
+        transform.position = curPos + nextPos;              // 이동 반영
+
+        // 좌우 이동 버튼을 눌렀을 때와 뗐을 때
+        if (Input.GetButtonDown("Horizontal") || Input.GetButtonUp("Horizontal"))
+            //에니메이터의 Input값을 moveHori값으로 설정한다
+            animator.SetInteger("Input", (int)moveHori);
+    }
+
+    public void Move(Vector2 _inputDirection)
     {
         float moveHori = Input.GetAxisRaw("Horizontal");    // 좌우
         float moveVert = Input.GetAxisRaw("Vertical");      // 상하
