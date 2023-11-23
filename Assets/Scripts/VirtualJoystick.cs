@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,7 +42,8 @@ public class VirtualJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         lever.anchoredPosition = Vector2.zero;
         isInput = false;
-        //controller.Move(Vector2.zero);
+        //player.animator.SetInteger("Input", 0);
+        player.Move(Vector2.zero);
     }
 
     void ControlJoystickLever(PointerEventData eventData)
@@ -50,6 +52,9 @@ public class VirtualJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         var inputVector = inputPos.magnitude < leverRange ? inputPos : inputPos.normalized * leverRange;
         lever.anchoredPosition = inputVector;
         inputDirection = inputVector / leverRange;
+        inputDirection.x = (float)Math.Round(inputDirection.x);
+        inputDirection.y = (float)Math.Round(inputDirection.y);
+        //Debug.Log($"Input Direction: {inputDirection}");
     }
 
     

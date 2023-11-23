@@ -34,7 +34,7 @@ public class Player : Unit
     public AudioClip coinSound;
     public AudioClip boomSound;
 
-    Animator animator;
+    public Animator animator;
     SpriteRenderer spriteRenderer;
     public Follower m_Follow;
     private List<Follower> followers = new List<Follower>();
@@ -191,20 +191,29 @@ public class Player : Unit
 
     public void Move(Vector2 _inputDirection)
     {
-        float moveHori = Input.GetAxisRaw("Horizontal");    // 좌우
-        float moveVert = Input.GetAxisRaw("Vertical");      // 상하
+        //Debug.Log($"Moving with direction: {_inputDirection}");
+        float moveHori = _inputDirection.x; // 좌우
+        float moveVert = _inputDirection.y; // 상하
 
         moveHori = BorderHorizontal(moveHori);  // 좌우 경계선 처리
         moveVert = BorderVertical(moveVert);    // 상하 경계선 처리
 
-        Vector3 curPos = transform.position;                // 현재위치 가져옴
         Vector3 nextPos = new Vector3(moveHori, moveVert, 0) * speed * Time.deltaTime;  // 이동한 위치값
-        transform.position = curPos + nextPos;              // 이동 반영
-
-        // 좌우 이동 버튼을 눌렀을 때와 뗐을 때
-        if (Input.GetButtonDown("Horizontal") || Input.GetButtonUp("Horizontal"))
-            //에니메이터의 Input값을 moveHori값으로 설정한다
+        transform.position += nextPos;              // 이동 반영
+        
+        //Debug.Log($"Moving with direction: {(int)moveHori}");
+        // 가상 조이스틱 입력에 따른 애니메이터의 Input 값 설정
+        if (_inputDirection != Vector2.zero)
+        {
+            // 조이스틱 입력에 따라 애니메이션 상태 변경
             animator.SetInteger("Input", (int)moveHori);
+        }
+        else
+        {
+            // 조이스틱 입력이 없을 때 애니메이션 상태 초기화
+            animator.SetInteger("Input", 0);
+        }
+
     }
 
     public void OnHit(int _damage)
