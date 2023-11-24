@@ -1,20 +1,35 @@
 {
     "common": {
         "close": "닫기",
-        "stage": "스테이지"
+        "stage": "스테이지",
+        "ok": "확인",
+        "cancle": "취소"
+    },
+    "intro": {
+        "tapToStart": "시작하려면 터치하세요"
+    },
+    "nickname": {
+        "enterNickname": "닉네임을 입력하세요",
+        "limitCharacters": "10자 이내로 입력하세요",
+        "inputHere": "여기에 입력하세요."
+    },
+    "loading": {
+        "loading": "로딩중..."
     },
     "lobby": {
         "ranking": "랭킹",
-        "gamestart": "게임시작"
+        "gameStart": "게임시작"
     },
     "ranking": {
         "ranking": "랭킹",
-        "no-value" :"랭킹 정보 없음"
+        "no-value": "랭킹 정보 없음"
     },
     "option": {
         "option": "설정",
         "masterVolume": "전체 음량",
-        "language": "언어"
+        "language": "언어",
+        "reset": "초기화",
+        "resetDescription": "초기화를 진행하면 계정의 모든 정보가 사라지고 게임이 종료됩니다."
     },
     "store": {
         "store": "상점",

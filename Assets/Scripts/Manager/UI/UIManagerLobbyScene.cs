@@ -35,12 +35,10 @@ public class UIManagerLobbyScene : UIManager
 
     private void Awake()
     {
-        GameManager.Create();
         ObjectManager.Create();
         BackGroundManager.Create();
         CSVManager.Create();
         SoundManager.Create();
-        LocalizationManager.Create();
 
         if (Instance == null)
             Instance = this;
@@ -65,16 +63,16 @@ public class UIManagerLobbyScene : UIManager
     }
 
     // 언어 갱신
-    public void UpdateLanguage(string lang)
+    public void UpdateLanguage(string _lang)
     {
-        LocalizationManager.Instance.LoadLocalizedText(lang);
-        GameManager.Instance.language = lang;
+        LocalizationManager.Instance.LoadLocalizedText(_lang);
+        GameManager.Instance.language = _lang;
 
         stageTMP.text = LocalizationManager.Instance.GetLocalizedValue("common.stage");
         closeTMP1.text = LocalizationManager.Instance.GetLocalizedValue("common.close");
 
         rankingTMP1.text = LocalizationManager.Instance.GetLocalizedValue("lobby.ranking");
-        gameStartTMP.text = LocalizationManager.Instance.GetLocalizedValue("lobby.gamestart");
+        gameStartTMP.text = LocalizationManager.Instance.GetLocalizedValue("lobby.gameStart");
 
         optionTMP.text = LocalizationManager.Instance.GetLocalizedValue("option.option");
         masterVolumeTMP.text = LocalizationManager.Instance.GetLocalizedValue("option.masterVolume");

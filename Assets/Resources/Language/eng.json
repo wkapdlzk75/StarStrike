@@ -1,20 +1,35 @@
 {
     "common": {
         "close": "Close",
-        "stage": "Stage"
+        "stage": "Stage",
+        "ok": "OK",
+        "cancel": "Cancel"
+    },
+    "intro": {
+        "tapToStart": "Tap to Start"
+    },
+    "nickname": {
+        "enterNickname": "Enter Your Nickname",
+        "limitCharacters": "Enter Within 10 Characters",
+        "inputHere": "Enter Here."
+    },
+    "loading": {
+        "loading": "Loading..."
     },
     "lobby": {
         "ranking": "Ranking",
-        "gamestart": "Game Start"
+        "gameStart": "Start Game"
     },
     "ranking": {
         "ranking": "Ranking",
-        "no-value" :"No ranking information"
+        "no-value": "No Ranking Information"
     },
     "option": {
         "option": "Option",
         "masterVolume": "Master Volume",
-        "language": "Language"
+        "language": "Language",
+        "reset": "Reset",
+        "resetDescription": "Proceeding with reset will erase all account information and exit the game."
     },
     "store": {
         "store": "Store",
@@ -28,10 +43,10 @@
     },
     "inGame": {
         "pause": "Pause",
-        "saveAndExit": "Save And Exit",
+        "saveAndExit": "Save and Exit",
         "victory": "Victory",
         "defeat": "Defeat",
         "currentScore": "Current Score",
-        "inputNickname": "Input Nickname"
+        "inputNickname": "Please Enter Your Nickname."
     }
 }
