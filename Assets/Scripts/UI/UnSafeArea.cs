@@ -37,7 +37,7 @@ public class UnSafeArea : MonoBehaviour
         UnSafeAreaFunc(_rectTransformBottom, ETransform.bottom);
 
         // UnSafeArea 테스트용
-        StartCoroutine(Test());
+        //StartCoroutine(Test());
     }
 
     IEnumerator Test()
