@@ -1,3 +1,5 @@
+using TMPro;
+
 public class LoginProcess : UIManager
 {
     public void Login()
@@ -8,15 +10,19 @@ public class LoginProcess : UIManager
         }
     }
 
-
     public bool CheckNickname()
     {
-        string name = ES3.LoadString("Nickname","");
-        if(name == "" || name == null)
+        string name = ES3.LoadString("Nickname", "");
+        if (name == "" || name == null)
         {
-            gameObject.SetActive(true);
+            Open();
+            //gameObject.SetActive(true);
             return false;
         }
         return true;
     }
+
+
+
+
 }
