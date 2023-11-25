@@ -16,14 +16,4 @@ public class UIManager : MonoBehaviour
     {
         SceneLoader.LoadScene(_SCENE_NAME);
     }
-
-    public void Open()
-    {
-        gameObject.SetActive(true);
-    }
-
-    public void Close()
-    {
-        gameObject.SetActive(false);
-    }
 }
