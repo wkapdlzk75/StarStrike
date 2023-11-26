@@ -8,6 +8,9 @@ public class IntroUIManager : MonoBehaviour
     public TextMeshProUGUI limitCharactersText;
     public TextMeshProUGUI inputHereText;
     public TextMeshProUGUI okText;
+    public TextMeshProUGUI yesText;
+    public TextMeshProUGUI noText;
+    public TextMeshProUGUI confirmNickname;
 
     private void Awake()
     {
@@ -17,7 +20,8 @@ public class IntroUIManager : MonoBehaviour
 
     private void Start()
     {
-        GameManager.Instance.language = ES3.LoadString("language", GetLanguage());
+        //GameManager.Instance.language = ES3.LoadString("language", GetLanguage());
+        GameManager.Instance.language = ES3.LoadString("language", "eng");
         UpdateLanguage(GameManager.Instance.language);
     }
 
@@ -32,6 +36,9 @@ public class IntroUIManager : MonoBehaviour
         limitCharactersText.text = LocalizationManager.Instance.GetLocalizedValue("nickname.limitCharacters");
         inputHereText.text = LocalizationManager.Instance.GetLocalizedValue("nickname.inputHere");
         okText.text = LocalizationManager.Instance.GetLocalizedValue("common.ok");
+        yesText.text = LocalizationManager.Instance.GetLocalizedValue("common.yes");
+        noText.text = LocalizationManager.Instance.GetLocalizedValue("common.no");
+        confirmNickname.text = LocalizationManager.Instance.GetLocalizedValue("nickname.confirmNickname");
     }
 
     string GetLanguage()

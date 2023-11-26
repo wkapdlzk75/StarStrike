@@ -3,7 +3,9 @@
         "close": "Close",
         "stage": "Stage",
         "ok": "OK",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "yes": "Yes",
+        "no": "No"
     },
     "intro": {
         "tapToStart": "Tap to Start"
@@ -11,7 +13,8 @@
     "nickname": {
         "enterNickname": "Enter Your Nickname",
         "limitCharacters": "Enter Within 10 Characters",
-        "inputHere": "Enter Here."
+        "inputHere": "Enter Here.",
+        "confirmNickname": "Would you like to set this as your nickname?"
     },
     "loading": {
         "loading": "Loading..."
