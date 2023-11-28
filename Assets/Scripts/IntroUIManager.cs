@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -12,17 +13,22 @@ public class IntroUIManager : MonoBehaviour
     public TextMeshProUGUI noText;
     public TextMeshProUGUI confirmNickname;
 
+    public AudioClip introMusic;
+
+    bool loadEnd;
+
     private void Awake()
     {
         GameManager.Create();
         LocalizationManager.Create();
+        SoundManager.Create();
     }
-
     private void Start()
     {
-        //GameManager.Instance.language = ES3.LoadString("language", GetLanguage());
-        GameManager.Instance.language = ES3.LoadString("language", "eng");
+        GameManager.Instance.language = ES3.LoadString("language", GetLanguage());
+        //GameManager.Instance.language = ES3.LoadString("language", "eng");
         UpdateLanguage(GameManager.Instance.language);
+        SoundManager.Instance.PlayMusic(introMusic);
     }
 
     // 언어 갱신

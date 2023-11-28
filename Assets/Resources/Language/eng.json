@@ -12,7 +12,7 @@
     },
     "nickname": {
         "enterNickname": "Enter Your Nickname",
-        "limitCharacters": "Enter Within 10 Characters",
+        "limitCharacters": "Please enter between 2 and 10 characters.",
         "inputHere": "Enter Here.",
         "confirmNickname": "Would you like to set this as your nickname?"
     },

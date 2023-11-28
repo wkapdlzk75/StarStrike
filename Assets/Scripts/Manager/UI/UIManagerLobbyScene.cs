@@ -38,7 +38,6 @@ public class UIManagerLobbyScene : UIManager
         ObjectManager.Create();
         BackGroundManager.Create();
         CSVManager.Create();
-        SoundManager.Create();
 
         if (Instance == null)
             Instance = this;

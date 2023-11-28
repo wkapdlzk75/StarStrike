@@ -12,7 +12,7 @@
     },
     "nickname": {
         "enterNickname": "닉네임을 입력하세요",
-        "limitCharacters": "10자 이내로 입력하세요",
+        "limitCharacters": "2~10자 범위 이내로 입력하세요",
         "inputHere": "여기에 입력하세요.",
         "confirmNickname": "이 닉네임으로 정하시겠습니까?"
     },

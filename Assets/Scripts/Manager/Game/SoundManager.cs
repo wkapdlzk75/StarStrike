@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SoundManager : SSSingleton<SoundManager>
 {
+    public AudioClip introMusic;
     public AudioClip lobbyMusic;
     public AudioClip gameMusic;
     public AudioClip bossMusic;
@@ -27,6 +28,12 @@ public class SoundManager : SSSingleton<SoundManager>
     public void StopMusic()
     {
         audioSource.Stop();
+    }
+
+    public void PlayMusic(AudioClip _audioClip)
+    {
+        StopMusic();
+        audioSource.PlayOneShot(_audioClip, GameManager.Instance.masterVolume * bgVolume);
     }
 
     public void PlayLobbyMusic()

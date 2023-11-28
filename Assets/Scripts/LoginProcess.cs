@@ -9,7 +9,7 @@ public class LoginProcess : UIManager
 
     public GameObject popupUI;
 
-    const int limitCharacters = 11;
+    const int limitCharacters = 10;
 
     public void Login()
     {
@@ -35,7 +35,8 @@ public class LoginProcess : UIManager
 
     public void CreateNickname()
     {
-        if (0 < inputNickname.text.Length && inputNickname.text.Length <= limitCharacters)
+        //Debug.Log(inputNickname.text.Length);
+        if (2 < inputNickname.text.Length && inputNickname.text.Length <= limitCharacters+1)
         {
             nickname.text = inputNickname.text;
             popupUI.SetActive(true);
