@@ -27,6 +27,7 @@ public class UIManagerGameScene : UIManager
     public GameObject gamePauseUI;
 
     public GameObject gamePauseButton;
+    public GameObject controller;
 
     // 점수 프로퍼티
     public int CurrentScore
@@ -52,6 +53,7 @@ public class UIManagerGameScene : UIManager
         UpdateBoom(GameManager.Instance.GetResourceAmount(GameManager.EResource.boom));
         RefreshLanguage();
         gameEndUI.SetActive(false);
+        ToggleController();
     }
 
     // 언어 갱신
@@ -63,6 +65,17 @@ public class UIManagerGameScene : UIManager
         pauseTMP.text = LocalizationManager.Instance.GetLocalizedValue("inGame.pause");
     }
 
+    void ToggleController()
+    {
+        if (GameManager.Instance.deviceType == "Handheld")
+        {
+            controller.SetActive(true);
+        }
+        else
+        {
+            controller.SetActive(false);
+        }
+    }
 
     // 점수 갱신
     public void UpdateScore()

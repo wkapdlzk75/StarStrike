@@ -20,7 +20,7 @@ public class TPSCharacterController : MonoBehaviour
     void Update()
     {
         LookAround();
-        //Move();
+        //MoveHandheld();
     }
 
     private void Move(Vector2 inputDirection)

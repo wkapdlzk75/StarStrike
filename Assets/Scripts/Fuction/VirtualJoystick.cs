@@ -43,7 +43,7 @@ public class VirtualJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         lever.anchoredPosition = Vector2.zero;
         isInput = false;
         //player.animator.SetInteger("Input", 0);
-        player.Move(Vector2.zero);
+        player.MoveHandheld(Vector2.zero);
     }
 
     void ControlJoystickLever(PointerEventData eventData)
@@ -62,8 +62,8 @@ public class VirtualJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         // 조이스틱 입력 벡터값을 캐릭터에 전달
         //Debug.Log(inputDirection.x + " / " + inputDirection.y);
-        //controller.Move(inputDirection);
-        player.Move(inputDirection);
+        //controller.MoveHandheld(inputDirection);
+        player.MoveHandheld(inputDirection);
         
     }
 

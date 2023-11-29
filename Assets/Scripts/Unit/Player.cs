@@ -72,7 +72,7 @@ public class Player : Unit
 
     void Update()
     {
-        Move();
+        Move(GameManager.Instance.deviceType);
         Fire();
         Boom();
     }
@@ -138,6 +138,11 @@ public class Player : Unit
     void Boom()
     {
         if (!Input.GetButton("Fire2")) return;
+        BoomActive();
+    }
+
+    public void BoomActive()
+    {
         if (isBoomActive) return;
         if (GameManager.Instance.GetResourceAmount(GameManager.EResource.boom) == 0) return;
 
@@ -170,8 +175,16 @@ public class Player : Unit
         isBoomActive = false;
     }
 
-    //
-    public void Move()
+    public void Move(string _deviceType)
+    {
+        if(_deviceType == "Handheld")
+        {
+            return;
+        }
+        //MoveDesktop();
+    }
+
+    public void MoveDesktop()
     {
         float moveHori = Input.GetAxisRaw("Horizontal");    // 좌우
         float moveVert = Input.GetAxisRaw("Vertical");      // 상하
@@ -189,7 +202,7 @@ public class Player : Unit
             animator.SetInteger("Input", (int)moveHori);
     }
 
-    public void Move(Vector2 _inputDirection)
+    public void MoveHandheld(Vector2 _inputDirection)
     {
         //Debug.Log($"Moving with direction: {_inputDirection}");
         float moveHori = _inputDirection.x; // 좌우

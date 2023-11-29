@@ -12,6 +12,7 @@ public class GameManager : SSSingleton<GameManager>
     public string language;
 
     public string userNickname;
+    public string deviceType;
 
     public AudioSource audioSource;
     public bool isPlaying;
@@ -44,13 +45,27 @@ public class GameManager : SSSingleton<GameManager>
 
     void Start()
     {
+        DeviceTypeChecker();
         stage = 1;
         userNickname = ES3.LoadString("Nickname", "");
     }
+    void DeviceTypeChecker()
+    {
+        if (SystemInfo.deviceType == DeviceType.Handheld)
+        {
+            deviceType = "Handheld";
+        }
+        else if (SystemInfo.deviceType == DeviceType.Desktop)
+        {
+            deviceType = "Desktop";
+            //deviceType = "Handheld";
+        }
+    }
+
 
     public void PlaySound(AudioClip audioClip, float _volume = 1f)
     {
-        audioSource.PlayOneShot(audioClip, _volume*masterVolume);
+        audioSource.PlayOneShot(audioClip, _volume * masterVolume);
     }
 
 
