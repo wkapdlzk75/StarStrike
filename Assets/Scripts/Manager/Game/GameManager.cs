@@ -11,6 +11,7 @@ public class GameManager : SSSingleton<GameManager>
     public float masterVolume;
     public string language;
 
+    public string userNickname;
 
     public AudioSource audioSource;
     public bool isPlaying;
@@ -44,6 +45,7 @@ public class GameManager : SSSingleton<GameManager>
     void Start()
     {
         stage = 1;
+        userNickname = ES3.LoadString("Nickname", "");
     }
 
     public void PlaySound(AudioClip audioClip, float _volume = 1f)

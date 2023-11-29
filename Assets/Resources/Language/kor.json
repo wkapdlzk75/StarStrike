@@ -46,7 +46,7 @@
     },
     "inGame": {
         "pause": "일시정지",
-        "saveAndExit": "저장 후 나가기",
+        "exit": "로비로 돌아가기",
         "victory": "승리",
         "defeat": "패배",
         "currentScore": "현재 점수",

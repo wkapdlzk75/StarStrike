@@ -24,7 +24,9 @@ public class UIManagerLobbyScene : UIManager
 
     public TextMeshProUGUI storeTMP;
     public TextMeshProUGUI closeTMP2;
-    
+
+    public TextMeshProUGUI userNickName;
+
     public Text goldText1;
     public Text goldText2;
     public Text boomText;
@@ -49,8 +51,8 @@ public class UIManagerLobbyScene : UIManager
     {
         StartCoroutine(LoadData());
         SoundManager.Instance.PlayLobbyMusic();
-        SetResolution();
-        
+        userNickName.text = GameManager.Instance.userNickname;
+        //userNickName.text = ES3.LoadString("Nickname", "");
     }
 
     IEnumerator LoadData()
@@ -108,20 +110,4 @@ public class UIManagerLobbyScene : UIManager
         stageIntTMP.text = CurrentStage.ToString();
     }
 
-    /// <summary>
-    /// 해상도 고정 함수
-    /// </summary>
-    public void SetResolution()
-    {
-        int setWidth = 900 * 9 / 16; // 화면 너비
-        int setHeight = 900; // 화면 높이
-
-        //해상도를 설정값에 따라 변경
-        //3번째 파라미터는 풀스크린 모드를 설정 > true : 풀스크린, false : 창모드
-        Screen.SetResolution(setWidth, setHeight, false);
-    }
 }
-
-
-
-

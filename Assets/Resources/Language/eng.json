@@ -46,7 +46,7 @@
     },
     "inGame": {
         "pause": "Pause",
-        "saveAndExit": "Save and Exit",
+        "exit": "Return to Lobby",
         "victory": "Victory",
         "defeat": "Defeat",
         "currentScore": "Current Score",

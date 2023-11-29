@@ -49,6 +49,7 @@ public class LoginProcess : UIManager
     public void YesButton()
     {
         ES3.Save("Nickname", inputNickname.text);
+        GameManager.Instance.userNickname = inputNickname.text;
         Login();
     }
 

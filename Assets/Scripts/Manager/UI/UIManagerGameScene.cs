@@ -58,8 +58,8 @@ public class UIManagerGameScene : UIManager
     void RefreshLanguage()
     {
         inputNicknameTMP.text = LocalizationManager.Instance.GetLocalizedValue("inGame.inputNickname");
-        saveExitTMP1.text = LocalizationManager.Instance.GetLocalizedValue("inGame.saveAndExit");
-        saveExitTMP2.text = LocalizationManager.Instance.GetLocalizedValue("inGame.saveAndExit");
+        saveExitTMP1.text = LocalizationManager.Instance.GetLocalizedValue("inGame.exit");
+        saveExitTMP2.text = LocalizationManager.Instance.GetLocalizedValue("inGame.exit");
         pauseTMP.text = LocalizationManager.Instance.GetLocalizedValue("inGame.pause");
     }
 
@@ -102,19 +102,26 @@ public class UIManagerGameScene : UIManager
         }
     }
 
-    public void SaveAndGoLobby()
+    public void ReturnLobby()
     {
-
-        if (inputName.text == "")
+        /*if (inputName.text == "")
         {
             Ranking.SaveScore("Unknown", int.Parse(scoreText1.text.Replace(",", "")));
         }
         else
         {
             Ranking.SaveScore(inputName.text, int.Parse(scoreText1.text.Replace(",", "")));
-        }
+        }*/
 
+        Ranking.SaveScore(GameManager.Instance.userNickname, int.Parse(scoreText1.text.Replace(",", "")));
         SceneChange("LobbyScene");
+    }
+
+    public void GiveUpGame()
+    {
+        Time.timeScale = 1f;
+        gamePauseUI.gameObject.SetActive(false);
+        GameManager.Instance.EndGame(false);
     }
 
     public void Pause()
@@ -131,12 +138,7 @@ public class UIManagerGameScene : UIManager
         gamePauseButton.gameObject.SetActive(true);
     }
 
-    public void GiveUpGame()
-    {
-        Time.timeScale = 1f;
-        gamePauseUI.gameObject.SetActive(false);
-        GameManager.Instance.EndGame(false);
-    }
+    
 
 
     // 게임 종료
