@@ -158,6 +158,7 @@ public class GameManager : SSSingleton<GameManager>
     {
         isPlaying = false;
         player.fireAble = false;
+        spawnCount = 0;
         ObjectManager.Instance.AllPush();
         AddResource(EResource.gold, inGameGold);
 

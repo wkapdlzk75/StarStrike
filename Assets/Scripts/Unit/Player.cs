@@ -181,7 +181,7 @@ public class Player : Unit
         {
             return;
         }
-        //MoveDesktop();
+        MoveDesktop();
     }
 
     public void MoveDesktop()
