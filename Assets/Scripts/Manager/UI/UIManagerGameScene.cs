@@ -53,7 +53,6 @@ public class UIManagerGameScene : UIManager
         UpdateBoom(GameManager.Instance.GetResourceAmount(GameManager.EResource.boom));
         RefreshLanguage();
         gameEndUI.SetActive(false);
-        ToggleController();
     }
 
     // 언어 갱신
@@ -63,18 +62,6 @@ public class UIManagerGameScene : UIManager
         saveExitTMP1.text = LocalizationManager.Instance.GetLocalizedValue("inGame.exit");
         saveExitTMP2.text = LocalizationManager.Instance.GetLocalizedValue("inGame.exit");
         pauseTMP.text = LocalizationManager.Instance.GetLocalizedValue("inGame.pause");
-    }
-
-    void ToggleController()
-    {
-        if (GameManager.Instance.deviceType == "Handheld")
-        {
-            controller.SetActive(true);
-        }
-        else
-        {
-            controller.SetActive(false);
-        }
     }
 
     // 점수 갱신
