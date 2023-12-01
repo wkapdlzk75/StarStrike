@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Player : Unit
 {
@@ -40,6 +41,8 @@ public class Player : Unit
     private List<Follower> followers = new List<Follower>();
 
     public bool fireAble;
+
+    public Joystick joystick;
 
     void Awake()
     {
@@ -179,6 +182,8 @@ public class Player : Unit
     {
         if(_deviceType == "Handheld")
         {
+            Vector2 moveDirection = joystick.Direction;
+            MoveHandheld(moveDirection);
             return;
         }
         MoveDesktop();
