@@ -8,7 +8,7 @@ PlayerSettings:
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
-  defaultScreenOrientation: 4
+  defaultScreenOrientation: 0
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
@@ -39,7 +39,9 @@ PlayerSettings:
     y: 0
     width: 1
     height: 1
-  m_SplashScreenLogos: []
+  m_SplashScreenLogos:
+  - logo: {fileID: 21300000, guid: efc39c6e3398bef4bb9b724229377fe7, type: 3}
+    duration: 2
   m_VirtualRealitySplashScreen: {fileID: 0}
   m_HolographicTrackingLossScreen: {fileID: 0}
   defaultScreenWidth: 506
@@ -135,7 +137,7 @@ PlayerSettings:
   vulkanEnableLateAcquireNextImage: 0
   vulkanEnableCommandBufferRecycling: 1
   loadStoreDebugModeEnabled: 0
-  bundleVersion: 1.0
+  bundleVersion: 0.0.6
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -156,6 +158,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
+    Android: com.GoonChimStudio.StarStrike
     Standalone: com.DefaultCompany.2DProject
   buildNumber:
     Bratwurst: 0
@@ -166,7 +169,7 @@ PlayerSettings:
   overrideDefaultApplicationIdentifier: 1
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 22
-  AndroidTargetSdkVersion: 0
+  AndroidTargetSdkVersion: 33
   AndroidPreferredInstallLocation: 1
   aotOptions: 
   stripEngineCode: 1
@@ -254,12 +257,12 @@ PlayerSettings:
   useCustomGradlePropertiesTemplate: 0
   useCustomGradleSettingsTemplate: 0
   useCustomProguardFile: 0
-  AndroidTargetArchitectures: 1
+  AndroidTargetArchitectures: 3
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: 
-  AndroidKeyaliasName: 
+  AndroidKeystoreName: D:/StarStrikeKeystore231201/user.keystore
+  AndroidKeyaliasName: key_goonchim
   AndroidEnableArmv9SecurityFeatures: 0
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
@@ -267,7 +270,7 @@ PlayerSettings:
   AndroidEnableTango: 0
   androidEnableBanner: 1
   androidUseLowAccuracyLocation: 0
-  androidUseCustomKeystore: 0
+  androidUseCustomKeystore: 1
   m_AndroidBanners:
   - width: 320
     height: 180
@@ -301,7 +304,8 @@ PlayerSettings:
       m_Height: 60
       m_Kind: 2
       m_SubKind: iPhone
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 2f881f504ddde4446afae55fb6b5d6f8, type: 3}
       m_Width: 40
       m_Height: 40
       m_Kind: 2
@@ -312,7 +316,8 @@ PlayerSettings:
       m_Height: 40
       m_Kind: 2
       m_SubKind: iPad
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 2f881f504ddde4446afae55fb6b5d6f8, type: 3}
       m_Width: 20
       m_Height: 20
       m_Kind: 2
@@ -323,12 +328,14 @@ PlayerSettings:
       m_Height: 87
       m_Kind: 1
       m_SubKind: iPhone
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 2f881f504ddde4446afae55fb6b5d6f8, type: 3}
       m_Width: 58
       m_Height: 58
       m_Kind: 1
       m_SubKind: iPhone
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 2f881f504ddde4446afae55fb6b5d6f8, type: 3}
       m_Width: 29
       m_Height: 29
       m_Kind: 1
@@ -339,7 +346,8 @@ PlayerSettings:
       m_Height: 58
       m_Kind: 1
       m_SubKind: iPad
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 2f881f504ddde4446afae55fb6b5d6f8, type: 3}
       m_Width: 29
       m_Height: 29
       m_Kind: 1
@@ -350,7 +358,8 @@ PlayerSettings:
       m_Height: 120
       m_Kind: 3
       m_SubKind: iPhone
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 2f881f504ddde4446afae55fb6b5d6f8, type: 3}
       m_Width: 80
       m_Height: 80
       m_Kind: 3
@@ -361,7 +370,8 @@ PlayerSettings:
       m_Height: 80
       m_Kind: 3
       m_SubKind: iPad
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 2f881f504ddde4446afae55fb6b5d6f8, type: 3}
       m_Width: 40
       m_Height: 40
       m_Kind: 3
@@ -372,7 +382,8 @@ PlayerSettings:
       m_Height: 180
       m_Kind: 0
       m_SubKind: iPhone
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 2f881f504ddde4446afae55fb6b5d6f8, type: 3}
       m_Width: 120
       m_Height: 120
       m_Kind: 0
@@ -383,12 +394,14 @@ PlayerSettings:
       m_Height: 167
       m_Kind: 0
       m_SubKind: iPad
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 2f881f504ddde4446afae55fb6b5d6f8, type: 3}
       m_Width: 152
       m_Height: 152
       m_Kind: 0
       m_SubKind: iPad
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 2f881f504ddde4446afae55fb6b5d6f8, type: 3}
       m_Width: 76
       m_Height: 76
       m_Kind: 0
@@ -401,27 +414,32 @@ PlayerSettings:
       m_Height: 192
       m_Kind: 0
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 2f881f504ddde4446afae55fb6b5d6f8, type: 3}
       m_Width: 144
       m_Height: 144
       m_Kind: 0
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 2f881f504ddde4446afae55fb6b5d6f8, type: 3}
       m_Width: 96
       m_Height: 96
       m_Kind: 0
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 2f881f504ddde4446afae55fb6b5d6f8, type: 3}
       m_Width: 72
       m_Height: 72
       m_Kind: 0
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 2f881f504ddde4446afae55fb6b5d6f8, type: 3}
       m_Width: 48
       m_Height: 48
       m_Kind: 0
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 2f881f504ddde4446afae55fb6b5d6f8, type: 3}
       m_Width: 36
       m_Height: 36
       m_Kind: 0
@@ -432,27 +450,32 @@ PlayerSettings:
       m_Height: 192
       m_Kind: 1
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 2f881f504ddde4446afae55fb6b5d6f8, type: 3}
       m_Width: 144
       m_Height: 144
       m_Kind: 1
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 2f881f504ddde4446afae55fb6b5d6f8, type: 3}
       m_Width: 96
       m_Height: 96
       m_Kind: 1
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 2f881f504ddde4446afae55fb6b5d6f8, type: 3}
       m_Width: 72
       m_Height: 72
       m_Kind: 1
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 2f881f504ddde4446afae55fb6b5d6f8, type: 3}
       m_Width: 48
       m_Height: 48
       m_Kind: 1
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 2f881f504ddde4446afae55fb6b5d6f8, type: 3}
       m_Width: 36
       m_Height: 36
       m_Kind: 1
@@ -464,27 +487,37 @@ PlayerSettings:
       m_Height: 432
       m_Kind: 2
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 2f881f504ddde4446afae55fb6b5d6f8, type: 3}
+      - {fileID: 2800000, guid: 2f881f504ddde4446afae55fb6b5d6f8, type: 3}
       m_Width: 324
       m_Height: 324
       m_Kind: 2
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 2f881f504ddde4446afae55fb6b5d6f8, type: 3}
+      - {fileID: 2800000, guid: 2f881f504ddde4446afae55fb6b5d6f8, type: 3}
       m_Width: 216
       m_Height: 216
       m_Kind: 2
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 2f881f504ddde4446afae55fb6b5d6f8, type: 3}
+      - {fileID: 2800000, guid: 2f881f504ddde4446afae55fb6b5d6f8, type: 3}
       m_Width: 162
       m_Height: 162
       m_Kind: 2
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 2f881f504ddde4446afae55fb6b5d6f8, type: 3}
+      - {fileID: 2800000, guid: 2f881f504ddde4446afae55fb6b5d6f8, type: 3}
       m_Width: 108
       m_Height: 108
       m_Kind: 2
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 2f881f504ddde4446afae55fb6b5d6f8, type: 3}
+      - {fileID: 2800000, guid: 2f881f504ddde4446afae55fb6b5d6f8, type: 3}
       m_Width: 81
       m_Height: 81
       m_Kind: 2
@@ -820,7 +853,8 @@ PlayerSettings:
     tvOS: UNITY_VISUAL_SCRIPTING
   additionalCompilerArguments: {}
   platformArchitecture: {}
-  scriptingBackend: {}
+  scriptingBackend:
+    Android: 1
   il2cppCompilerConfiguration: {}
   il2cppCodeGeneration: {}
   managedStrippingLevel:
