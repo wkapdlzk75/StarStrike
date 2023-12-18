@@ -15,12 +15,18 @@
 압축 파일 다운로드 후 압축 해제한 뒤 StarStrike.exe 실행<br><br>
 
 ## 최신 버전 다운로드 & 업데이트 내역
+* Google Play [StarStrike_0.0.6](https://play.google.com/store/apps/details?id=com.GoonChimStudio.StarStrike)
+* Windows PC ZipFile [StarStrike_0.0.6.zip](https://drive.google.com/file/d/1juEOYitO1TONHIDeqrrJI-shQ86DKLm0/view?usp=sharing)
+    - 닉네임 추가
+    - 조이스틱 추가
+    - 인트로 음악 추가
+    - UI 개선<br><br>
+
+## 구버전 다운로드 & 업데이트 내역
 * [StarStrike_231116_01](https://drive.google.com/file/d/1vr_v93Itrc3cyLafzWGBL6DqpVB1f045/view?usp=sharing)
     - 인트로 화면 추가
     - 로딩 화면 수정
-    - 앱 아이콘 추가<br><br>
-
-## 구버전 다운로드 & 업데이트 내역
+    - 앱 아이콘 추가<br>
 * [StarStrike_231115_01](https://drive.google.com/file/d/1QaVBPJvJT5AoNt_2AEM2EkxWwN7MvvQ1/view?usp=sharing)
     - 로딩 화면 추가<br>
 * [StarStrike_231110_01](https://drive.google.com/file/d/1rc9Cxwc-G39NQk_qKgEmf44XS2O1O4oC/view?usp=sharing)
